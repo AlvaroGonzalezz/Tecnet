@@ -1,0 +1,34 @@
+.bg-dark2 {
+    background-color: #0A2640 !important;
+}
+.navbar{
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.navbar-brand img {
+    width: 45%;
+    margin: 0 !important;
+    margin-right: -400px !important;
+}
+@media screen and (max-width: 991px) {
+    .navbar-toggler{
+        display: none !important;
+    }
+    .navbar-brand img {
+        width: 100%;
+        margin: 0 !important;
+        margin-right: 0 !important;
+    }
+    
+}
+.btn-success {
+    background-color: #c63838 !important;
+    border: #e14a4a !important;
+    color: #fdfdfd !important;
+}
+.btn-success:hover {
+    background-color: #8b0909 !important;
+    border: #c63838 !important;
+    color: #fdfdfd !important;
+}
