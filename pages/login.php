@@ -16,7 +16,7 @@
 	box-sizing: border-box;
 }
         body {
-	background: #f6f5f7;
+	background: #ffffff;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -59,7 +59,7 @@
             </div>
             <div class="form-container sign-in-container">
                 <form action="#">
-                    <h1>Sign in</h1>
+                    <h1>Inicia Sesion</h1>
                     <div class="social-container">
                         <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
                         <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
@@ -67,9 +67,9 @@
                     </div>
                     <span>or use your account</span>
                     <input type="email" placeholder="Email" />
-                    <input type="password" placeholder="Password" />
+                    <input type="password" placeholder="Contraseña" />
                     <a href="#">Forgot your password?</a>
-                    <button>Sign In</button>
+                    <button>Inicia Sesion</button>
                 </form>
             </div>
             <div class="overlay-container">
