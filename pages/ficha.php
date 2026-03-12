@@ -6,9 +6,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>TecNet | Registro Escolar</title>
+    <title>Registro | TecNet</title>
     <!---Custom CSS File--->
-    <link rel="stylesheet" href="style.css" />
+       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../dist/css/style.css">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="dist/img/tecneticon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="dist/img/tecneticon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="dist/img/tecneticon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="dist/img/tecneticon.png">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="../dist/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link href="../boldo-1.0.0/public/assets/css/theme.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -29,10 +39,11 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
-            background: rgb(130, 106, 251);
+            background: -webkit-linear-gradient(to right, #3344a5, #233abd);
+	background: linear-gradient(to right, #233abd, #2d3a81);
         }
 
-        .container {
+        .ficha .container {
             position: relative;
             max-width: 700px;
             width: 100%;
@@ -42,23 +53,23 @@
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
         }
 
-        .container header {
+        .ficha .container header {
             font-size: 1.5rem;
             color: #333;
             font-weight: 500;
             text-align: center;
         }
 
-        .container .form {
+         .ficha .container .form {
             margin-top: 30px;
         }
 
-        .form .input-box {
+         .ficha .form .input-box {
             width: 100%;
             margin-top: 20px;
         }
 
-        .input-box label {
+         .ficha .input-box label {
             color: #333;
         }
 
@@ -75,54 +86,54 @@
             padding: 0 15px;
         }
 
-        .input-box input:focus {
+         .ficha .input-box input:focus {
             box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
         }
 
-        .form .column {
+         .ficha .form .column {
             display: flex;
             column-gap: 15px;
         }
 
-        .form .gender-box {
+         .ficha .form .gender-box {
             margin-top: 20px;
         }
 
-        .gender-box h3 {
+         .ficha .gender-box h3 {
             color: #333;
             font-size: 1rem;
             font-weight: 400;
             margin-bottom: 8px;
         }
 
-        .form :where(.gender-option, .gender) {
+         .ficha .form :where(.gender-option, .gender) {
             display: flex;
             align-items: center;
             column-gap: 50px;
             flex-wrap: wrap;
         }
 
-        .form .gender {
+         .ficha .form .gender {
             column-gap: 5px;
         }
 
-        .gender input {
+         .ficha .gender input {
             accent-color: rgb(130, 106, 251);
         }
 
-        .form :where(.gender input, .gender label) {
+         .ficha .form :where(.gender input, .gender label) {
             cursor: pointer;
         }
 
-        .gender label {
+         .ficha .gender label {
             color: #707070;
         }
 
-        .address :where(input, .select-box) {
+         .ficha .address :where(input, .select-box) {
             margin-top: 15px;
         }
 
-        .select-box select {
+         .ficha .select-box select {
             height: 100%;
             width: 100%;
             outline: none;
@@ -131,7 +142,7 @@
             font-size: 1rem;
         }
 
-        .form button {
+         .ficha .form button {
             height: 55px;
             width: 100%;
             color: #fff;
@@ -141,25 +152,49 @@
             border: none;
             cursor: pointer;
             transition: all 0.2s ease;
-            background: rgb(130, 106, 251);
+            border: 1px solid #206ed4;
+	background-color: #2e6fd1;
         }
 
-        .form button:hover {
+         .ficha .form button:hover {
             background: rgb(88, 56, 250);
         }
 
         /*Responsive*/
         @media screen and (max-width: 500px) {
-            .form .column {
+             .ficha .form .column {
                 flex-wrap: wrap;
             }
 
-            .form :where(.gender-option, .gender) {
+             .ficha .form :where(.gender-option, .gender) {
                 row-gap: 15px;
             }
         }
     </style>
-    <section class="container">
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark" data-navbar-on-scroll="data-navbar-on-scroll">
+        <div class="container"><a class="navbar-brand" href="../index.html"><img src="../dist/img/logotecnet.png" alt="" /></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="fa-solid fa-bars text-white fs-3"></i></button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+              <li class="nav-item"><a class="nav-link" aria-current="page" href="../index.html">Inicio</a></li>
+              <li class="nav-item"><a class="nav-link" aria-current="page" href="../AcercaDe.html">Acerca de</a></li>
+              
+              
+            </ul>
+          </div>
+        </div>
+      </nav>
+        <br>
+        <br>
+        <br>
+    <div class="ficha"><section class="container">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
         <header>Registro TecNet</header>
         <form action="#" class="form">
             <div class="input-box">
@@ -175,7 +210,7 @@
             <div class="column">
                 <div class="input-box">
                     <label>Numero Telefonico</label>
-                    <input type="number" placeholder="Ingresa numero telefonico " required />
+                    <input  maxlength="10" type="text" placeholder="Ingresa numero telefonico " required />
                 </div>
                 <div class="input-box">
                     <label>Fecha de nacimiento</label>
@@ -204,26 +239,17 @@
                 <input type="text" placeholder="Ingresa tu direccion" required />
             
                 <div class="column">
-                    <div class="select-box">
-                        <select>
-                            <option hidden>Pais</option>
-                            <option>Chile</option>
-                            <option>Argentina</option>
-                            <option>Mexico</option>
-                            <option>Colombia</option>
-                            <option>Estados Unidos</option>
-                        </select>
-                    </div>
+                    
                     <input type="text" placeholder="Ciudad" required />
                 </div>
                 <div class="column">
                     <input type="text" placeholder="Municipio" required />
-                    <input type="number" placeholder="Codigo postal" required />
+                    <input maxlength="5" type="text" placeholder="Codigo postal" required />
                 </div>
             </div>
-            <button>Submit</button>
+            <button>Generar ficha</button>
         </form>
-    </section>
+    </section></div>
 </body>
 
 </html>
