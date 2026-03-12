@@ -6,7 +6,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>TecNet | Registro Escolar</title>
+    <title>Registration Form in HTML CSS</title>
     <!---Custom CSS File--->
     <link rel="stylesheet" href="style.css" />
 </head>
@@ -160,65 +160,64 @@
         }
     </style>
     <section class="container">
-        <header>Registro TecNet</header>
+        <header>Registration Form</header>
         <form action="#" class="form">
             <div class="input-box">
-                <label>Nombre Completo </label>
-                <input type="text" placeholder="Ingresa nombre completo" required />
+                <label>Full Name</label>
+                <input type="text" placeholder="Enter full name" required />
             </div>
 
             <div class="input-box">
-                <label>Correo Electronico</label>
-                <input  type="email" placeholder="Ingresa direccion de correo" required />
+                <label>Email Address</label>
+                <input type="text" placeholder="Enter email address" required />
             </div>
 
             <div class="column">
                 <div class="input-box">
-                    <label>Numero Telefonico</label>
-                    <input type="number" placeholder="Ingresa numero telefonico " required />
+                    <label>Phone Number</label>
+                    <input type="number" placeholder="Enter phone number" required />
                 </div>
                 <div class="input-box">
-                    <label>Fecha de nacimiento</label>
-                    <input type="date" placeholder="Ingresa fecha de nacimiento" required />
+                    <label>Birth Date</label>
+                    <input type="date" placeholder="Enter birth date" required />
                 </div>
             </div>
             <div class="gender-box">
-                <h3>Genero</h3>
+                <h3>Gender</h3>
                 <div class="gender-option">
                     <div class="gender">
                         <input type="radio" id="check-male" name="gender" checked />
-                        <label for="check-male">Hombre</label>
+                        <label for="check-male">male</label>
                     </div>
                     <div class="gender">
                         <input type="radio" id="check-female" name="gender" />
-                        <label for="check-female">Mujer</label>
+                        <label for="check-female">Female</label>
                     </div>
                     <div class="gender">
                         <input type="radio" id="check-other" name="gender" />
-                        <label for="check-other">Prefiero no responder</label>
+                        <label for="check-other">prefer not to say</label>
                     </div>
                 </div>
             </div>
             <div class="input-box address">
-                <label>Direccion</label>
-                <input type="text" placeholder="Ingresa tu direccion" required />
-            
+                <label>Address</label>
+                <input type="text" placeholder="Enter street address" required />
+                <input type="text" placeholder="Enter street address line 2" required />
                 <div class="column">
                     <div class="select-box">
                         <select>
-                            <option hidden>Pais</option>
-                            <option>Chile</option>
-                            <option>Argentina</option>
-                            <option>Mexico</option>
-                            <option>Colombia</option>
-                            <option>Estados Unidos</option>
+                            <option hidden>Country</option>
+                            <option>America</option>
+                            <option>Japan</option>
+                            <option>India</option>
+                            <option>Nepal</option>
                         </select>
                     </div>
-                    <input type="text" placeholder="Ciudad" required />
+                    <input type="text" placeholder="Enter your city" required />
                 </div>
                 <div class="column">
-                    <input type="text" placeholder="Municipio" required />
-                    <input type="number" placeholder="Codigo postal" required />
+                    <input type="text" placeholder="Enter your region" required />
+                    <input type="number" placeholder="Enter postal code" required />
                 </div>
             </div>
             <button>Submit</button>
