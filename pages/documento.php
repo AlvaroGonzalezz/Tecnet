@@ -6,7 +6,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Registro | TecNet</title>
+    <title>Documentacion | TecNet</title>
     <!---Custom CSS File--->
        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../dist/css/style.css">
@@ -191,62 +191,51 @@
         <br>
         <br>
         <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <header>Registro TecNet</header>
+      
+        <header>Documentacion TecNet</header>
         <form action="#" class="form">
-            <div class="input-box">
-                <label>Nombre Completo </label>
-                <input type="text" placeholder="Ingresa nombre completo" required />
+             <div class="input-box">
+                <label>Fotografia del estudiante </label>
+                <input type="file" required />
+            </div>
+               <div class="input-box">
+                <label>INE  </label>
+                <input type="file" required />
+            </div>
+
+             <div class="input-box">
+                <label>CURP  </label>
+                <input type="file" required />
             </div>
 
             <div class="input-box">
-                <label>Correo Electronico</label>
-                <input  type="email" placeholder="Ingresa direccion de correo" required />
+                <label>CURP  </label>
+                <input type="file" required />
             </div>
 
-            <div class="column">
-                <div class="input-box">
-                    <label>Numero Telefonico</label>
-                    <input  maxlength="10" type="text" placeholder="Ingresa numero telefonico " required />
-                </div>
-                <div class="input-box">
-                    <label>Fecha de nacimiento</label>
-                    <input type="date" placeholder="Ingresa fecha de nacimiento" required />
-                </div>
+            <div class="input-box">
+                <label>Acta de nacimiento</label>
+                <input  type="file" required />
             </div>
-            <div class="gender-box">
-                <h3>Genero</h3>
-                <div class="gender-option">
-                    <div class="gender">
-                        <input type="radio" id="check-male" name="gender" checked />
-                        <label for="check-male">Hombre</label>
-                    </div>
-                    <div class="gender">
-                        <input type="radio" id="check-female" name="gender" />
-                        <label for="check-female">Mujer</label>
-                    </div>
-                    <div class="gender">
-                        <input type="radio" id="check-other" name="gender" />
-                        <label for="check-other">Prefiero no responder</label>
-                    </div>
+
+           
+                <div class="input-box">
+                    <label>Certificado de preparatoria</label>
+                    <input  type="file"  required />
                 </div>
+
+                  <div class="input-box">
+                <label>Comprobante de domicilio </label>
+                <input  type="file" required />
             </div>
-            <div class="input-box address">
-                <label>Direccion</label>
-                <input type="text" placeholder="Ingresa tu direccion" required />
+
             
-                <div class="column">
-                    
-                    <input type="text" placeholder="Ciudad" required />
+                <div class="input-box">
+                    <label>Comprobante de pago</label>
+                    <input  type="file"  required />
                 </div>
-                <div class="column">
-                    <input type="text" placeholder="Municipio" required />
-                    <input maxlength="5" type="text" placeholder="Codigo postal" required />
-                </div>
-            </div>
+           
+           
             <button>Generar ficha</button>
         </form>
     </section></div>

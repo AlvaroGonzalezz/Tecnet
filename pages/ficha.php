@@ -247,7 +247,10 @@
                     <input maxlength="5" type="text" placeholder="Codigo postal" required />
                 </div>
             </div>
-            <button>Generar ficha</button>
+            <button href="../documento.php">Siguiente</button>
+            <a href="documento.php" >
+                <button>Siguiente Pagina</button>
+            </a>
         </form>
     </section></div>
 </body>
