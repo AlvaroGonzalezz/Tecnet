@@ -9,10 +9,10 @@
     <link rel="stylesheet" href="../dist/css/style.css">
 
     
-    <link rel="apple-touch-icon" sizes="180x180" href="dist/img/tecneticon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="dist/img/tecneticon.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="dist/img/tecneticon.png">
-    <link rel="shortcut icon" type="image/x-icon" href="dist/img/tecneticon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../dist/img/tecneticon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../dist/img/tecneticon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../dist/img/tecneticon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="../dist/img/tecneticon.png">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="../dist/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700&amp;display=swap" rel="stylesheet">
@@ -60,42 +60,56 @@
     <div class="login">
         <br> <br><br>
 
-        <div class="container" id="container">
-            <div class="form-container sign-up-container">
-                <form action="#">
-                    <h1>¿Olvidaste tu contraseña?</h1>
-                   
-                    <br><span>Ingresa tu correo para recuperar tu contraseña</span>
-                    <input type="email" placeholder="Correo" />
-                   
-                    <button>Recuperar</button>
-                </form>
+       <div class="container" id="container">
+
+    <div class="form-container sign-up-container">
+        <form action="recuperar_password.php" method="POST">
+            <h1>¿Olvidaste tu contraseña?</h1>
+
+            <br>
+            <span>Ingresa tu correo para recuperar tu contraseña</span>
+
+            <input type="email" name="correo" placeholder="Correo" required>
+
+            <button type="submit">Recuperar</button>
+        </form>
+    </div>
+
+    <div class="form-container sign-in-container">
+        <form action="verify.php" method="POST">
+
+            <h1>Iniciar sesión</h1>
+
+            <span>Ingresa tus datos</span>
+
+            <input type="email" name="correo" placeholder="Correo" required>
+
+            <input type="password" name="password" placeholder="Contraseña" required>
+
+            <button type="submit">Iniciar sesión</button>
+
+        </form>
+    </div>
+
+    <div class="overlay-container">
+        <div class="overlay">
+
+            <div class="overlay-panel overlay-left">
+                <h1>Inicia tu sesión</h1>
+                <p>Pulsa el botón para iniciar sesión</p>
+                <button class="ghost" id="signIn">Iniciar sesión</button>
             </div>
-            <div class="form-container sign-in-container">
-                <form action="#">
-                    <h1>Inicia Sesion</h1>
-                    
-                    <span>ingresa tus datos</span>
-                    <input type="email" placeholder="Correo" />
-                    <input type="password" placeholder="Contraseña" />
-                    <button>Inicia Sesion</button>
-                </form>
+
+            <div class="overlay-panel overlay-right">
+                <h1>¿Olvidaste tus datos?</h1>
+                <p>Pulsa el botón para recuperar tu contraseña</p>
+                <button class="ghost" id="signUp">Recuperar</button>
             </div>
-            <div class="overlay-container">
-                <div class="overlay">
-                    <div class="overlay-panel overlay-left">
-                        <h1>Inicia tu sesion</h1>
-                        <p>Pulsa el boton para iniciar tu sesion</p>
-                        <button class="ghost" id="signIn">Iniciar sesion</button>
-                    </div>
-                    <div class="overlay-panel overlay-right">
-                        <h1>¿Olvidaste tus datos?</h1>
-                        <p>Pulsa el boton para recuperar tu contraseña</p>
-                        <button class="ghost" id="signUp">Recuperar</button>
-                    </div>
-                </div>
-            </div>
+
         </div>
+    </div>
+
+</div>
 
         
     </div>
