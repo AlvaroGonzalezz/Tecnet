@@ -1,0 +1,5 @@
+dist/** linguist-vendored
+vendors/** linguist-vendored
+boldo-1.0.0/** linguist-vendored
+portal/** linguist-vendored
+assets/** linguist-vendored
