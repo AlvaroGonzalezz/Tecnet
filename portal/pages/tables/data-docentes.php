@@ -127,14 +127,14 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="pages/tables/data-admin.php" class="nav-link active">
-                    <i class="far fa-user nav-icon"></i>
+                  <a href="pages/tables/data-admin.php" class="nav-link ">
+                    <i class="far fa-circle nav-icon"></i>
                     <p>Administrativos</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="data-docentes.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
+                  <a href="pages/tables/data.html" class="nav-link active">
+                    <i class="far fa-user nav-icon"></i>
                     <p>Docentes</p>
                   </a>
                 </li>
@@ -203,7 +203,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Gestión Administrativa</h1>
+              <h1>Gestión de Docentes</h1>
 
             </div>
           </div><!-- /.container-fluid -->
@@ -218,18 +218,18 @@
 
               <div class="card">
                 <div class="card-header">
-                  <button class="btn btn-success float-left" data-toggle="modal" data-target="#modalAlta">
-                    <i class="bi bi-person-plus"></i> + Nuevo Administrativo
+                  <button class="btn btn-success" data-toggle="modal" data-target="#modalAltaDocente">
+                    <i class="fas fa-user-plus"></i> Nuevo Docente
                   </button>
                 </div>
                 <div class="card-body">
-                  <table id="tablaAdmin" class="table table-bordered table-striped">
+
+                  <table id="tablaDocentes" class="table table-bordered table-striped">
                     <thead>
                       <tr>
                         <th>Nombre</th>
                         <th>Correo</th>
                         <th>Teléfono</th>
-                        <th>Área</th>
                         <th>Rol</th>
                         <th>Acciones</th>
                       </tr>
@@ -238,21 +238,19 @@
                       <?php
                       include "../../conexion.php";
 
-                      // Usamos LEFT JOIN para que si un admin no tiene usuario asignado, 
-                      // de todos modos aparezca en la lista y no se oculte.
+                      // Consulta limpia: Docente + Usuario + Rol
                       $sql = "SELECT 
-              a.id_administrativo, 
-              a.nombre, 
-              a.apellido, 
-              a.correo, 
-              a.area, 
-              a.telefono,
+              d.id_docente, 
+              d.nombre, 
+              d.apellido, 
+              d.correo, 
+              d.telefono,
               u.usuario, 
               r.nombre_rol 
-            FROM administrativo a
-            LEFT JOIN usuarios u ON a.id_administrativo = u.id_administrativo
+            FROM docente d
+            LEFT JOIN usuarios u ON d.id_docente = u.id_docente
             LEFT JOIN roles r ON u.id_rol = r.id_rol
-            ORDER BY a.id_administrativo DESC";
+            ORDER BY d.id_docente DESC";
 
                       $resultado = mysqli_query($conexion, $sql);
 
@@ -261,19 +259,25 @@
                       ?>
                           <tr>
                             <td><?php echo $fila['nombre'] . " " . $fila['apellido']; ?></td>
+
                             <td><?php echo $fila['correo']; ?></td>
                             <td><?php echo ($fila['telefono']) ? $fila['telefono'] : 'N/A'; ?></td>
-                            <td><?php echo $fila['area']; ?></td>
+
                             <td>
-                              <span class="badge badge-primary">
-                                <?php echo ($fila['nombre_rol']) ? $fila['nombre_rol'] : 'Sin Rol'; ?>
+                              <span class="badge badge-success">
+                                <?php echo ($fila['nombre_rol']) ? $fila['nombre_rol'] : 'Docente'; ?>
                               </span>
                             </td>
                             <td class="text-center">
-                              <button class="btn btn-warning btn-sm" onclick="prepararEdicion(<?php echo $fila['id_administrativo']; ?>)">
+                              <button class="btn btn-warning btn-sm"
+                                onclick="prepararEdicionDocente(<?php echo $fila['id_docente']; ?>)"
+                                title="Editar">
                                 <i class="fas fa-edit"></i>
                               </button>
-                              <button class="btn btn-danger btn-sm" onclick="eliminarAdministrativo(<?php echo $fila['id_administrativo']; ?>)">
+
+                              <button class="btn btn-danger btn-sm"
+                                onclick="eliminarDocente(<?php echo $fila['id_docente']; ?>)"
+                                title="Eliminar">
                                 <i class="fas fa-trash"></i>
                               </button>
                             </td>
@@ -281,10 +285,11 @@
                       <?php
                         }
                       } else {
-                        echo "<tr><td colspan='7' class='text-center'>No se encontraron registros</td></tr>";
+                        echo "<tr><td colspan='6' class='text-center'>No hay docentes registrados</td></tr>";
                       }
                       ?>
                     </tbody>
+                  </table>
                   </table>
                 </div>
               </div>
@@ -304,61 +309,86 @@
     <!-- /.control-sidebar -->
   </div>
   <!-- ./wrapper -->
-  <div class="modal fade" id="modalAlta" tabindex="-1" role="dialog" aria-labelledby="registroLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+  <div class="modal fade" id="modalAgregarDocente" tabindex="-1">
+    <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-header bg-primary text-white">
-          <h5 class="modal-title" id="registroLabel"><i class="fas fa-user-plus"></i> Registrar Nuevo Administrativo</h5>
-          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <form id="formNuevoAdmin">
-          <div class="modal-body">
-            <div class="row">
-              <div class="col-md-6">
-                <label class="text-primary">Datos Personales</label>
-                <div class="form-group">
-                  <input type="text" name="nombre" class="form-control" placeholder="Nombre(s)" required>
-                </div>
-                <div class="form-group">
-                  <input type="text" name="apellido" class="form-control" placeholder="Apellidos" required>
-                </div>
-                <div class="form-group">
-                  <input type="email" name="correo" class="form-control" placeholder="Correo electrónico" required>
-                </div>
-                <div class="form-group">
-                  <input type="text" name="area" class="form-control" placeholder="Área / Departamento" required>
-                </div>
-              </div>
-              <div class="col-md-6" style="border-left: 1px solid #dee2e6;">
-                <label class="text-primary">Acceso al Sistema</label>
-                <div class="form-group">
-                  <input type="text" name="usuario" class="form-control" placeholder="Nombre de usuario" required>
-                </div>
-                <div class="form-group">
-                  <input type="password" name="contraseña" class="form-control" placeholder="Contraseña segura" required>
-                </div>
-                <div class="form-group">
-                  <label><small>Rol de usuario:</small></label>
-                  <select name="id_rol" class="form-control" required>
-                    <option value="1">Administrativo</option>
-                    <option value="2">Director</option>
 
-                  </select>
-                </div>
-              </div>
+        <div class="modal-header">
+          <h5 class="modal-title">Agregar Docente</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <form action="agregar_docente.php" method="POST">
+
+          <div class="modal-body">
+
+            <div class="mb-3">
+              <label class="form-label">Nombre</label>
+              <input type="text" name="nombre" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Apellido</label>
+              <input type="text" name="apellido" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Correo</label>
+              <input type="email" name="correo" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Teléfono</label>
+              <input type="text" name="telefono" class="form-control">
+            </div>
+
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="modalEditarDocente" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-warning">
+          <h5 class="modal-title">Editar Docente</h5>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <form id="formEditarDocente">
+          <div class="modal-body">
+            <input type="hidden" name="id_docente" id="edit_id_docente">
+
+            <div class="form-group">
+              <label>Nombre</label>
+              <input type="text" name="nombre" id="edit_nombre" class="form-control">
+            </div>
+            <div class="form-group">
+              <label>Apellido</label>
+              <input type="text" name="apellido" id="edit_apellido" class="form-control">
+            </div>
+            <div class="form-group">
+              <label>Correo</label>
+              <input type="email" name="correo" id="edit_correo" class="form-control">
+            </div>
+            <div class="form-group">
+              <label>Teléfono</label>
+              <input type="text" name="telefono" id="edit_telefono" class="form-control">
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-primary">Guardar Administrativo</button>
+            <button type="submit" class="btn btn-warning">Actualizar Cambios</button>
           </div>
         </form>
       </div>
     </div>
   </div>
-
   <div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="editarLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
@@ -413,6 +443,57 @@
       </div>
     </div>
   </div>
+  <div class="modal fade" id="modalAltaDocente" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-success text-white">
+          <h5 class="modal-title"><i class="fas fa-chalkboard-teacher"></i> Registrar Nuevo Docente</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form id="formNuevoDocente">
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Nombre(s)</label>
+                  <input type="text" name="nombre" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label>Apellidos</label>
+                  <input type="text" name="apellido" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label>Correo Electrónico</label>
+                  <input type="email" name="correo" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label>Teléfono</label>
+                  <input type="text" name="telefono" class="form-control">
+                </div>
+              </div>
+              <div class="col-md-6" style="border-left: 1px solid #ddd;">
+                <div class="form-group">
+                  <label>Nombre de Usuario</label>
+                  <input type="text" name="usuario" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label>Contraseña</label>
+                  <input type="password" name="contraseña" class="form-control" required>
+                </div>
+                <input type="hidden" name="id_rol" value="3">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-success">Guardar Docente</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
   <!-- jQuery -->
   <script src="../../plugins/jquery/jquery.min.js"></script>
   <!-- Bootstrap 4 -->
@@ -436,15 +517,98 @@
   <script src="../../dist/js/demo.js"></script>
   <!-- Page specific script -->
   <script>
-    $('#formNuevoAdmin').on('submit', function(e) {
+    function eliminarDocente(id) {
+      if (confirm('¿Estás seguro de eliminar este docente? También se borrará su cuenta de usuario.')) {
+        $.ajax({
+          url: 'operaciones_docente.php',
+          type: 'POST',
+          // Enviamos el id_docente y la acción eliminar
+          data: {
+            id_docente: id,
+            accion: 'eliminar'
+          },
+          success: function(res) {
+            console.log("Respuesta servidor:", res);
+            if (res.trim() === "success") {
+              alert("Docente eliminado correctamente.");
+              location.reload(); // Recarga la tabla
+            } else {
+              alert("Error al eliminar: " + res);
+            }
+          },
+          error: function() {
+            alert("Error de conexión con el servidor.");
+          }
+        });
+      }
+    }
+
+    function prepararEdicionDocente(id) {
+      console.log("Intentando editar docente con ID: " + id);
+
+      $.ajax({
+        url: 'get_docente.php',
+        type: 'POST',
+        data: {
+          id: id
+        },
+        dataType: 'json',
+        success: function(data) {
+          // 1. Llenamos los campos del modal con lo que llegó de la DB
+          $('#edit_id_docente').val(data.id_docente);
+          $('#edit_nombre').val(data.nombre);
+          $('#edit_apellido').val(data.apellido);
+          $('#edit_correo').val(data.correo);
+          $('#edit_telefono').val(data.telefono);
+
+          // 2. FORZAMOS la apertura del modal
+          $('#modalEditarDocente').modal('show');
+        },
+        error: function(xhr) {
+          console.error(xhr.responseText);
+          alert("Error: No se pudo conectar con get_docente.php");
+        }
+      });
+    }
+
+    // Script para GUARDAR la edición
+    $('#formEditarDocente').on('submit', function(e) {
       e.preventDefault();
       $.ajax({
-        url: 'operaciones_admin.php', // El archivo backend que creamos
+        url: 'operaciones_docente.php',
+        type: 'POST',
+        data: $(this).serialize() + '&accion=editar',
+        success: function(res) {
+          if (res.trim() === "success") {
+            location.reload();
+          } else {
+            alert("Error al actualizar: " + res);
+          }
+        }
+      });
+    });
+
+    function editarDocente(id, nombre, apellido, correo, telefono) {
+
+      document.getElementById("id_docente").value = id;
+      document.getElementById("editar_nombre").value = nombre;
+      document.getElementById("editar_apellido").value = apellido;
+      document.getElementById("editar_correo").value = correo;
+      document.getElementById("editar_telefono").value = telefono;
+
+      var modal = new bootstrap.Modal(document.getElementById('modalEditarDocente'));
+      modal.show();
+
+    }
+    $('#formNuevoDocente').on('submit', function(e) {
+      e.preventDefault();
+      $.ajax({
+        url: 'operaciones_docente.php', // El archivo backend que creamos
         type: 'POST',
         data: $(this).serialize() + '&accion=nuevo',
         success: function(res) {
           if (res.trim() == "success") {
-            alert('Administrativo registrado correctamente');
+            alert('Docente registrado correctamente');
             location.reload(); // Recarga para ver los cambios
           } else {
             alert('Error: ' + res);
@@ -478,16 +642,16 @@
           $('#modalEditar').modal('show');
         },
         error: function() {
-          alert("No se pudieron cargar los datos del administrativo.");
+          alert("No se pudieron cargar los datos del docente.");
         }
       });
     }
 
     // 3. FUNCIÓN PARA ELIMINAR
     function eliminarAdministrativo(id) {
-      if (confirm('¿Estás seguro de eliminar a este administrativo? Se borrará también su cuenta de acceso.')) {
+      if (confirm('¿Estás seguro de eliminar a este docente? Se borrará también su cuenta de acceso.')) {
         $.ajax({
-          url: 'operaciones_admin.php',
+          url: 'operaciones_docente.php',
           type: 'POST',
           data: {
             id_administrativo: id,
