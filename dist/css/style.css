@@ -282,3 +282,6 @@
     color: #3c97bf;
     text-decoration: none;
 }
+.ficha .gender input {
+	accent-color: #2e6fd1 !important;
+}
