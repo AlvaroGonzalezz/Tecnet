@@ -231,6 +231,7 @@
                         <th>Teléfono</th>
                         <th>Área</th>
                         <th>Rol</th>
+                        <th>Fotografía</th>
                         <th>Acciones</th>
                       </tr>
                     </thead>
@@ -238,13 +239,12 @@
                       <?php
                       include "../../conexion.php";
 
-                      // Usamos LEFT JOIN para que si un admin no tiene usuario asignado, 
-                      // de todos modos aparezca en la lista y no se oculte.
                       $sql = "SELECT 
               a.id_administrativo, 
               a.nombre, 
               a.apellido, 
               a.correo, 
+              a.foto,
               a.area, 
               a.telefono,
               u.usuario, 
@@ -268,6 +268,11 @@
                               <span class="badge badge-primary">
                                 <?php echo ($fila['nombre_rol']) ? $fila['nombre_rol'] : 'Sin Rol'; ?>
                               </span>
+                            </td>
+                            <td>
+                              <img src="../../dist/img/perfiles/<?php echo $fila['foto']; ?>"
+                                class="img-circle elevation-2"
+                                style="width: 50px; height: 50px; object-fit: cover;">
                             </td>
                             <td class="text-center">
                               <button class="btn btn-warning btn-sm" onclick="prepararEdicion(<?php echo $fila['id_administrativo']; ?>)">
@@ -328,7 +333,14 @@
                   <input type="email" name="correo" class="form-control" placeholder="Correo electrónico" required>
                 </div>
                 <div class="form-group">
+                  <input type="text" name="telefono" class="form-control" placeholder="Teléfono" required>
+                </div>
+                <div class="form-group">
                   <input type="text" name="area" class="form-control" placeholder="Área / Departamento" required>
+                </div>
+                <div class="form-group">
+                  <label>Foto de Perfil</label>
+                  <input type="file" name="foto" id="foto" class="form-control" accept="image/*">
                 </div>
               </div>
               <div class="col-md-6" style="border-left: 1px solid #dee2e6;">
@@ -343,7 +355,6 @@
                   <label><small>Rol de usuario:</small></label>
                   <select name="id_rol" class="form-control" required>
                     <option value="1">Administrativo</option>
-                    <option value="2">Director</option>
 
                   </select>
                 </div>
@@ -383,8 +394,16 @@
                   <input type="text" name="apellido" id="edit_apellido" class="form-control" required>
                 </div>
                 <div class="form-group">
+                  <label>Teléfono</label>
+                  <input type="text" name="telefono" id="edit_telefono" class="form-control" required>
+                </div>
+                <div class="form-group">
                   <label>Área</label>
                   <input type="text" name="area" id="edit_area" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label>Foto de Perfil</label>
+                  <input type="file" name="foto" id="foto" class="form-control" accept="image/*">
                 </div>
               </div>
               <div class="col-md-6">
@@ -436,18 +455,47 @@
   <script src="../../dist/js/demo.js"></script>
   <!-- Page specific script -->
   <script>
+    $('#formEditarAdmin').on('submit', function(e) {
+      e.preventDefault();
+
+      // FormData es OBLIGATORIO para enviar la imagen nueva
+      var datos = new FormData(this);
+      datos.append('accion', 'editar');
+
+      $.ajax({
+        url: 'operaciones_admin.php',
+        type: 'POST',
+        data: datos,
+        contentType: false, // Importante
+        processData: false, // Importante
+        success: function(res) {
+          if (res.trim() === "success") {
+            alert("Datos actualizados correctamente");
+            location.reload();
+          } else {
+            alert("Error: " + res);
+          }
+        }
+      });
+    });
     $('#formNuevoAdmin').on('submit', function(e) {
       e.preventDefault();
+
+      // FormData captura TODO, incluyendo el archivo de imagen
+      var datos = new FormData(this);
+      datos.append('accion', 'nuevo');
+
       $.ajax({
-        url: 'operaciones_admin.php', // El archivo backend que creamos
+        url: 'operaciones_admin.php',
         type: 'POST',
-        data: $(this).serialize() + '&accion=nuevo',
+        data: datos,
+        contentType: false, // Importante para enviar archivos
+        processData: false, // Importante para enviar archivos
         success: function(res) {
-          if (res.trim() == "success") {
-            alert('Administrativo registrado correctamente');
-            location.reload(); // Recarga para ver los cambios
+          if (res.trim() === "success") {
+            location.reload();
           } else {
-            alert('Error: ' + res);
+            alert(res);
           }
         }
       });
@@ -463,18 +511,21 @@
         },
         dataType: 'json',
         success: function(data) {
-          // Rellenamos los campos del modal usando los ID que pusimos en el HTML
+          // Llenamos los campos ocultos y visibles
           $('#edit_id').val(data.id_administrativo);
           $('#edit_nombre').val(data.nombre);
           $('#edit_apellido').val(data.apellido);
           $('#edit_correo').val(data.correo);
           $('#edit_area').val(data.area);
-          $('#edit_usuario').val(data.usuario); // Este es readonly
-
-          // Si añadiste el campo teléfono al modal de editar:
           $('#edit_telefono').val(data.telefono);
+          $('#edit_usuario').val(data.usuario);
 
-          // Finalmente mostramos el modal
+          // OPCIONAL: Mostrar una vista previa de la foto actual en el modal
+          if (data.foto) {
+            $('#img_previa_edit').attr('src', '../../dist/img/perfiles/' + data.foto);
+          }
+
+          // Mostramos el modal (Asegúrate de que el ID del modal sea modalEditar)
           $('#modalEditar').modal('show');
         },
         error: function() {
