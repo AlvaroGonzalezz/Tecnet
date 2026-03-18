@@ -172,7 +172,7 @@
             </li>
 
             <li class="nav-item">
-              <a href="pages/calendar.html" class="nav-link">
+              <a href="../calendar.html" class="nav-link">
                 📅
                 <p>
                   Calendario

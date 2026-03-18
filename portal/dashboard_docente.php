@@ -1,12 +1,11 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['id_usuario']) || $_SESSION['id_rol'] != 4) {
+if (!isset($_SESSION['id_usuario']) || $_SESSION['id_rol'] != 3) {
   header("Location: ../pages/login.php");
   exit();
 }
 
-// 2. Preparar variables para el HTML
 $nombre_usuario = $_SESSION['nombre_persona'];
 $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
 ?>
@@ -16,7 +15,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dashboard - TecNet</title>
+  <title>Docente - TecNet</title>
   <link rel="shortcut icon" href="../dist/img/tecneticon.png" type="image/x-icon">
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
@@ -63,7 +62,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
       <!-- Sidebar -->
       <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
             <img src="<?php echo $ruta_foto; ?>" class="img-circle elevation-2" alt="User Image">
           </div>
@@ -89,29 +88,6 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
                 </p>
               </a>
 
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                📊
-                <p>
-                  Reportes
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="pages/charts/chartjs.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Administrativo</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="pages/charts/flot.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Académico</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
             <!-- <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
@@ -156,46 +132,26 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
                 </p>
               </a>
               <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="pages/tables/data-admin.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Administrativos</p>
+                
                   </a>
                 </li>
+                
                 <li class="nav-item">
-                  <a href="pages/tables/data-docentes.php" class="nav-link">
+                  <a href="pages/tables/data.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Docentes</p>
+                    <p>Mis alumnos</p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="pages/tables/data.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Estudiantes</p>
+                    <p>Mis asignaturas</p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="pages/tables/data.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Asignaturas</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="pages/tables/data.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Grupos</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="pages/tables/data.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Carreras</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="pages/tables/data.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Horarios</p>
+                    <p>Mis grupos</p>
                   </a>
                 </li>
               </ul>
@@ -248,7 +204,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
               <!-- small box -->
               <div class="small-box bg-info">
                 <div class="inner">
-                  <h3>150</h3>
+                  <h3>1200</h3>
 
                   <p>Alumnos</p>
                 </div>
@@ -264,14 +220,14 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
               <!-- small box -->
               <div class="small-box bg-success">
                 <div class="inner">
-                  <h3>53</h3>
+                  <h3>12</h3>
 
-                  <p>Administrativos</p>
+                  <p>Asignaturas</p>
                 </div>
                 <div class="icon">
                   <i class="ion bi bi-person-vcard-fill"></i>
                 </div>
-                <a href="#" class="small-box-footer">Más Información <i
+                <a href="aspirantes.php" class="small-box-footer">Más Información <i
                     class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
@@ -280,86 +236,26 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
               <!-- small box -->
               <div class="small-box bg-warning">
                 <div class="inner">
-                  <h3>44</h3>
+                  <h3>3</h3>
 
-                  <p>Docentes</p>
+                  <p>Grupos</p>
                 </div>
                 <div class="icon">
                   <i class="ion bi bi-person-workspace"></i>
                 </div>
                 <a href="#" class="small-box-footer">Más Información <i
                     class="fas fa-arrow-circle-right"></i></a>
-              </div>
+              </div>    
             </div>
             <!-- ./col -->
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-danger">
-                <div class="inner">
-                  <h3>4</h3>
-
-                  <p>Carreras</p>
-                </div>
-                <div class="icon">
-                  <i class="ion bi bi-book"></i>
-                </div>
-                <a href="#" class="small-box-footer">Más Información <i
-                    class="fas fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-          </div>
+            
+                <!-- ./col -->
+            
           <!-- /.row -->
           <!-- Main row -->
           <div class="row">
             <!-- Left col -->
-            <section class="col-lg-7 connectedSortable">
-              <!-- Custom tabs (Charts with tabs)-->
-              <div class="card">
-                <div class="card-header">
-                  <h3 class="card-title">
-                    <i class="fas fa-chart-pie mr-1"></i>
-                    Calificaciones en general
-                  </h3>
-
-                </div><!-- /.card-header -->
-                <div class="card-body">
-                  <div class="tab-content p-0">
-                    <!-- Morris chart - Sales -->
-                    <div class="chart tab-pane active" id="revenue-chart"
-                      style="position: relative; height: 300px;">
-                      <canvas id="revenue-chart-canvas" height="300"
-                        style="height: 300px;"></canvas>
-                    </div>
-                    <div class="chart tab-pane" id="sales-chart"
-                      style="position: relative; height: 300px;">
-                      <canvas id="sales-chart-canvas" height="300"
-                        style="height: 300px;"></canvas>
-                    </div>
-                  </div>
-                </div><!-- /.card-body -->
-              </div>
-              <!-- /.card -->
-
-              <div class="card card-danger">
-                <div class="card-header">
-                  <h3 class="card-title">Alumnos por carrera</h3>
-
-                  <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                      <i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                      <i class="fas fa-times"></i>
-                    </button>
-                  </div>
-                </div>
-                <div class="card-body">
-                  <canvas id="donutChart"
-                    style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                </div>
-                <!-- /.card-body -->
-              </div>
-            </section>
+          
             <!-- /.Left col -->
             <!-- right col (We are only adding the ID to make the widgets sortable)-->
             <section class="col-lg-5 connectedSortable">
@@ -468,32 +364,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
               </div>
               <!-- /.card -->
 
-              <!-- Calendar -->
-              <div class="card bg-gradient-success">
-                <div class="card-header border-0">
-
-                  <h3 class="card-title">
-                    <i class="far fa-calendar-alt"></i>
-                    Calendario
-                  </h3>
-                  <!-- tools card -->
-                  <div class="card-tools">
-
-                    <button type="button" class="btn btn-success btn-sm"
-                      data-card-widget="collapse">
-                      <i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-success btn-sm" data-card-widget="remove">
-                      <i class="fas fa-times"></i>
-                    </button>
-                  </div>
-                  <!-- /. tools -->
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body pt-0">
-                  <!--The calendar -->
-                  <div id="calendar" style="width: 100%"></div>
-                </div>
+           
                 <!-- /.card-body -->
               </div>
               <!-- /.card -->
@@ -515,7 +386,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
     <!-- /.control-sidebar -->
   </div>
   <!-- ./wrapper -->
-
+  
   <!-- jQuery -->
   <script src="plugins/jquery/jquery.min.js"></script>
   <!-- jQuery UI 1.11.4 -->
@@ -554,31 +425,31 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
   <script>
     $(function() {
 
-      var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
-      var donutData = {
-        labels: [
-          'Sistemas Computacionales',
-          'Industrial',
-          'Logística',
-          'Gestión Empresarial',
-        ],
-        datasets: [{
-          data: [700, 500, 400, 600, ],
-          backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
-        }]
-      }
-      var donutOptions = {
-        maintainAspectRatio: false,
-        responsive: true,
-      }
-      //Create pie or douhnut chart
-      // You can switch between pie and douhnut using the method below.
-      new Chart(donutChartCanvas, {
-        type: 'doughnut',
-        data: donutData,
-        options: donutOptions
-      })
-    })
+          var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
+          var donutData = {
+            labels: [
+              'Sistemas Computacionales',
+              'Industrial',
+              'Logística',
+              'Gestión Empresarial',
+            ],
+            datasets: [{
+              data: [700, 500, 400, 600,],
+              backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+            }]
+          }
+          var donutOptions = {
+            maintainAspectRatio: false,
+            responsive: true,
+          }
+          //Create pie or douhnut chart
+          // You can switch between pie and douhnut using the method below.
+          new Chart(donutChartCanvas, {
+            type: 'doughnut',
+            data: donutData,
+            options: donutOptions
+          })
+        })
   </script>
 </body>
 

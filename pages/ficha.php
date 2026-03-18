@@ -246,6 +246,10 @@
                     <input type="text" name="direccion" placeholder="Calle, número y colonia" required />
                 </div>
 
+                <div class="input-box">
+                    <label>Fotografía</label>
+                    <input type="file" name="fotografia" required />
+                </div>
                 <button type="submit">Generar Ficha</button>
             </form>
         </section>
