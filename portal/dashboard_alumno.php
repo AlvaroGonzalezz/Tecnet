@@ -158,6 +158,14 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
               </a>
             </li>
             <li class="nav-item">
+              <a href="pages/examples/profile.html" class="nav-link">
+                👨
+                <p>
+                  Perfil
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
               <a href="logout.php" class="nav-link">
                 <i class="nav-icon fas fa-sign-out-alt text-danger"></i>
                 <p>Cerrar Sesión</p>
@@ -241,10 +249,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
               <div class="small-box bg-danger">
                 <div class="inner">
                   <h4>Lista de calificaciones:</h4>
-                  <dt>Calificación 1:</dt>
-                  <dt>Calificación 2:</dt>
-                  <dt>Calificación 3:</dt>
-                  <dt>Calificación 4:</dt>
+              
 
                 </div>
                 <div class="icon">
