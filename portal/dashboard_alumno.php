@@ -1,10 +1,27 @@
+<<<<<<< HEAD
+=======
+<?php
+session_start();
+
+if (!isset($_SESSION['id_usuario']) || $_SESSION['id_rol'] != 2) {
+  header("Location: ../pages/login.php");
+  exit();
+}
+$nombre_usuario = $_SESSION['nombre_persona'];
+$ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
+?>
+>>>>>>> 7a65ea5438957b002e274621122c6d5e109eca4e
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+<<<<<<< HEAD
   <title>Alumno - TecNet</title>
+=======
+  <title>Dashboard - TecNet</title>
+>>>>>>> 7a65ea5438957b002e274621122c6d5e109eca4e
   <link rel="shortcut icon" href="../dist/img/tecneticon.png" type="image/x-icon">
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
@@ -16,6 +33,22 @@
   <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+<<<<<<< HEAD
+=======
+   <style>
+    .image img {
+      width: 40px;
+      /* Ajusta al tamaño que desees */
+      height: 40px;
+      /* Debe ser igual al ancho */
+      object-fit: cover;
+      /* ESTA ES LA CLAVE: Recorta la imagen para llenar el cuadro sin deformarla */
+      object-position: center;
+      /* Centra el recorte en el rostro */
+      margin-top: 7px;
+    }
+  </style>
+>>>>>>> 7a65ea5438957b002e274621122c6d5e109eca4e
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -38,12 +71,22 @@
       <!-- Sidebar -->
       <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
+<<<<<<< HEAD
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
             <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
             <a href="#" class="d-block">Administrador</a>
+=======
+       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+          <div class="image">
+            <img src="<?php echo $ruta_foto; ?>" class="img-circle elevation-2" alt="User Image">
+          </div>
+          <div class="info">
+            <a href="#" class="d-block"><?php echo $nombre_usuario; ?></a>
+            <small class="text-warning"><?php echo $_SESSION['nombre_rol']; ?></small>
+>>>>>>> 7a65ea5438957b002e274621122c6d5e109eca4e
           </div>
         </div>
 
@@ -63,6 +106,7 @@
                 </p>
               </a>
 
+<<<<<<< HEAD
             <li class="nav-item">
               <a href="#" class="nav-link">
                 📊
@@ -83,6 +127,9 @@
                 </li>
               </ul>
             </li>
+=======
+                
+>>>>>>> 7a65ea5438957b002e274621122c6d5e109eca4e
             <!-- <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
@@ -118,6 +165,7 @@
               </li>
             </ul>
           </li> -->
+<<<<<<< HEAD
             <li class="nav-item">
               <a href="#" class="nav-link">
                 🧾
@@ -151,6 +199,9 @@
                 </li>
               </ul>
             </li>
+=======
+            
+>>>>>>> 7a65ea5438957b002e274621122c6d5e109eca4e
 
             <li class="nav-item">
               <a href="pages/calendar.html" class="nav-link">
@@ -161,6 +212,7 @@
               </a>
             </li>
             <li class="nav-item">
+<<<<<<< HEAD
               <a href="pages/examples/profile.html" class="nav-link">
                 🧑
                 <p>Perfil</p>
@@ -169,6 +221,34 @@
             <li class="nav-item">
               <a href="pages/examples/profile.html" class="nav-link">
                 🔒
+=======
+              <a href="pages/calendar.html" class="nav-link">
+                📝
+                <p>
+                  Kardex academico
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="pages/calendar.html" class="nav-link">
+                📕
+                <p>
+                  Mis materias 
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="pages/calendar.html" class="nav-link">
+                📂
+                <p>
+                  Documentos
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="logout.php" class="nav-link">
+                <i class="nav-icon fas fa-sign-out-alt text-danger"></i>
+>>>>>>> 7a65ea5438957b002e274621122c6d5e109eca4e
                 <p>Cerrar Sesión</p>
               </a>
             </li>
@@ -182,7 +262,11 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6"><br>
+<<<<<<< HEAD
               <h1 class="m-0">¡Hola, pumbitakush!👋</h1>
+=======
+              <h1 class="m-0">¡Hola <?php echo $nombre_usuario; ?>!👋</h1>
+>>>>>>> 7a65ea5438957b002e274621122c6d5e109eca4e
             </div><!-- /.col -->
 
           </div><!-- /.row -->
@@ -199,15 +283,28 @@
               <!-- small box -->
               <div class="small-box bg-info">
                 <div class="inner">
+<<<<<<< HEAD
                   <h3>1200</h3>
 
                   <p>Alumnos</p>
+=======
+                  <h4>Datos personales</h4>
+
+                  <dt>Nombre:</dt>
+                  <dt>Edad:</dt>
+                  <dt>Genero:</dt>
+                  <dt>Carrera:</dt>
+>>>>>>> 7a65ea5438957b002e274621122c6d5e109eca4e
                 </div>
                 <div class="icon">
                   <i class="ion bi bi-mortarboard-fill"></i>
                 </div>
+<<<<<<< HEAD
                 <a href="#" class="small-box-footer">Más Información <i
                     class="fas fa-arrow-circle-right"></i></a>
+=======
+                
+>>>>>>> 7a65ea5438957b002e274621122c6d5e109eca4e
               </div>
             </div>
             <!-- ./col -->
@@ -215,6 +312,7 @@
               <!-- small box -->
               <div class="small-box bg-success">
                 <div class="inner">
+<<<<<<< HEAD
                   <h3>Próximos Eventos</h3>
 
                   <p>Eventec</p>
@@ -223,6 +321,16 @@
                   <i class="bi bi-calendar-event"></i>
                 </div>
                 <a href="https://gusoft.com.mx/Eventec/paginas/inicio/index.php" class="small-box-footer">Más Información <i
+=======
+                  
+
+                  <h4>Numeros de asignaturas</h4>
+                </div>
+                <div class="icon">
+                  <i class="ion bi bi-person-vcard-fill"></i>
+                </div>
+                <a href="#" class="small-box-footer">Más Información <i
+>>>>>>> 7a65ea5438957b002e274621122c6d5e109eca4e
                     class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
@@ -231,20 +339,31 @@
               <!-- small box -->
               <div class="small-box bg-warning">
                 <div class="inner">
+<<<<<<< HEAD
                   <h3>Calificaciones</h3>
 
                   <p>Kardex</p>
+=======
+                  <h4>Boleta de calificaciones</h4>
+
+                  
+>>>>>>> 7a65ea5438957b002e274621122c6d5e109eca4e
                 </div>
                 <div class="icon">
                   <i class="ion bi bi-person-workspace"></i>
                 </div>
                 <a href="#" class="small-box-footer">Más Información <i
                     class="fas fa-arrow-circle-right"></i></a>
+<<<<<<< HEAD
               </div>    
+=======
+              </div>
+>>>>>>> 7a65ea5438957b002e274621122c6d5e109eca4e
             </div>
             <!-- ./col -->
             <div class="col-lg-3 col-6">
               <!-- small box -->
+<<<<<<< HEAD
              
                 <!-- ./col -->
             
@@ -253,6 +372,50 @@
           <div class="row">
             <!-- Left col -->
           
+=======
+              <div class="small-box bg-danger">
+                <div class="inner">
+                  <h4>Lista de calificaciones:</h4>
+                  <dt>Calificación 1:</dt>
+                  <dt>Calificación 2:</dt>
+                  <dt>Calificación 3:</dt>
+                  <dt>Calificación 4:</dt>
+
+                </div>
+                <div class="icon">
+                  <i class="bi bi-c-square-fill"></i>
+                </div>
+                <a href="#" class="small-box-footer">Más Información <i
+                    class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+          </div>
+          <!-- /.row -->
+          <!-- Main row -->
+        
+              <!-- /.card -->
+
+              <div class="card card-danger">
+                <div class="card-header">
+                  <h3 class="card-title">Alumnos por carrera</h3>
+
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <canvas id="donutChart"
+                    style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                </div>
+                <!-- /.card-body -->
+              </div>
+            </section>
+>>>>>>> 7a65ea5438957b002e274621122c6d5e109eca4e
             <!-- /.Left col -->
             <!-- right col (We are only adding the ID to make the widgets sortable)-->
             <section class="col-lg-5 connectedSortable">
@@ -361,7 +524,11 @@
               </div>
               <!-- /.card -->
 
+<<<<<<< HEAD
            
+=======
+              
+>>>>>>> 7a65ea5438957b002e274621122c6d5e109eca4e
                 <!-- /.card-body -->
               </div>
               <!-- /.card -->

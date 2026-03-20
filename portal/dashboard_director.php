@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['id_usuario']) || $_SESSION['id_rol'] != 4) {
+  header("Location: ../pages/login.php");
+  exit();
+}
+$nombre_usuario = $_SESSION['nombre_persona'];
+$ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,6 +26,19 @@
   <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+  <style>
+    .image img {
+      width: 40px;
+      /* Ajusta al tamaño que desees */
+      height: 40px;
+      /* Debe ser igual al ancho */
+      object-fit: cover;
+      /* ESTA ES LA CLAVE: Recorta la imagen para llenar el cuadro sin deformarla */
+      object-position: center;
+      /* Centra el recorte en el rostro */
+      margin-top: 7px;
+    }
+  </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -40,10 +63,11 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
-            <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+            <img src="<?php echo $ruta_foto; ?>" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="#" class="d-block">Nombre director</a>
+            <a href="#" class="d-block"><?php echo $nombre_usuario; ?></a>
+            <small class="text-warning"><?php echo $_SESSION['nombre_rol']; ?></small>
           </div>
         </div>
 
@@ -137,13 +161,13 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="pages/tables/data.html" class="nav-link">
+                  <a href="pages/tables/data-docentes.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Docentes</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="pages/tables/data.html" class="nav-link">
+                  <a href="data-alumnos.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Estudiantes</p>
                   </a>
@@ -190,8 +214,8 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="pages/examples/profile.html" class="nav-link">
-                🔒
+              <a href="logout.php" class="nav-link">
+                <i class="nav-icon fas fa-sign-out-alt text-danger"></i>
                 <p>Cerrar Sesión</p>
               </a>
             </li>
@@ -205,7 +229,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6"><br>
-              <h1 class="m-0">¡Hola, Demetrio Zuñiga Ortiz!👋</h1>
+              <h1 class="m-0">¡Hola <?php echo $nombre_usuario; ?>!👋</h1>
             </div><!-- /.col -->
 
           </div><!-- /.row -->
@@ -294,7 +318,7 @@
                     <i class="fas fa-chart-pie mr-1"></i>
                     Calificaciones en general
                   </h3>
-                  
+
                 </div><!-- /.card-header -->
                 <div class="card-body">
                   <div class="tab-content p-0">
@@ -489,7 +513,7 @@
     <!-- /.control-sidebar -->
   </div>
   <!-- ./wrapper -->
-  
+
   <!-- jQuery -->
   <script src="plugins/jquery/jquery.min.js"></script>
   <!-- jQuery UI 1.11.4 -->
@@ -528,31 +552,31 @@
   <script>
     $(function() {
 
-          var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
-          var donutData = {
-            labels: [
-              'Sistemas Computacionales',
-              'Industrial',
-              'Logística',
-              'Gestión Empresarial',
-            ],
-            datasets: [{
-              data: [700, 500, 400, 600,],
-              backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
-            }]
-          }
-          var donutOptions = {
-            maintainAspectRatio: false,
-            responsive: true,
-          }
-          //Create pie or douhnut chart
-          // You can switch between pie and douhnut using the method below.
-          new Chart(donutChartCanvas, {
-            type: 'doughnut',
-            data: donutData,
-            options: donutOptions
-          })
-        })
+      var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
+      var donutData = {
+        labels: [
+          'Sistemas Computacionales',
+          'Industrial',
+          'Logística',
+          'Gestión Empresarial',
+        ],
+        datasets: [{
+          data: [700, 500, 400, 600, ],
+          backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+        }]
+      }
+      var donutOptions = {
+        maintainAspectRatio: false,
+        responsive: true,
+      }
+      //Create pie or douhnut chart
+      // You can switch between pie and douhnut using the method below.
+      new Chart(donutChartCanvas, {
+        type: 'doughnut',
+        data: donutData,
+        options: donutOptions
+      })
+    })
   </script>
 </body>
 

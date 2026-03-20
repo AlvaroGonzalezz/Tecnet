@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['id_usuario'])) {
+  header("Location: ../pages/login.php");
+  exit();
+}
+$nombre_usuario = $_SESSION['nombre_persona'];
+$ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,6 +27,19 @@
   <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+   <style>
+    .image img {
+      width: 40px;
+      /* Ajusta al tamaño que desees */
+      height: 40px;
+      /* Debe ser igual al ancho */
+      object-fit: cover;
+      /* ESTA ES LA CLAVE: Recorta la imagen para llenar el cuadro sin deformarla */
+      object-position: center;
+      /* Centra el recorte en el rostro */
+      margin-top: 7px;
+    }
+  </style>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -34,12 +57,13 @@
       <!-- Sidebar -->
       <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
-            <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+            <img src="../../<?php echo $ruta_foto; ?>" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="#" class="d-block">Nombre director</a>
+            <a href="#" class="d-block"><?php echo $nombre_usuario; ?></a>
+            <small class="text-warning"><?php echo $_SESSION['nombre_rol']; ?></small>
           </div>
         </div>
 
@@ -127,19 +151,19 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="pages/tables/data-admin.php" class="nav-link ">
+                  <a href="data-admin.php" class="nav-link ">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Administrativos</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="pages/tables/data.html" class="nav-link active">
+                  <a href="#" class="nav-link active">
                     <i class="far fa-user nav-icon"></i>
                     <p>Docentes</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="pages/tables/data.html" class="nav-link">
+                  <a href="data-alumnos.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Estudiantes</p>
                   </a>
@@ -172,7 +196,7 @@
             </li>
 
             <li class="nav-item">
-              <a href="pages/calendar.html" class="nav-link">
+              <a href="../calendar.html" class="nav-link">
                 📅
                 <p>
                   Calendario
@@ -231,6 +255,7 @@
                         <th>Correo</th>
                         <th>Teléfono</th>
                         <th>Rol</th>
+                        <th>Fotografía</th>
                         <th>Acciones</th>
                       </tr>
                     </thead>
@@ -246,6 +271,7 @@
               d.correo, 
               d.telefono,
               u.usuario, 
+              d.foto,
               r.nombre_rol 
             FROM docente d
             LEFT JOIN usuarios u ON d.id_docente = u.id_docente
@@ -267,6 +293,11 @@
                               <span class="badge badge-success">
                                 <?php echo ($fila['nombre_rol']) ? $fila['nombre_rol'] : 'Docente'; ?>
                               </span>
+                            </td>
+                            <td>
+                              <img src="../../dist/img/perfiles/<?php echo $fila['foto']; ?>"
+                                class="img-circle"
+                                style="width: 35px; height: 35px; object-fit: cover; margin-right: 10px;">
                             </td>
                             <td class="text-center">
                               <button class="btn btn-warning btn-sm"
@@ -381,6 +412,10 @@
               <label>Teléfono</label>
               <input type="text" name="telefono" id="edit_telefono" class="form-control">
             </div>
+            <div class="form-group">
+              <label>Fotografía</label>
+              <input type="file" name="foto" class="form-control" accept="image/*">
+            </div>
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-warning">Actualizar Cambios</button>
@@ -472,7 +507,12 @@
                   <label>Teléfono</label>
                   <input type="text" name="telefono" class="form-control">
                 </div>
+                <div class="form-group">
+                  <label>Fotografía</label>
+                  <input type="file" name="foto" class="form-control" accept="image/*">
+                </div>
               </div>
+
               <div class="col-md-6" style="border-left: 1px solid #ddd;">
                 <div class="form-group">
                   <label>Nombre de Usuario</label>
@@ -574,19 +614,46 @@
     // Script para GUARDAR la edición
     $('#formEditarDocente').on('submit', function(e) {
       e.preventDefault();
+
+      var datos = new FormData(this);
+      datos.append('accion', 'editar');
+
       $.ajax({
         url: 'operaciones_docente.php',
         type: 'POST',
-        data: $(this).serialize() + '&accion=editar',
+        data: datos,
+        contentType: false,
+        processData: false,
         success: function(res) {
           if (res.trim() === "success") {
+            alert("Docente actualizado con éxito");
             location.reload();
           } else {
-            alert("Error al actualizar: " + res);
+            alert("Error: " + res);
           }
         }
       });
     });
+
+    function prepararEdicionDocente(id) {
+      $.ajax({
+        url: 'get_docente.php',
+        type: 'POST',
+        data: {
+          id: id
+        },
+        dataType: 'json',
+        success: function(data) {
+          $('#edit_id_docente').val(data.id_docente);
+          $('#edit_nombre').val(data.nombre);
+          $('#edit_apellido').val(data.apellido);
+          $('#edit_correo').val(data.correo);
+          $('#edit_telefono').val(data.telefono);
+
+          $('#modalEditarDocente').modal('show');
+        }
+      });
+    }
 
     function editarDocente(id, nombre, apellido, correo, telefono) {
 
@@ -602,16 +669,21 @@
     }
     $('#formNuevoDocente').on('submit', function(e) {
       e.preventDefault();
+
+      var datos = new FormData(this);
+      datos.append('accion', 'nuevo');
+
       $.ajax({
-        url: 'operaciones_docente.php', // El archivo backend que creamos
+        url: 'operaciones_docente.php',
         type: 'POST',
-        data: $(this).serialize() + '&accion=nuevo',
+        data: datos,
+        contentType: false,
+        processData: false,
         success: function(res) {
-          if (res.trim() == "success") {
-            alert('Docente registrado correctamente');
-            location.reload(); // Recarga para ver los cambios
+          if (res.trim() === "success") {
+            location.reload();
           } else {
-            alert('Error: ' + res);
+            alert(res);
           }
         }
       });

@@ -1,3 +1,17 @@
+<<<<<<< HEAD
+=======
+<?php
+session_start();
+
+if (!isset($_SESSION['id_usuario']) || $_SESSION['id_rol'] != 3) {
+  header("Location: ../pages/login.php");
+  exit();
+}
+
+$nombre_usuario = $_SESSION['nombre_persona'];
+$ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
+?>
+>>>>>>> 7a65ea5438957b002e274621122c6d5e109eca4e
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,6 +30,22 @@
   <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+<<<<<<< HEAD
+=======
+  <style>
+    .image img {
+      width: 40px;
+      /* Ajusta al tamaño que desees */
+      height: 40px;
+      /* Debe ser igual al ancho */
+      object-fit: cover;
+      /* ESTA ES LA CLAVE: Recorta la imagen para llenar el cuadro sin deformarla */
+      object-position: center;
+      /* Centra el recorte en el rostro */
+      margin-top: 7px;
+    }
+  </style>
+>>>>>>> 7a65ea5438957b002e274621122c6d5e109eca4e
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -38,12 +68,22 @@
       <!-- Sidebar -->
       <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
+<<<<<<< HEAD
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
             <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
             <a href="#" class="d-block">Administrador</a>
+=======
+         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+          <div class="image">
+            <img src="<?php echo $ruta_foto; ?>" class="img-circle elevation-2" alt="User Image">
+          </div>
+          <div class="info">
+            <a href="#" class="d-block"><?php echo $nombre_usuario; ?></a>
+            <small class="text-warning"><?php echo $_SESSION['nombre_rol']; ?></small>
+>>>>>>> 7a65ea5438957b002e274621122c6d5e109eca4e
           </div>
         </div>
 
@@ -63,6 +103,7 @@
                 </p>
               </a>
 
+<<<<<<< HEAD
             <li class="nav-item">
               <a href="#" class="nav-link">
                 📊
@@ -83,6 +124,8 @@
                 </li>
               </ul>
             </li>
+=======
+>>>>>>> 7a65ea5438957b002e274621122c6d5e109eca4e
             <!-- <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
@@ -128,16 +171,27 @@
               </a>
               <ul class="nav nav-treeview">
                 
+<<<<<<< HEAD
               
                 <li class="nav-item">
                   <a href="pages/tables/data.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Estudiantes</p>
+=======
+                  </a>
+                </li>
+                
+                <li class="nav-item">
+                  <a href="pages/tables/data.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Mis alumnos</p>
+>>>>>>> 7a65ea5438957b002e274621122c6d5e109eca4e
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="pages/tables/data.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
+<<<<<<< HEAD
                     <p>Asignaturas</p>
                   </a>
                 </li>
@@ -146,12 +200,19 @@
                  <a href="pages/charts/chartjs.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Carreras</p>
+=======
+                    <p>Mis asignaturas</p>
+>>>>>>> 7a65ea5438957b002e274621122c6d5e109eca4e
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="pages/tables/data.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
+<<<<<<< HEAD
                     <p>Horarios</p>
+=======
+                    <p>Mis grupos</p>
+>>>>>>> 7a65ea5438957b002e274621122c6d5e109eca4e
                   </a>
                 </li>
               </ul>
@@ -172,8 +233,13 @@
               </a>
             </li>
             <li class="nav-item">
+<<<<<<< HEAD
               <a href="pages/examples/profile.html" class="nav-link">
                 🔒
+=======
+              <a href="logout.php" class="nav-link">
+                <i class="nav-icon fas fa-sign-out-alt text-danger"></i>
+>>>>>>> 7a65ea5438957b002e274621122c6d5e109eca4e
                 <p>Cerrar Sesión</p>
               </a>
             </li>
@@ -187,7 +253,11 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6"><br>
+<<<<<<< HEAD
               <h1 class="m-0">¡Hola, moi!👋</h1>
+=======
+              <h1 class="m-0">¡Hola <?php echo $nombre_usuario; ?>!👋</h1>
+>>>>>>> 7a65ea5438957b002e274621122c6d5e109eca4e
             </div><!-- /.col -->
 
           </div><!-- /.row -->
@@ -220,14 +290,24 @@
               <!-- small box -->
               <div class="small-box bg-success">
                 <div class="inner">
+<<<<<<< HEAD
                   <h3>4</h3>
 
                   <p>Carreras</p>
+=======
+                  <h3>12</h3>
+
+                  <p>Asignaturas</p>
+>>>>>>> 7a65ea5438957b002e274621122c6d5e109eca4e
                 </div>
                 <div class="icon">
                   <i class="ion bi bi-person-vcard-fill"></i>
                 </div>
+<<<<<<< HEAD
                 <a href="#" class="small-box-footer">Más Información <i
+=======
+                <a href="aspirantes.php" class="small-box-footer">Más Información <i
+>>>>>>> 7a65ea5438957b002e274621122c6d5e109eca4e
                     class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
@@ -236,9 +316,15 @@
               <!-- small box -->
               <div class="small-box bg-warning">
                 <div class="inner">
+<<<<<<< HEAD
                   <h3>44</h3>
 
                   <p>Docentes</p>
+=======
+                  <h3>3</h3>
+
+                  <p>Grupos</p>
+>>>>>>> 7a65ea5438957b002e274621122c6d5e109eca4e
                 </div>
                 <div class="icon">
                   <i class="ion bi bi-person-workspace"></i>
@@ -248,9 +334,13 @@
               </div>    
             </div>
             <!-- ./col -->
+<<<<<<< HEAD
             <div class="col-lg-3 col-6">
               <!-- small box -->
              
+=======
+            
+>>>>>>> 7a65ea5438957b002e274621122c6d5e109eca4e
                 <!-- ./col -->
             
           <!-- /.row -->

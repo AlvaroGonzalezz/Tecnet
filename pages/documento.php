@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Documentación | TecNet</title>
-    
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../dist/css/style.css">
     <link rel="apple-touch-icon" sizes="180x180" href="dist/img/tecneticon.png">
@@ -32,7 +32,8 @@
         body {
             min-height: 100vh;
             display: flex;
-            flex-direction: column; /* Para que el nav no tape el contenido */
+            flex-direction: column;
+            /* Para que el nav no tape el contenido */
             align-items: center;
             justify-content: center;
             padding: 20px;
@@ -47,7 +48,8 @@
             padding: 25px;
             border-radius: 8px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            margin-top: 80px; /* Espacio para el nav fixed */
+            margin-top: 80px;
+            /* Espacio para el nav fixed */
         }
 
         .ficha .container header {
@@ -120,9 +122,9 @@
     <div class="ficha">
         <section class="container">
             <header>Carga de mis Documentos</header>
-            
+
             <form action="procesar_documentos.php" method="POST" enctype="multipart/form-data" class="form">
-                
+
                 <input type="hidden" name="id_alumno" value="<?php echo $_GET['id'] ?? ''; ?>">
 
                 <div class="input-box">
@@ -149,7 +151,6 @@
                     <label>Comprobante de domicilio</label>
                     <input type="file" name="comprobante_domicilio" required />
                 </div>
-
                 <button type="submit">Finalizar Registro</button>
             </form>
         </section>
