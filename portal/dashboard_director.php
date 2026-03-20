@@ -5,8 +5,6 @@ if (!isset($_SESSION['id_usuario']) || $_SESSION['id_rol'] != 4) {
   header("Location: ../pages/login.php");
   exit();
 }
-
-// 2. Preparar variables para el HTML
 $nombre_usuario = $_SESSION['nombre_persona'];
 $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
 ?>
@@ -169,7 +167,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="pages/tables/data.html" class="nav-link">
+                  <a href="data-alumnos.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Estudiantes</p>
                   </a>

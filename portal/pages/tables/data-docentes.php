@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['id_usuario'])) {
+  header("Location: ../pages/login.php");
+  exit();
+}
+$nombre_usuario = $_SESSION['nombre_persona'];
+$ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,6 +27,19 @@
   <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+   <style>
+    .image img {
+      width: 40px;
+      /* Ajusta al tamaño que desees */
+      height: 40px;
+      /* Debe ser igual al ancho */
+      object-fit: cover;
+      /* ESTA ES LA CLAVE: Recorta la imagen para llenar el cuadro sin deformarla */
+      object-position: center;
+      /* Centra el recorte en el rostro */
+      margin-top: 7px;
+    }
+  </style>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -34,12 +57,13 @@
       <!-- Sidebar -->
       <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
-            <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+            <img src="../../<?php echo $ruta_foto; ?>" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="#" class="d-block">Nombre director</a>
+            <a href="#" class="d-block"><?php echo $nombre_usuario; ?></a>
+            <small class="text-warning"><?php echo $_SESSION['nombre_rol']; ?></small>
           </div>
         </div>
 
@@ -139,7 +163,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="pages/tables/data.html" class="nav-link">
+                  <a href="data-alumnos.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Estudiantes</p>
                   </a>
