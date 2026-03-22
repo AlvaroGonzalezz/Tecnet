@@ -7,6 +7,15 @@ if (!isset($_SESSION['id_usuario'])) {
 }
 $nombre_usuario = $_SESSION['nombre_persona'];
 $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
+
+include "../../conexion.php";
+// Obtener lista de docentes para los selects de los modales
+$res_docentes = mysqli_query($conexion, "SELECT id_docente, nombre, apellido FROM docente ORDER BY nombre ASC");
+$docentes_array = [];
+while ($d = mysqli_fetch_assoc($res_docentes)) {
+    $docentes_array[] = $d;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -31,12 +40,32 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
             object-fit: cover;
             border-radius: 50%;
         }
+
+        .image img {
+            width: 40px;
+            /* Ajusta al tamaño que desees */
+            height: 40px;
+            /* Debe ser igual al ancho */
+            object-fit: cover;
+            /* ESTA ES LA CLAVE: Recorta la imagen para llenar el cuadro sin deformarla */
+            object-position: center;
+            /* Centra el recorte en el rostro */
+            margin-top: 7px;
+        }
     </style>
 </head>
 
 <body class="hold-transition sidebar-mini">
-    <div class="wrapper">
 
+    <div class="wrapper">
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+            </ul>
+        </nav>
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="index3.html" class="brand-link">
@@ -84,7 +113,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="pages/charts/chartjs.html" class="nav-link">
+                                    <a href="../reportes/administrativo.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Administrativo</p>
                                     </a>
@@ -177,25 +206,13 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
                                         <p>Carreras</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="pages/tables/data.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Horarios</p>
-                                    </a>
-                                </li>
+
                             </ul>
                         </li>
 
+
                         <li class="nav-item">
-                            <a href="../calendar.html" class="nav-link">
-                                📅
-                                <p>
-                                    Calendario
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/examples/profile.html" class="nav-link">
+                            <a href="perfil.php" class="nav-link">
                                 🧑
                                 <p>Perfil</p>
                             </a>
@@ -237,6 +254,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
                                         <th>Nombre</th>
                                         <th>Semestre</th>
                                         <th>Créditos</th>
+                                        <th>Docente Asignado</th>
                                         <th class="text-center">Acciones</th>
                                     </tr>
                                 </thead>
@@ -244,7 +262,11 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
                                     <?php
                                     include "../../conexion.php";
                                     // Consulta a la tabla materias
-                                    $sql = "SELECT * FROM materias ORDER BY semestre ASC, nombre_materia ASC";
+                                    // Consulta con JOIN para traer el nombre del profesor
+                                    $sql = "SELECT m.*, d.nombre, d.apellido 
+        FROM materias m 
+        LEFT JOIN docente d ON m.id_docente = d.id_docente 
+        ORDER BY m.semestre ASC, m.nombre_materia ASC";
                                     $resultado = mysqli_query($conexion, $sql);
 
                                     while ($fila = mysqli_fetch_assoc($resultado)) {
@@ -254,6 +276,9 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
                                             <td><?php echo $fila['nombre_materia']; ?></td>
                                             <td><?php echo $fila['semestre']; ?>°</td>
                                             <td><?php echo $fila['creditos']; ?></td>
+                                            <td>
+                                                <?php echo ($fila['nombre']) . ' ' . $fila["apellido"] ? $fila['nombre'] . ' ' . $fila['apellido'] : '<span class="badge badge-danger">Sin asignar</span>'; ?>
+                                            </td>
                                             <td class="text-center">
                                                 <button class="btn btn-warning btn-sm"
                                                     onclick='prepararEdicionMateria(<?php echo json_encode($fila); ?>)'>
@@ -301,6 +326,15 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
                                     <label>Créditos</label>
                                     <input type="number" name="creditos" class="form-control" min="1" placeholder="Ej. 8" required>
                                 </div>
+                                <div class="form-group">
+                                    <label>Asignar Docente</label>
+                                    <select name="id_docente" class="form-control" required>
+                                        <option value="">-- Seleccione un profesor --</option>
+                                        <?php foreach ($docentes_array as $doc) { ?>
+                                            <option value="<?php echo $doc['id_docente']; ?>"><?php echo $doc['nombre'] . ' ' . $doc['apellido']; ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -341,7 +375,17 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
                                     <label>Créditos</label>
                                     <input type="number" name="creditos" id="edit_creditos" class="form-control" min="1" required>
                                 </div>
+                                <div class="form-group">
+                                    <label>Asignar Docente</label>
+                                    <select name="id_docente" class="form-control" required>
+                                        <option value="">-- Seleccione un profesor --</option>
+                                        <?php foreach ($docentes_array as $doc) { ?>
+                                            <option value="<?php echo $doc['id_docente']; ?>"><?php echo $doc['nombre'] . ' ' . $doc['apellido']; ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
                             </div>
+
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -372,13 +416,12 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
         });
 
         function prepararEdicionMateria(datos) {
-            console.log(datos); // <-- Agrega esto para ver en la consola si llega el nombre
-
             $('#edit_id_materia').val(datos.id_materia);
-            // IMPORTANTE: Asegúrate que datos.nombre_materia exista en tu JSON
             $('#edit_nombre_materia').val(datos.nombre_materia);
             $('#edit_semestre').val(datos.semestre);
             $('#edit_creditos').val(datos.creditos);
+            // Agregamos esta línea para que el select marque al profe actual
+            $('#edit_id_docente').val(datos.id_docente);
 
             $('#modalEditarMateria').modal('show');
         }

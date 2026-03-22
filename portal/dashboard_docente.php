@@ -1,13 +1,39 @@
 <?php
 session_start();
-
+include 'conexion.php';
 if (!isset($_SESSION['id_usuario']) || $_SESSION['id_rol'] != 3) {
   header("Location: ../pages/login.php");
   exit();
 }
 
+$id_docente = $_SESSION['id_usuario'];
 $nombre_usuario = $_SESSION['nombre_persona'];
 $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
+$id_usuario_sesion = $_SESSION['id_usuario'];
+
+// --- CONSULTAS PARA LOS CARDS ---
+// CORRECCIÓN: Buscamos el ID real del docente vinculado al usuario de la sesión
+$query_doc = mysqli_query($conexion, "SELECT id_docente FROM usuarios WHERE id_usuario = '$id_usuario_sesion'");
+$datos_doc = mysqli_fetch_assoc($query_doc);
+
+// Si no encuentra al docente, podrías tener un error, usamos el ID obtenido
+$id_docente_logueado = ($datos_doc) ? $datos_doc['id_docente'] : 0;
+// 1. Conteo de Alumnos Únicos (que están en las materias de este docente)
+$sql_alumnos = "SELECT COUNT(DISTINCT id_alumno) as total FROM inscripciones i 
+                INNER JOIN materias m ON i.id_materia = m.id_materia 
+                WHERE m.id_docente = '$id_docente_logueado'";
+$res_alumnos = mysqli_query($conexion, $sql_alumnos);
+$total_alumnos = mysqli_fetch_assoc($res_alumnos)['total'];
+
+// 2. Conteo de Asignaturas (Materias distintas asignadas)
+$sql_materias = "SELECT COUNT(*) as total FROM materias WHERE id_docente = '$id_docente_logueado'";
+$res_materias = mysqli_query($conexion, $sql_materias);
+$total_materias = mysqli_fetch_assoc($res_materias)['total'];
+
+// 3. Conteo de Grupos (Si manejas una columna 'semestre' en tu tabla materias)
+$sql_grupos = "SELECT COUNT(DISTINCT semestre) as total FROM materias WHERE id_docente = '$id_docente_logueado'";
+$res_grupos = mysqli_query($conexion, $sql_grupos);
+$total_grupos = mysqli_fetch_assoc($res_grupos)['total'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,6 +69,14 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+    </ul>
+  </nav>
   <div class="wrapper">
 
     <!-- <div class="preloader flex-column justify-content-center align-items-center">
@@ -62,7 +96,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
       <!-- Sidebar -->
       <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
-         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
             <img src="<?php echo $ruta_foto; ?>" class="img-circle elevation-2" alt="User Image">
           </div>
@@ -88,7 +122,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
                 </p>
               </a>
 
-            <!-- <li class="nav-item">
+              <!-- <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>
@@ -132,51 +166,38 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
                 </p>
               </a>
               <ul class="nav nav-treeview">
-                
-                  </a>
-                </li>
-                
-                <li class="nav-item">
-                  <a href="pages/tables/data.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Mis alumnos</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="pages/tables/data.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Mis asignaturas</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="pages/tables/data.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Mis grupos</p>
-                  </a>
-                </li>
-              </ul>
+
+                </a>
             </li>
 
             <li class="nav-item">
-              <a href="pages/calendar.html" class="nav-link">
-                📅
-                <p>
-                  Calendario
-                </p>
+              <a href="pages/tables/docente-alumnos.php" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Mis alumnos</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="pages/examples/profile.html" class="nav-link">
-                🧑
-                <p>Perfil</p>
+              <a href="pages/tables/docente-materias.php" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Mis asignaturas</p>
               </a>
             </li>
-            <li class="nav-item">
-              <a href="logout.php" class="nav-link">
-                <i class="nav-icon fas fa-sign-out-alt text-danger"></i>
-                <p>Cerrar Sesión</p>
-              </a>
-            </li>
+          </ul>
+          </li>
+
+
+          <li class="nav-item">
+            <a href="pages/tables/perfil.php" class="nav-link">
+              🧑
+              <p>Perfil</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="logout.php" class="nav-link">
+              <i class="nav-icon fas fa-sign-out-alt text-danger"></i>
+              <p>Cerrar Sesión</p>
+            </a>
+          </li>
           </ul>
         </nav>
       </div>
@@ -200,62 +221,49 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
         <div class="container-fluid">
           <!-- Small boxes (Stat box) -->
           <div class="row">
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
+            <div class="col-lg-4 col-6">
               <div class="small-box bg-info">
                 <div class="inner">
-                  <h3>1200</h3>
-
-                  <p>Alumnos</p>
+                  <h3><?php echo $total_alumnos; ?></h3>
+                  <p>Alumnos Totales</p>
                 </div>
                 <div class="icon">
                   <i class="ion bi bi-mortarboard-fill"></i>
                 </div>
-                <a href="#" class="small-box-footer">Más Información <i
-                    class="fas fa-arrow-circle-right"></i></a>
+                <a href="pages/tables/docente-alumnos.php" class="small-box-footer">Más Información <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
+
+            <div class="col-lg-4 col-6">
               <div class="small-box bg-success">
                 <div class="inner">
-                  <h3>12</h3>
-
-                  <p>Asignaturas</p>
+                  <h3><?php echo $total_materias; ?></h3>
+                  <p>Mis Asignaturas</p>
                 </div>
                 <div class="icon">
                   <i class="ion bi bi-person-vcard-fill"></i>
                 </div>
-                <a href="aspirantes.php" class="small-box-footer">Más Información <i
-                    class="fas fa-arrow-circle-right"></i></a>
+                <a href="pages/tables/docente-materias.php" class="small-box-footer">Más Información <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
+
+            <div class="col-lg-4 col-6">
               <div class="small-box bg-warning">
                 <div class="inner">
-                  <h3>3</h3>
-
-                  <p>Grupos</p>
+                  <h3><?php echo $total_grupos; ?></h3>
+                  <p>Grupos Activos</p>
                 </div>
                 <div class="icon">
                   <i class="ion bi bi-person-workspace"></i>
                 </div>
-                <a href="#" class="small-box-footer">Más Información <i
-                    class="fas fa-arrow-circle-right"></i></a>
-              </div>    
+                <a href="pages/tables/docente-alumnos.php" class="small-box-footer">Más Información <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
             </div>
-            <!-- ./col -->
-            
-                <!-- ./col -->
-            
-          <!-- /.row -->
+          </div>
           <!-- Main row -->
           <div class="row">
             <!-- Left col -->
-          
+
             <!-- /.Left col -->
             <!-- right col (We are only adding the ID to make the widgets sortable)-->
             <section class="col-lg-5 connectedSortable">
@@ -364,29 +372,29 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
               </div>
               <!-- /.card -->
 
-           
-                <!-- /.card-body -->
-              </div>
-              <!-- /.card -->
-            </section>
-            <!-- right col -->
+
+              <!-- /.card-body -->
           </div>
-          <!-- /.row (main row) -->
-        </div><!-- /.container-fluid -->
+          <!-- /.card -->
       </section>
-      <!-- /.content -->
+      <!-- right col -->
     </div>
-    <!-- /.content-wrapper -->
+    <!-- /.row (main row) -->
+  </div><!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
 
 
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-      <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
   </div>
   <!-- ./wrapper -->
-  
+
   <!-- jQuery -->
   <script src="plugins/jquery/jquery.min.js"></script>
   <!-- jQuery UI 1.11.4 -->
@@ -425,31 +433,31 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
   <script>
     $(function() {
 
-          var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
-          var donutData = {
-            labels: [
-              'Sistemas Computacionales',
-              'Industrial',
-              'Logística',
-              'Gestión Empresarial',
-            ],
-            datasets: [{
-              data: [700, 500, 400, 600,],
-              backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
-            }]
-          }
-          var donutOptions = {
-            maintainAspectRatio: false,
-            responsive: true,
-          }
-          //Create pie or douhnut chart
-          // You can switch between pie and douhnut using the method below.
-          new Chart(donutChartCanvas, {
-            type: 'doughnut',
-            data: donutData,
-            options: donutOptions
-          })
-        })
+      var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
+      var donutData = {
+        labels: [
+          'Sistemas Computacionales',
+          'Industrial',
+          'Logística',
+          'Gestión Empresarial',
+        ],
+        datasets: [{
+          data: [700, 500, 400, 600, ],
+          backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+        }]
+      }
+      var donutOptions = {
+        maintainAspectRatio: false,
+        responsive: true,
+      }
+      //Create pie or douhnut chart
+      // You can switch between pie and douhnut using the method below.
+      new Chart(donutChartCanvas, {
+        type: 'doughnut',
+        data: donutData,
+        options: donutOptions
+      })
+    })
   </script>
 </body>
 

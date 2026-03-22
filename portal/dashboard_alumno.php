@@ -7,6 +7,34 @@ if (!isset($_SESSION['id_usuario']) || $_SESSION['id_rol'] != 2) {
 }
 $nombre_usuario = $_SESSION['nombre_persona'];
 $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
+include "conexion.php"; // Asegúrate de que la ruta a tu conexión sea correcta
+
+$id_usuario = $_SESSION['id_usuario'];
+// CORRECCIÓN: Buscamos el ID real del docente vinculado al usuario de la sesión
+$query_doc = mysqli_query($conexion, "SELECT id_alumno FROM usuarios WHERE id_usuario = '$id_usuario'");
+$datos_doc = mysqli_fetch_assoc($query_doc);
+
+// Si no encuentra al docente, podrías tener un error, usamos el ID obtenido
+$id_alumno_logueado = ($datos_doc) ? $datos_doc['id_alumno'] : 0;
+$nombre_usuario = $_SESSION['nombre_persona'];
+$ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
+
+// Consulta detallada del alumno
+// Asumimos que en la tabla 'alumno' tienes 'id_usuario' para relacionar la sesión
+$query = "SELECT a.*, c.nombre_carrera,  g.semestre 
+          FROM alumno a
+          INNER JOIN carreras c ON a.id_carrera = c.id_carrera
+          INNER JOIN grupo g ON a.id_grupo = g.id_grupo
+          WHERE a.id_alumno = '$id_alumno_logueado'";
+
+$resultado = mysqli_query($conexion, $query);
+$datos = mysqli_fetch_assoc($resultado);
+
+// Si por alguna razón no hay datos en la tabla alumno, evitamos errores
+if (!$datos) {
+  echo "Error: No se encontraron datos de perfil para este alumno.";
+  exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +54,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
   <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
-   <style>
+  <style>
     .image img {
       width: 40px;
       /* Ajusta al tamaño que desees */
@@ -42,6 +70,14 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+    </ul>
+  </nav>
   <div class="wrapper">
 
     <!-- <div class="preloader flex-column justify-content-center align-items-center">
@@ -61,7 +97,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
       <!-- Sidebar -->
       <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
-       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
             <img src="<?php echo $ruta_foto; ?>" class="img-circle elevation-2" alt="User Image">
           </div>
@@ -87,8 +123,8 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
                 </p>
               </a>
 
-                
-            <!-- <li class="nav-item">
+
+              <!-- <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>
@@ -123,18 +159,11 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
               </li>
             </ul>
           </li> -->
-            
+
+
 
             <li class="nav-item">
-              <a href="pages/calendar.html" class="nav-link">
-                📅
-                <p>
-                  Calendario
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="pages/calendar.html" class="nav-link">
+              <a href="procesos/ver-kardex.php?id=<?php echo $id_alumno_logueado; ?>" class="nav-link">
                 📝
                 <p>
                   Kardex academico
@@ -142,21 +171,14 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
               </a>
             </li>
             <li class="nav-item">
-              <a href="pages/calendar.html" class="nav-link">
+              <a href="procesos/mis-materias.php?id=<?php echo $id_alumno_logueado; ?>" class="nav-link">
                 📕
                 <p>
-                  Mis materias 
+                  Mis materias
                 </p>
               </a>
             </li>
-            <li class="nav-item">
-              <a href="pages/calendar.html" class="nav-link">
-                📂
-                <p>
-                  Documentos
-                </p>
-              </a>
-            </li>
+
             <li class="nav-item">
               <a href="logout.php" class="nav-link">
                 <i class="nav-icon fas fa-sign-out-alt text-danger"></i>
@@ -184,219 +206,50 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
       <!-- Main content -->
       <section class="content">
         <div class="container-fluid">
-          <!-- Small boxes (Stat box) -->
           <div class="row">
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-info">
-                <div class="inner">
-                  <h4>Datos personales</h4>
-
-                  <dt>Nombre:</dt>
-                  <dt>Edad:</dt>
-                  <dt>Genero:</dt>
-                  <dt>Carrera:</dt>
-                </div>
-                <div class="icon">
-                  <i class="ion bi bi-mortarboard-fill"></i>
-                </div>
-                
-              </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-success">
-                <div class="inner">
-                  
-
-                  <h4>Numeros de asignaturas</h4>
-                </div>
-                <div class="icon">
-                  <i class="ion bi bi-person-vcard-fill"></i>
-                </div>
-                <a href="#" class="small-box-footer">Más Información <i
-                    class="fas fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-warning">
-                <div class="inner">
-                  <h4>Boleta de calificaciones</h4>
-
-                  
-                </div>
-                <div class="icon">
-                  <i class="ion bi bi-person-workspace"></i>
-                </div>
-                <a href="#" class="small-box-footer">Más Información <i
-                    class="fas fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-danger">
-                <div class="inner">
-                  <h4>Lista de calificaciones:</h4>
-                  <dt>Calificación 1:</dt>
-                  <dt>Calificación 2:</dt>
-                  <dt>Calificación 3:</dt>
-                  <dt>Calificación 4:</dt>
-
-                </div>
-                <div class="icon">
-                  <i class="bi bi-c-square-fill"></i>
-                </div>
-                <a href="#" class="small-box-footer">Más Información <i
-                    class="fas fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-          </div>
-          <!-- /.row -->
-          <!-- Main row -->
-        
-              <!-- /.card -->
-
-              <div class="card card-danger">
+            <div class="col-md-8">
+              <div class="card card-outline card-primary">
                 <div class="card-header">
-                  <h3 class="card-title">Alumnos por carrera</h3>
-
-                  <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                      <i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                      <i class="fas fa-times"></i>
-                    </button>
-                  </div>
+                  <h3 class="card-title"><i class="fas fa-user-graduate mr-2"></i> Expediente del Estudiante</h3>
                 </div>
                 <div class="card-body">
-                  <canvas id="donutChart"
-                    style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                </div>
-                <!-- /.card-body -->
-              </div>
-            </section>
-            <!-- /.Left col -->
-            <!-- right col (We are only adding the ID to make the widgets sortable)-->
-            <section class="col-lg-5 connectedSortable">
-
-              <!-- Map card -->
-              <div style="display: none;">
-                <div class="card bg-gradient-primary">
-                  <div class="card-header border-0">
-                    <h3 class="card-title">
-                      <i class="fas fa-map-marker-alt mr-1"></i>
-                      Visitors
-                    </h3>
-                    <!-- card tools -->
-                    <div class="card-tools">
-                      <button type="button" class="btn btn-primary btn-sm daterange"
-                        title="Date range">
-                        <i class="far fa-calendar-alt"></i>
-                      </button>
-                      <button type="button" class="btn btn-primary btn-sm"
-                        data-card-widget="collapse" title="Collapse">
-                        <i class="fas fa-minus"></i>
-                      </button>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <p><strong><i class="fas fa-id-card mr-1"></i> Nombre:</strong> <span class="text-muted"><?php echo $datos['nombre'] . " " . $datos['apellido']; ?></span></p>
+                      <p><strong><i class="fas fa-id-card mr-1"></i> CURP:</strong> <span class="text-muted"><?php echo $datos['curp']; ?></span></p>
+                      <p><strong><i class="fas fa-calendar-alt mr-1"></i> Fecha de Nacimiento:</strong> <span class="text-muted"><?php echo $datos['fecha_nacimiento']; ?></span></p>
+                      <p><strong><i class="fas fa-map-marker-alt mr-1"></i> Dirección:</strong> <span class="text-muted"><?php echo $datos['direccion']; ?></span></p>
                     </div>
-                    <!-- /.card-tools -->
-                  </div>
-                  <div class="card-body">
-                    <div id="world-map" style="height: 250px; width: 100%;"></div>
-                  </div>
-                  <!-- /.card-body-->
-                  <div class="card-footer bg-transparent">
-                    <div class="row">
-                      <div class="col-4 text-center">
-                        <div id="sparkline-1"></div>
-                        <div class="text-white">Visitors</div>
-                      </div>
-                      <!-- ./col -->
-                      <div class="col-4 text-center">
-                        <div id="sparkline-2"></div>
-                        <div class="text-white">Online</div>
-                      </div>
-                      <!-- ./col -->
-                      <div class="col-4 text-center">
-                        <div id="sparkline-3"></div>
-                        <div class="text-white">Sales</div>
-                      </div>
-                      <!-- ./col -->
+                    <div class="col-sm-6">
+                      <p><strong><i class="fas fa-phone mr-1"></i> Teléfono:</strong> <span class="text-muted"><?php echo $datos['telefono']; ?></span></p>
+                      <p><strong><i class="fas fa-envelope mr-1"></i> Correo:</strong> <span class="text-muted"><?php echo $datos['correo']; ?></span></p>
+                      <p><strong><i class="fas fa-university mr-1"></i> Carrera:</strong> <span class="text-info"><?php echo $datos['nombre_carrera']; ?></span></p>
+                      <p><strong><i class="fas fa-users mr-1"></i> Semestre:</strong> <span class="text-muted"><?php echo $datos['semestre'] . "° Semestre"; ?></span></p>
                     </div>
-                    <!-- /.row -->
                   </div>
                 </div>
-              </div>
-              <!-- /.card -->
-
-              <!-- solid sales graph -->
-              <div style="display: none;">
-                <div class="card bg-gradient-info">
-                  <div class="card-header border-0">
-                    <h3 class="card-title">
-                      <i class="fas fa-th mr-1"></i>
-                      Sales Graph
-                    </h3>
-
-                    <div class="card-tools">
-                      <button type="button" class="btn bg-info btn-sm"
-                        data-card-widget="collapse">
-                        <i class="fas fa-minus"></i>
-                      </button>
-                      <button type="button" class="btn bg-info btn-sm" data-card-widget="remove">
-                        <i class="fas fa-times"></i>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="card-body">
-                    <canvas class="chart" id="line-chart"
-                      style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                  </div>
-                  <!-- /.card-body -->
-                  <div class="card-footer bg-transparent">
-                    <div class="row">
-                      <div class="col-4 text-center">
-                        <input type="text" class="knob" data-readonly="true" value="20"
-                          data-width="60" data-height="60" data-fgColor="#39CCCC">
-
-                        <div class="text-white">Mail-Orders</div>
-                      </div>
-                      <!-- ./col -->
-                      <div class="col-4 text-center">
-                        <input type="text" class="knob" data-readonly="true" value="50"
-                          data-width="60" data-height="60" data-fgColor="#39CCCC">
-
-                        <div class="text-white">Online</div>
-                      </div>
-                      <!-- ./col -->
-                      <div class="col-4 text-center">
-                        <input type="text" class="knob" data-readonly="true" value="30"
-                          data-width="60" data-height="60" data-fgColor="#39CCCC">
-
-                        <div class="text-white">In-Store</div>
-                      </div>
-                      <!-- ./col -->
-                    </div>
-                    <!-- /.row -->
-                  </div>
-                  <!-- /.card-footer -->
+                <div class="card-footer">
+                  <span class="badge <?php echo ($datos['estado'] == 'Activo') ? 'badge-success' : 'badge-danger'; ?>">
+                    Estatus: <?php echo $datos['estado']; ?>
+                  </span>
                 </div>
               </div>
-              <!-- /.card -->
+            </div>
 
-              
-                <!-- /.card-body -->
+            <div class="col-md-4">
+              <div class="small-box bg-info">
+                <div class="inner">
+                  <h3><?php echo $datos['semestre']; ?>°</h3>
+                  <p>Semestre Actual</p>
+                </div>
+                <div class="icon">
+                  <i class="fas fa-graduation-cap"></i>
+                </div>
+                <a href="procesos/ver-kardex.php?id=<?php echo $id_alumno_logueado; ?>" class="small-box-footer">Ver mi Kardex <i class="fas fa-arrow-circle-right"></i></a>
               </div>
-              <!-- /.card -->
-            </section>
-            <!-- right col -->
+            </div>
           </div>
-          <!-- /.row (main row) -->
-        </div><!-- /.container-fluid -->
+        </div>
       </section>
       <!-- /.content -->
     </div>
@@ -410,7 +263,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
     <!-- /.control-sidebar -->
   </div>
   <!-- ./wrapper -->
-  
+
   <!-- jQuery -->
   <script src="plugins/jquery/jquery.min.js"></script>
   <!-- jQuery UI 1.11.4 -->
@@ -449,31 +302,31 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
   <script>
     $(function() {
 
-          var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
-          var donutData = {
-            labels: [
-              'Sistemas Computacionales',
-              'Industrial',
-              'Logística',
-              'Gestión Empresarial',
-            ],
-            datasets: [{
-              data: [700, 500, 400, 600,],
-              backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
-            }]
-          }
-          var donutOptions = {
-            maintainAspectRatio: false,
-            responsive: true,
-          }
-          //Create pie or douhnut chart
-          // You can switch between pie and douhnut using the method below.
-          new Chart(donutChartCanvas, {
-            type: 'doughnut',
-            data: donutData,
-            options: donutOptions
-          })
-        })
+      var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
+      var donutData = {
+        labels: [
+          'Sistemas Computacionales',
+          'Industrial',
+          'Logística',
+          'Gestión Empresarial',
+        ],
+        datasets: [{
+          data: [700, 500, 400, 600, ],
+          backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+        }]
+      }
+      var donutOptions = {
+        maintainAspectRatio: false,
+        responsive: true,
+      }
+      //Create pie or douhnut chart
+      // You can switch between pie and douhnut using the method below.
+      new Chart(donutChartCanvas, {
+        type: 'doughnut',
+        data: donutData,
+        options: donutOptions
+      })
+    })
   </script>
 </body>
 

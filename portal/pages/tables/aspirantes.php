@@ -1,10 +1,20 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['id_usuario'])) {
+    header("Location: ../pages/login.php");
+    exit();
+}
+$nombre_usuario = $_SESSION['nombre_persona'];
+$ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tecnet - Dashboard</title>
+    <title>Tecnet</title>
     <link rel="shortcut icon" href="../../../dist/img/tecneticon.png" type="image/x-icon">
 
     <!-- Google Font: Source Sans Pro -->
@@ -17,12 +27,32 @@
     <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+    <style>
+        .image img {
+            width: 40px;
+            /* Ajusta al tamaño que desees */
+            height: 40px;
+            /* Debe ser igual al ancho */
+            object-fit: cover;
+            /* ESTA ES LA CLAVE: Recorta la imagen para llenar el cuadro sin deformarla */
+            object-position: center;
+            /* Centra el recorte en el rostro */
+            margin-top: 7px;
+        }
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini">
-    <div class="wrapper">
 
-        <!-- Main Sidebar Container -->
+    <div class="wrapper">
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+            </ul>
+        </nav>
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="index3.html" class="brand-link">
@@ -36,10 +66,11 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                        <img src="../../<?php echo $ruta_foto; ?>" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Nombre director</a>
+                        <a href="#" class="d-block"><?php echo $nombre_usuario; ?></a>
+                        <small class="text-warning"><?php echo $_SESSION['nombre_rol']; ?></small>
                     </div>
                 </div>
 
@@ -52,7 +83,7 @@
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                         <li class="nav-item menu-open">
-                            <a href="dashboard_director.php" class="nav-link">
+                            <a href="../../dashboard_admin.php" class="nav-link">
                                 🏠
                                 <p>
                                     Dashboard
@@ -69,7 +100,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="pages/charts/chartjs.html" class="nav-link">
+                                    <a href="../reportes/administrativo.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Administrativo</p>
                                     </a>
@@ -118,7 +149,7 @@
             </ul>
           </li> -->
                         <li class="nav-item">
-                            <a href="#" class="nav-link active">
+                            <a href="#" class="nav-link">
                                 🧾
                                 <p>
                                     Gestión
@@ -127,66 +158,54 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="data-admin.php" class="nav-link ">
-                                        <i class="far fa-circle nav-icon"></i>
+                                    <a href="pages/tables/data-admin.php" class="nav-link active">
+                                        <i class="far fa-user nav-icon"></i>
                                         <p>Administrativos</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link active">
-                                        <i class="far fa-user nav-icon"></i>
+                                    <a href="data-docentes.php" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
                                         <p>Docentes</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="pages/tables/data.html" class="nav-link">
+                                    <a href="data-alumnos.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Estudiantes</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="pages/tables/data.html" class="nav-link">
+                                    <a href="data-materias.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Asignaturas</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="pages/tables/data.html" class="nav-link">
+                                    <a href="data-grupos.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Grupos</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="pages/tables/data.html" class="nav-link">
+                                    <a href="data-materias.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Carreras</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="pages/tables/data.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Horarios</p>
-                                    </a>
-                                </li>
+
                             </ul>
                         </li>
 
+
                         <li class="nav-item">
-                            <a href="../../../calendar.html" class="nav-link">
-                                📅
-                                <p>
-                                    Calendario
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/examples/profile.html" class="nav-link">
+                            <a href="perfil.php" class="nav-link">
                                 🧑
                                 <p>Perfil</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/examples/profile.html" class="nav-link">
+                            <a href="../../logout.php" class="nav-link">
                                 🔒
                                 <p>Cerrar Sesión</p>
                             </a>

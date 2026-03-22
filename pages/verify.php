@@ -30,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['usuario']    = $usuario['usuario'];
             $_SESSION['id_rol']     = $usuario['id_rol'];
             $_SESSION['nombre_rol'] = $usuario['nombre_rol'];
+            $_SESSION["correo"] = $correo; 
 
             // --- LÓGICA DE NOMBRE Y FOTO ---
             $nombre_display = "Usuario";

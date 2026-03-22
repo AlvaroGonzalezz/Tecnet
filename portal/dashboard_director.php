@@ -1,12 +1,52 @@
 <?php
 session_start();
 
+
+if ($_SESSION['id_rol'] == 1) {
+  header("Location: dashboard_admin.php");
+  exit();
+}
+if ($_SESSION['id_rol'] == 3) {
+  header("Location: dashboard_docente.php");
+  exit();
+}
+if ($_SESSION['id_rol'] == 2) {
+  header("Location: dashboard_alumno.php");
+  exit();
+}
 if (!isset($_SESSION['id_usuario']) || $_SESSION['id_rol'] != 4) {
   header("Location: ../pages/login.php");
   exit();
 }
 $nombre_usuario = $_SESSION['nombre_persona'];
 $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
+include "conexion.php";
+
+$res_alumnos = mysqli_query($conexion, "SELECT COUNT(*) as total FROM alumno");
+$data_alumnos = mysqli_fetch_assoc($res_alumnos);
+
+$res_admin = mysqli_query($conexion, "SELECT COUNT(*) as total FROM administrativo");
+$data_admin = mysqli_fetch_assoc($res_admin);
+
+$res_docentes = mysqli_query($conexion, "SELECT COUNT(*) as total FROM docente");
+$data_docentes = mysqli_fetch_assoc($res_docentes);
+
+$res_carreras = mysqli_query($conexion, "SELECT COUNT(*) as total FROM carreras");
+$data_carreras = mysqli_fetch_assoc($res_carreras);
+$sql_grafica = "SELECT c.nombre_carrera, COUNT(a.id_alumno) as total 
+                FROM carreras c
+                LEFT JOIN alumno a ON c.id_carrera = a.id_carrera
+                GROUP BY c.id_carrera";
+
+$res_grafica = mysqli_query($conexion, $sql_grafica);
+
+$nombres_carreras = [];
+$totales_alumnos = [];
+
+while ($row = mysqli_fetch_assoc($res_grafica)) {
+  $nombres_carreras[] = $row['nombre_carrera'];
+  $totales_alumnos[] = $row['total'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,19 +69,23 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
   <style>
     .image img {
       width: 40px;
-      /* Ajusta al tamaño que desees */
       height: 40px;
-      /* Debe ser igual al ancho */
       object-fit: cover;
-      /* ESTA ES LA CLAVE: Recorta la imagen para llenar el cuadro sin deformarla */
       object-position: center;
-      /* Centra el recorte en el rostro */
       margin-top: 7px;
     }
   </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+    </ul>
+  </nav>
   <div class="wrapper">
 
     <!-- <div class="preloader flex-column justify-content-center align-items-center">
@@ -97,13 +141,13 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="pages/charts/chartjs.html" class="nav-link">
+                  <a href="pages/reportes/administrativo.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Administrativo</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="pages/charts/flot.html" class="nav-link">
+                  <a href="pages/reportes/academico.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Académico</p>
                   </a>
@@ -167,46 +211,33 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="data-alumnos.php" class="nav-link">
+                  <a href="pages/tables/data-alumnos.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Estudiantes</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="pages/tables/data.html" class="nav-link">
+                  <a href="pages/tables/data-materias.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Asignaturas</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="pages/tables/data.html" class="nav-link">
+                  <a href="pages/tables/data-grupos.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Grupos</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="pages/tables/data.html" class="nav-link">
+                  <a href="pages/tables/data-carreras.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Carreras</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="pages/tables/data.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Horarios</p>
                   </a>
                 </li>
               </ul>
             </li>
 
-            <li class="nav-item">
-              <a href="pages/calendar.html" class="nav-link">
-                📅
-                <p>
-                  Calendario
-                </p>
-              </a>
-            </li>
+            
             <li class="nav-item">
               <a href="pages/examples/profile.html" class="nav-link">
                 🧑
@@ -243,66 +274,54 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
           <!-- Small boxes (Stat box) -->
           <div class="row">
             <div class="col-lg-3 col-6">
-              <!-- small box -->
               <div class="small-box bg-info">
                 <div class="inner">
-                  <h3>150</h3>
-
+                  <h3><?php echo $data_alumnos['total']; ?></h3>
                   <p>Alumnos</p>
                 </div>
                 <div class="icon">
-                  <i class="ion bi bi-mortarboard-fill"></i>
+                  <i class="bi bi-mortarboard-fill"></i>
                 </div>
-                <a href="#" class="small-box-footer">Más Información <i
-                    class="fas fa-arrow-circle-right"></i></a>
+                <a href="pages/tables/data-alumnos.php" class="small-box-footer">Más Información <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
-            <!-- ./col -->
+
             <div class="col-lg-3 col-6">
-              <!-- small box -->
               <div class="small-box bg-success">
                 <div class="inner">
-                  <h3>53</h3>
-
+                  <h3><?php echo $data_admin['total']; ?></h3>
                   <p>Administrativos</p>
                 </div>
                 <div class="icon">
-                  <i class="ion bi bi-person-vcard-fill"></i>
+                  <i class="bi bi-person-vcard-fill"></i>
                 </div>
-                <a href="#" class="small-box-footer">Más Información <i
-                    class="fas fa-arrow-circle-right"></i></a>
+                <a href="pages/tables/data-admin.php" class="small-box-footer">Más Información <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
-            <!-- ./col -->
+
             <div class="col-lg-3 col-6">
-              <!-- small box -->
               <div class="small-box bg-warning">
                 <div class="inner">
-                  <h3>44</h3>
-
+                  <h3><?php echo $data_docentes['total']; ?></h3>
                   <p>Docentes</p>
                 </div>
                 <div class="icon">
-                  <i class="ion bi bi-person-workspace"></i>
+                  <i class="bi bi-person-workspace"></i>
                 </div>
-                <a href="#" class="small-box-footer">Más Información <i
-                    class="fas fa-arrow-circle-right"></i></a>
+                <a href="pages/tables/data-docentes.php" class="small-box-footer">Más Información <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
-            <!-- ./col -->
+
             <div class="col-lg-3 col-6">
-              <!-- small box -->
               <div class="small-box bg-danger">
                 <div class="inner">
-                  <h3>4</h3>
-
+                  <h3><?php echo $data_carreras['total']; ?></h3>
                   <p>Carreras</p>
                 </div>
                 <div class="icon">
-                  <i class="ion bi bi-book"></i>
+                  <i class="bi bi-book"></i>
                 </div>
-                <a href="#" class="small-box-footer">Más Información <i
-                    class="fas fa-arrow-circle-right"></i></a>
+                <a href="pages/tables/data-carreras.php" class="small-box-footer">Más Información <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
           </div>
@@ -312,35 +331,12 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
             <!-- Left col -->
             <section class="col-lg-7 connectedSortable">
               <!-- Custom tabs (Charts with tabs)-->
-              <div class="card">
-                <div class="card-header">
-                  <h3 class="card-title">
-                    <i class="fas fa-chart-pie mr-1"></i>
-                    Calificaciones en general
-                  </h3>
 
-                </div><!-- /.card-header -->
-                <div class="card-body">
-                  <div class="tab-content p-0">
-                    <!-- Morris chart - Sales -->
-                    <div class="chart tab-pane active" id="revenue-chart"
-                      style="position: relative; height: 300px;">
-                      <canvas id="revenue-chart-canvas" height="300"
-                        style="height: 300px;"></canvas>
-                    </div>
-                    <div class="chart tab-pane" id="sales-chart"
-                      style="position: relative; height: 300px;">
-                      <canvas id="sales-chart-canvas" height="300"
-                        style="height: 300px;"></canvas>
-                    </div>
-                  </div>
-                </div><!-- /.card-body -->
-              </div>
               <!-- /.card -->
 
               <div class="card card-danger">
                 <div class="card-header">
-                  <h3 class="card-title">Alumnos por carrera</h3>
+                  <h3 class="card-title">Alumnos por Carrera Profesional</h3>
 
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -551,26 +547,24 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
   <script src="dist/js/pages/dashboard.js"></script>
   <script>
     $(function() {
-
       var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
+
       var donutData = {
-        labels: [
-          'Sistemas Computacionales',
-          'Industrial',
-          'Logística',
-          'Gestión Empresarial',
-        ],
+        // Usamos json_encode para pasar el array de PHP a JS
+        labels: <?php echo json_encode($nombres_carreras); ?>,
         datasets: [{
-          data: [700, 500, 400, 600, ],
-          backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+          // Usamos json_encode para los números
+          data: <?php echo json_encode($totales_alumnos); ?>,
+          backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de', '#6610f2'],
         }]
       }
+
       var donutOptions = {
         maintainAspectRatio: false,
         responsive: true,
       }
-      //Create pie or douhnut chart
-      // You can switch between pie and douhnut using the method below.
+
+      // Crear la gráfica
       new Chart(donutChartCanvas, {
         type: 'doughnut',
         data: donutData,

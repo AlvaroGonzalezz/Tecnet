@@ -35,8 +35,16 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
 </head>
 
 <body class="hold-transition sidebar-mini">
-    <div class="wrapper">
 
+    <div class="wrapper">
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+            </ul>
+        </nav>
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="index3.html" class="brand-link">
@@ -84,7 +92,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="pages/charts/chartjs.html" class="nav-link">
+                                    <a href="../reportes/administrativo.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Administrativo</p>
                                     </a>
@@ -177,25 +185,13 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
                                         <p>Carreras</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="pages/tables/data.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Horarios</p>
-                                    </a>
-                                </li>
+
                             </ul>
                         </li>
 
+
                         <li class="nav-item">
-                            <a href="../calendar.html" class="nav-link">
-                                📅
-                                <p>
-                                    Calendario
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/examples/profile.html" class="nav-link">
+                            <a href="perfil.php" class="nav-link">
                                 🧑
                                 <p>Perfil</p>
                             </a>

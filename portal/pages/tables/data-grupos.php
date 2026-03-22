@@ -31,12 +31,32 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
             object-fit: cover;
             border-radius: 50%;
         }
+
+        .image img {
+            width: 40px;
+            /* Ajusta al tamaño que desees */
+            height: 40px;
+            /* Debe ser igual al ancho */
+            object-fit: cover;
+            /* ESTA ES LA CLAVE: Recorta la imagen para llenar el cuadro sin deformarla */
+            object-position: center;
+            /* Centra el recorte en el rostro */
+            margin-top: 7px;
+        }
     </style>
 </head>
 
 <body class="hold-transition sidebar-mini">
-    <div class="wrapper">
 
+    <div class="wrapper">
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+            </ul>
+        </nav>
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="index3.html" class="brand-link">
@@ -84,7 +104,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="pages/charts/chartjs.html" class="nav-link">
+                                    <a href="../reportes/administrativo.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Administrativo</p>
                                     </a>
@@ -148,7 +168,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link ">
+                                    <a href="data-docentes.php" class="nav-link ">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Docentes</p>
                                     </a>
@@ -160,13 +180,13 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="pages/tables/data.html" class="nav-link ">
+                                    <a href="data-materias.php" class="nav-link ">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Asignaturas</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="pages/tables/data.html" class="nav-link active">
+                                    <a href="data-grupos.php" class="nav-link active">
                                         <i class="far fa-user nav-icon"></i>
                                         <p>Grupos</p>
                                     </a>
@@ -177,31 +197,19 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
                                         <p>Carreras</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="pages/tables/data.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Horarios</p>
-                                    </a>
-                                </li>
+
                             </ul>
                         </li>
 
+
                         <li class="nav-item">
-                            <a href="../calendar.html" class="nav-link">
-                                📅
-                                <p>
-                                    Calendario
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/examples/profile.html" class="nav-link">
+                            <a href="perfil.php" class="nav-link">
                                 🧑
                                 <p>Perfil</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/examples/profile.html" class="nav-link">
+                            <a href="../../logout.php" class="nav-link">
                                 🔒
                                 <p>Cerrar Sesión</p>
                             </a>
@@ -271,41 +279,41 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
             </section>
         </div>
     </div>
-   <div class="modal fade" id="modalNuevoGrupo">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header bg-primary text-white">
-        <h5 class="modal-title">Registrar Nuevo Grupo</h5>
-        <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
-      </div>
-      <form id="formNuevoGrupo">
-        <div class="modal-body">
-          <div class="form-group">
-            <label>Carrera</label>
-            <select name="id_carrera" class="form-control" required>
-              <option value="">-- Seleccione Carrera --</option>
-              <?php
-              $query_c = mysqli_query($conexion, "SELECT * FROM carreras ORDER BY nombre_carrera ASC");
-              while($c = mysqli_fetch_assoc($query_c)){
-                  echo "<option value='".$c['id_carrera']."'>".$c['nombre_carrera']."</option>";
-              }
-              ?>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Semestre</label>
-            <input type="number" name="semestre" class="form-control" min="1" max="12" placeholder="Ej. 3" required>
-          </div>
+    <div class="modal fade" id="modalNuevoGrupo">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">Registrar Nuevo Grupo</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+                </div>
+                <form id="formNuevoGrupo">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Carrera</label>
+                            <select name="id_carrera" class="form-control" required>
+                                <option value="">-- Seleccione Carrera --</option>
+                                <?php
+                                $query_c = mysqli_query($conexion, "SELECT * FROM carreras ORDER BY nombre_carrera ASC");
+                                while ($c = mysqli_fetch_assoc($query_c)) {
+                                    echo "<option value='" . $c['id_carrera'] . "'>" . $c['nombre_carrera'] . "</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Semestre</label>
+                            <input type="number" name="semestre" class="form-control" min="1" max="12" placeholder="Ej. 3" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Crear Grupo</button>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-primary">Crear Grupo</button>
-        </div>
-      </form>
     </div>
-  </div>
-</div>
-    
+
     <script src="../../plugins/jquery/jquery.min.js"></script>
     <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>

@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['id_usuario']) || $_SESSION['id_rol'] != 4) {
+if (!isset($_SESSION['id_usuario'])) {
   header("Location: ../pages/login.php");
   exit();
 }
@@ -45,8 +45,16 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
 </head>
 
 <body class="hold-transition sidebar-mini">
-  <div class="wrapper">
 
+  <div class="wrapper">
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+      <!-- Left navbar links -->
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+      </ul>
+    </nav>
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
@@ -59,7 +67,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
       <!-- Sidebar -->
       <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
-         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
             <img src="../../<?php echo $ruta_foto; ?>" class="img-circle elevation-2" alt="User Image">
           </div>
@@ -95,7 +103,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="pages/charts/chartjs.html" class="nav-link">
+                  <a href="../reportes/administrativo.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Administrativo</p>
                   </a>
@@ -165,48 +173,36 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="pages/tables/data.html" class="nav-link">
+                  <a href="data-alumnos.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Estudiantes</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="pages/tables/data.html" class="nav-link">
+                  <a href="data-materias.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Asignaturas</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="pages/tables/data.html" class="nav-link">
+                  <a href="data-grupos.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Grupos</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="pages/tables/data.html" class="nav-link">
+                  <a href="data-materias.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Carreras</p>
                   </a>
                 </li>
-                <li class="nav-item">
-                  <a href="pages/tables/data.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Horarios</p>
-                  </a>
-                </li>
+                
               </ul>
             </li>
 
-            <li class="nav-item">
-              <a href="pages/calendar.html" class="nav-link">
-                📅
-                <p>
-                  Calendario
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="pages/examples/profile.html" class="nav-link">
+
+                 <li class="nav-item">
+              <a href="perfil.php" class="nav-link">
                 🧑
                 <p>Perfil</p>
               </a>
@@ -243,11 +239,18 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
 
 
               <div class="card">
-                <div class="card-header">
-                  <button class="btn btn-success float-left" data-toggle="modal" data-target="#modalAlta">
-                    <i class="bi bi-person-plus"></i> + Nuevo Administrativo
-                  </button>
-                </div>
+                <?php
+                if ($_SESSION['id_rol'] == 4) {
+
+                ?> <div class="card-header">
+                    <button class="btn btn-success float-left" data-toggle="modal" data-target="#modalAlta">
+                      <i class="bi bi-person-plus"></i> + Nuevo Administrativo
+                    </button>
+                  </div>
+                <?php
+                }
+                ?>
+
                 <div class="card-body">
                   <table id="tablaAdmin" class="table table-bordered table-striped">
                     <thead>
@@ -258,7 +261,13 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
                         <th>Área</th>
                         <th>Rol</th>
                         <th>Fotografía</th>
-                        <th>Acciones</th>
+                        <?php
+                        if ($_SESSION['id_rol'] == 4) {
+
+                        ?>
+                          <th>Acciones</th>
+                        <?php
+                        }                ?>
                       </tr>
                     </thead>
                     <tbody>
@@ -300,14 +309,20 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
                                 class="img-circle elevation-2"
                                 style="width: 50px; height: 50px; object-fit: cover;">
                             </td>
-                            <td class="text-center">
-                              <button class="btn btn-warning btn-sm" onclick="prepararEdicion(<?php echo $fila['id_administrativo']; ?>)">
-                                <i class="fas fa-edit"></i>
-                              </button>
-                              <button class="btn btn-danger btn-sm" onclick="eliminarAdministrativo(<?php echo $fila['id_administrativo']; ?>)">
-                                <i class="fas fa-trash"></i>
-                              </button>
-                            </td>
+                            <?php
+                            if ($_SESSION['id_rol'] == 4) {
+
+                            ?>
+                              <td class="text-center">
+                                <button class="btn btn-warning btn-sm" onclick="prepararEdicion(<?php echo $fila['id_administrativo']; ?>)">
+                                  <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-danger btn-sm" onclick="eliminarAdministrativo(<?php echo $fila['id_administrativo']; ?>)">
+                                  <i class="fas fa-trash"></i>
+                                </button>
+                              </td>
+                            <?php
+                            } ?>
                           </tr>
                       <?php
                         }
