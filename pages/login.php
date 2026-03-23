@@ -50,7 +50,7 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
               <li class="nav-item"><a class="nav-link" aria-current="page" href="../index.html">Inicio</a></li>
-              <li class="nav-item"><a class="nav-link" aria-current="page" href="../AcercaDe.html">Acerca de</a></li>
+              <li class="nav-item"><a class="nav-link" aria-current="page" href="../pages/acercade.php">Acerca de</a></li>
               
               
             </ul>
@@ -67,11 +67,11 @@
             <h1>¿Olvidaste tu contraseña?</h1>
 
             <br>
-            <span>Ingresa tu correo para recuperar tu contraseña</span>
+            <span class="fs-1">Para recuperar tu contraseña es necesario que acudas a Servicios Escolares</span>
 
-            <input type="email" name="correo" placeholder="Correo" required>
+            <!-- <input type="email" name="correo" placeholder="Acude a Servicios Escolares" disabled> -->
 
-            <button type="submit">Recuperar</button>
+            <!-- <button type="submit">Recuperar</button> -->
         </form>
     </div>
 

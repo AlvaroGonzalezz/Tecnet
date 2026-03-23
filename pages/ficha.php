@@ -177,7 +177,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="../index.html">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link" aria-current="page" href="../AcercaDe.html">Acerca de</a></li>
+                    <li class="nav-item"><a class="nav-link" aria-current="page" href="../pages/acercade.php">Acerca de</a></li>
 
 
                 </ul>

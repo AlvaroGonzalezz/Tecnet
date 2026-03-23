@@ -1,93 +1,155 @@
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
 
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>TecNet | Gestión Escolar</title>
-    
-
-    <link rel="apple-touch-icon" sizes="180x180" href="dist/img/tecneticon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="dist/img/tecneticon.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="dist/img/tecneticon.png">
-    <link rel="shortcut icon" type="image/x-icon" href="dist/img/tecneticon.png">
-    <meta name="theme-color" content="#ffffff">
-    <link rel="stylesheet" href="dist/css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700&amp;display=swap" rel="stylesheet">
-    <link href="boldo-1.0.0/public/vendors/prism/prism.css" rel="stylesheet">
-    <link href="boldo-1.0.0/public/assets/css/theme.css" rel="stylesheet" />
-
-  </head>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TecNet | Gestión Escolar</title>
 
 
-  <body>
+  <link rel="apple-touch-icon" sizes="180x180" href="dist/img/tecneticon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="dist/img/tecneticon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="dist/img/tecneticon.png">
+  <link rel="shortcut icon" type="image/x-icon" href="dist/img/tecneticon.png">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="stylesheet" href="dist/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700&amp;display=swap"
+    rel="stylesheet">
+  <link href="boldo-1.0.0/public/vendors/prism/prism.css" rel="stylesheet">
+  <link href="boldo-1.0.0/public/assets/css/theme.css" rel="stylesheet" />
+  <style>
+    .btn-blanco:hover {
+      background-color: rgb(188, 24, 24) !important;
+    }
+  </style>
+</head>
 
- 
-    <main class="main" id="top">
-      <nav class="navbar navbar-expand-lg fixed-top navbar-dark" data-navbar-on-scroll="data-navbar-on-scroll">
-        <div class="container"><a class="navbar-brand" href="index.html"><img src="dist/img/logotecnet.png" alt="" /></a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="fa-solid fa-bars text-white fs-3"></i></button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-              <li class="nav-item"><a class="nav-link" aria-current="page" href="index.html">Inicio</a></li>
-              <li class="nav-item"><a class="nav-link" aria-current="page" href="AcercaDe.html">Acerca de</a></li>
-              
-              <li class="nav-item mt-2 mt-lg-0 ms-lg-3"><a class="nav-link btn btn-light text-black w-md-25 w-50 w-lg-100" aria-current="page" href="pages/login.php">Iniciar Sesión</a></li>
-            </ul>
-          </div>
+
+<body>
+
+  <main class="main" id="top">
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark" data-navbar-on-scroll="data-navbar-on-scroll">
+      <div class="container"><a class="navbar-brand" href="index.html"><img src="dist/img/logotecnet.png" alt="" /></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i
+            class="fa-solid fa-bars text-white fs-3"></i></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+            <li class="nav-item"><a class="nav-link" aria-current="page" href="index.html">Inicio</a></li>
+            <li class="nav-item"><a class="nav-link" aria-current="page" href="pages/acercade.php">Acerca de</a></li>
+
+            <li class="nav-item mt-2 mt-lg-0 ms-lg-3"><a class="nav-link btn btn-light text-black w-md-25 w-50 w-lg-100"
+                aria-current="page" href="pages/login.php">Iniciar Sesión</a></li>
+          </ul>
         </div>
-      </nav>
-      <div class="bg-dark2"><img class="img-fluid position-absolute end-0" src="boldo-1.0.0/public/assets/img/hero/hero-bg.png" alt="" />
-
-
-        <section>
-
-          <div class="container">
-            <div class="row align-items-center py-lg-8 py-6">
-              <div class="col-lg-6 text-center text-lg-start">
-                <h1 class="text-white fs-5 fs-xl-6">Una forma más simple de organizar y administrar la información escolar.</h1>
-                <p class="text-white py-lg-3 py-2">Este sistema permite llevar el control de estudiantes, docentes, asignaturas y calificaciones en un solo lugar.</p>
-                <div class="d-sm-flex align-items-center gap-3">
-                  <button class="btn btn-success mb-3 w-75"><a href="#Servicios" style="text-decoration: none !important; color: white !important">Servicios</a></button>
-                  <button class="btn btn-outline-light mb-3 w-75"><a href="https://www.tecsanpedro.edu.mx/" target="_blank" style="text-decoration: none !important; color: white !important">Más información</a></button>
-                </div>
-              </div>
-              <div class="col-lg-6 text-center text-lg-end mt-3 mt-lg-0"><img class="img-fluid" src="boldo-1.0.0/public/assets/img/hero/hero-graphics.png" alt="" /></div>
-            </div>
-            
-          </div>
-         
-
-        </section>
-
-
       </div>
+    </nav>
+    <div class="bg-dark2"><img class="img-fluid position-absolute end-0"
+        src="boldo-1.0.0/public/assets/img/hero/hero-bg.png" alt="" />
 
 
       <section>
 
         <div class="container">
-          <p class="text-center fs-1">Servicios</p>
-          <h2 class="mx-auto text-center fs-lg-6 fs-md-5 w-lg-75" id="Servicios">Conoce los servicios de TecNet.</h2>
-          <div class="row gx-xl-7 mt-5">
-            <div class="col-md-4 mb-6 mb-md-0 text-center text-md-start"><img class="w-50 w-md-100" src="dist/img/Ficha.png " alt="" />
-              <h4 class="mt-3 my-1">Generar ficha academica</h4>
-              <p class="fs-1 mb-0">Visita el sitio para la creacion de fichas academicas.</p><a class="text-dark fs-1 pb-2 fw-bold border-black border-bottom text-decoration-none" href="pages/ficha.php">Fichas<i class="fa-solid fa-arrow-right ms-2"></i></a>
+          <div class="row align-items-center py-lg-8 py-6">
+            <div class="col-lg-6 text-center text-lg-start">
+              <h1 class="text-white fs-5 fs-xl-6">Una forma más simple de organizar y administrar la información
+                escolar.</h1>
+              <p class="text-white py-lg-3 py-2">Este sistema permite llevar el control de estudiantes, docentes,
+                asignaturas y calificaciones en un solo lugar.</p>
+              <div class="d-sm-flex align-items-center gap-3">
+
+                <a href="#Servicios" class="btn btn-success mb-3 w-75">
+                  Servicios
+                </a>
+
+                <a href="https://www.tecsanpedro.edu.mx/" target="_blank" class="btn btn-outline-light mb-3 w-75">
+                  Más información
+                </a>
+
+              </div>
             </div>
-            <div class="col-md-4 mb-6 mb-md-0 text-center text-md-start"> <br> <br><img class="w-50 w-md-100" src="dist/img/Tec.png" alt="" />
-             <br> <br> <br> <br> <h4 class="mt-3 my-1">¿Interesado en eventos escolares?</h4> 
-              <p class="fs-1 mb-0">Visita nuestra pagina Eventec</p><a class="text-dark fs-1 pb-2 fw-bold border-black border-bottom text-decoration-none" href="https://gusoft.com.mx/Eventec/paginas/inicio/index.php" target="_blank">Explorar Pagina<i class="fa-solid fa-arrow-right ms-2"></i></a>
-            </div>
-            <div class="col-md-4 mb-6 mb-md-0 text-center text-md-start"> <br> <br> <br><img class="w-50 w-md-75" src="dist/img/Sesion.png" alt="" />
-             <br> <br> <h4 class="mt-3 my-1">Iniciar Sesion</h4>
-              <p class="fs-1 mb-0">En este apartado se podra iniciar sesion</p><a class="text-dark fs-1 pb-2 fw-bold border-black border-bottom text-decoration-none" href="pages/login.php">Sesion <i class="fa-solid fa-arrow-right ms-2"></i></a>
-            </div>
+            <div class="col-lg-6 text-center text-lg-end mt-3 mt-lg-0"><img class="img-fluid"
+                src="boldo-1.0.0/public/assets/img/hero/hero-graphics.png" alt="" /></div>
           </div>
+
         </div>
 
+
       </section>
-     
+
+
+    </div>
+
+
+    <section>
+
+      <div class="container">
+        <p class="text-center fs-1">Servicios</p>
+        <h2 class="mx-auto text-center fs-lg-6 fs-md-5 w-lg-75" id="Servicios">Conoce los servicios de TecNet.</h2>
+        <div class="row mt-5 text-center">
+
+          <div class="col-md-4 mb-4">
+            <div class="p-4 shadow  h-100 d-flex flex-column justify-content-between">
+
+              <img src="dist/img/Ficha.png" class="mx-auto mb-3" style="height:100px; object-fit:contain;" alt="">
+
+              <h5 class="fw-bold fs-2">Generar ficha académica</h5>
+
+              <p class="text-muted">
+                Visita el sitio para la creación de fichas académicas.
+              </p>
+
+              <a href="pages/ficha.php" class="fw-semibold text-decoration-none text-dark">
+                Fichas <i class="fa-solid fa-arrow-right ms-1"></i>
+              </a>
+
+            </div>
+          </div>
+
+          <div class="col-md-4 mb-4">
+            <div class="p-4 shadow  h-100 d-flex flex-column justify-content-between">
+
+              <img src="dist/img/Tec.png" class="mx-auto mb-3" style="height:100px; object-fit:contain;" alt="">
+
+              <h5 class="fw-bold fs-2">¿Interesado en eventos escolares?</h5>
+
+              <p class="text-muted">
+                Visita nuestra página Eventec.
+              </p>
+
+              <a href="https://gusoft.com.mx/Eventec/paginas/inicio/index.php" target="_blank"
+                class="fw-semibold text-decoration-none text-dark">
+                Explorar página <i class="fa-solid fa-arrow-right ms-1"></i>
+              </a>
+
+            </div>
+          </div>
+
+          <div class="col-md-4 mb-4">
+            <div class="p-4 shadow  h-100 d-flex flex-column justify-content-between">
+
+              <img src="dist/img/Sesion.png" class="mx-auto mb-3" style="height:100px; object-fit:contain;" alt="">
+
+              <h5 class="fw-bold fs-2">Iniciar sesión</h5>
+
+              <p class="text-muted">
+                Accede a tu cuenta desde este apartado.
+              </p>
+
+              <a href="pages/login.php" class="fw-semibold text-decoration-none text-dark">
+                Ir a login <i class="fa-solid fa-arrow-right ms-1"></i>
+              </a>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </section><br><br><br><br><br>
+
     <script src="boldo-1.0.0/public/vendors/popper/popper.min.js"></script>
     <script src="boldo-1.0.0/public/vendors/bootstrap/bootstrap.min.js"></script>
     <script src="boldo-1.0.0/public/vendors/anchorjs/anchor.min.js"></script>
@@ -99,6 +161,6 @@
     <script src="boldo-1.0.0/public/vendors/swiper/swiper-bundle.min.js"></script>
     <script src="boldo-1.0.0/public/assets/js/theme.js"></script>
 
-  </body>
+</body>
 
 </html>

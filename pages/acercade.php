@@ -8,19 +8,18 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="../../recursos/css/style.css" />
 
-    <title>Acerca De EVENTEC</title>
+    <title>Acerca de | TecNet</title>
     <style>
-        .card-preguntas {
+         .card-preguntas {
             max-width: 500px;
             border-width: 1px;
-            border-color: rgb(255, 0, 0);
+            border-color: rgb(255, 255, 255);
             border-radius: 1rem;
-            background-color: rgba(255, 255, 255, 0.836);
-            padding: 1rem;
+    background: linear-gradient(to right, #233abd, #2d3a81);
             width: 80%;
             height: 60%;
             margin: 0.3rem;
-        }
+            padding: 1rem;}
 
         .slider-img2 {
             border-radius: 10px;
@@ -52,9 +51,9 @@
             align-items: center;
             justify-content: center;
             border-radius: 9999px;
-            background-color: rgb(157, 1, 1);
+            background-color: rgb(4, 24, 156);
             padding: 0.5rem;
-            color: rgba(255, 1, 1);
+            color: rgb(135, 140, 187);
             position: relative;
             top: 0;
             right: 0;
@@ -68,7 +67,7 @@
         }
 
         .alert {
-            color: rgb(104, 0, 0);
+            color: rgb(255, 255, 255);
             margin-right: 55px;
             font-family: 'Anton', sans-serif;
             font-size: 1.5rem;
@@ -76,7 +75,7 @@
         }
 
         .message {
-            color: rgb(0, 0, 0);
+            color: rgb(255, 255, 255);
             font-family: 'JetBrains Mono', monospace;
             font-size: 1rem;
             font-weight: 300;
@@ -99,7 +98,7 @@
         }
 
         .read {
-            background-color: rgb(174, 3, 3);
+            background-color: rgb(28, 37, 119);
             color: rgba(255, 255, 255, 1);
             position: relative;
             left: 100;
@@ -107,7 +106,7 @@
         }
 
         .read:hover {
-            background-color: rgb(255, 0, 0);
+            background-color: rgb(199, 190, 190);
         }
 
         .slider-img {
@@ -116,43 +115,56 @@
             object-fit: contain;
         }
     </style>
+    <br> <br>
+    <br> <br>
+    <br> 
+<br> <br>
+    <br> 
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../dist/css/style.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="dist/img/tecneticon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="dist/img/tecneticon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="dist/img/tecneticon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="dist/img/tecneticon.png">
+    <meta name="theme-color" content="#ffffff">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link href="../boldo-1.0.0/public/assets/css/theme.css" rel="stylesheet" />
 </head>
-
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark" data-navbar-on-scroll="data-navbar-on-scroll">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html"><img src="../dist/img/logotecnet.png" alt="" /></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa-solid fa-bars text-white fs-3"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="../index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../pages/acercade.php">Acerca de</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 <body>
     
-    <header>
-        <img src="../../recursos/imgs/logo.png" alt="Logo Tec San Pedro">
-        <!-- Checkbox oculto -->
-        <input type="checkbox" id="menu-toggle">
-        <!-- Icono menú como label -->
-        <label for="menu-toggle" class="menu-icon">
-            <i class="bi bi-list"></i>
-        </label>
-
-        <nav class="nav-links">
-            <a href="../inicio/index.php"><i class="bi bi-house-door"></i>Inicio</a>
-            <a href="../acerca-de/index.html"><i class="bi bi-info-circle"></i>Acerca De</a>
-            <a href="../login/index.php"><i class="bi bi-person-fill"></i></i>Iniciar Sesión</a>
-        </nav>
-    </header> <br><br><br>
 
     <div class="preguntas">
+        
         <div class="card-preguntas">
+            
             <div class="header">
                 <span class="icon">
-                    <img src="../../recursos/imgs/icontec.png" alt="Logo del Tec" class="slider-img2">
+                    <img src="../dist/img/tecneticon.png" alt="Logo del Tec" class="slider-img2">
                 </span>
-                <p class="alert">¿QUÉ ES EVENTEC?</p>
+                <p class="alert">¿QUÉ ES TECNET?</p>
             </div>
 
             <p class="message">
-                Es una plataforma dedicada a la creación, difusión y gestión de eventos dentro del Tecnológico de San
-                Pedro.
+                Es una plataforma dedicada a tener una mejor organizacion de los servicios academicos que esta institucion ofrece.
             </p>
 
             <div class="mensaje">
-                <a class="read" href="https://www.tecsanpedro.edu.mx/" target="_blank">
-                    TEC SAN PEDRO
+                <a class="read" href="../index.html" target="_blank">
+                    TecNet
                 </a>
             </div>
         </div>
@@ -162,15 +174,13 @@
         <div class="card-preguntas">
             <div class="header">
                 <span class="icon">
-                    <img src="../../recursos/imgs/icontec.png" alt="Logo del Tec" class="slider-img2">
+                    <img src="../dist/img/tecneticon.png" alt="Logo del Tec" class="slider-img2">
                 </span>
                 <p class="alert">¿QUIÉNES SOMOS?</p>
             </div>
 
             <p class="message">
-                Somos un grupo estudiantil comprometido con apoyar a los docentes en la organización y difusión de
-                eventos
-                institucionales.
+                Somos un grupo estudiantil comprometido con el control y la administracion de datos para los usuarios de esta institucion.
             </p>
 
             <div class="mensaje">
@@ -185,15 +195,13 @@
         <div class="card-preguntas">
             <div class="header">
                 <span class="icon">
-                    <img src="../../recursos/imgs/icontec.png" alt="Logo del Tec" class="slider-img2">
+                    <img src="../dist/img/tecneticon.png" alt="Logo del Tec" class="slider-img2">
                 </span>
                 <p class="alert">¿A QUIÉNES AYUDAMOS?</p>
             </div>
 
             <p class="message">
-                Brindamos apoyo a docentes, personal y estudiantes del Tecnológico que deseen consultar o participar en
-                eventos
-                institucionales.
+                Brindamos apoyo a docentes, personal y estudiantes para que tengan una inscripcion mas comoda y facil.
             </p>
 
             <div class="mensaje">
@@ -204,19 +212,21 @@
         </div>
     </div>
 
+<br><br><br>
+   
 
-    <footer>
-        <img src="../../recursos/imgs/logo.png" alt="Logo Tec San Pedro">
-        <div class="btn-social">
-            <a href="https://www.facebook.com/oficialtecsp" target="_blank"><i class="bi bi-facebook"></i>FACEBOOK</a>
-            <a href="https://www.instagram.com/leonestecsanpedro/" target="_blank"><i
-                    class="bi bi-instagram"></i>INSTAGRAM</a>
-            <a href="https://www.tecsanpedro.edu.mx/" target="_blank"><i class="bi bi-globe2"></i>WEB</a>
-        </div>
-        <p>Copyright © 2025 Instituto Tecnológico Superior de San Pedro de las Colonias. <br>Todos los derechos
-            reservados.</p>
-               
-    </footer>
+
+<script src="../dist/js/script.js"></script>
+     <script src="boldo-1.0.0/public/vendors/popper/popper.min.js"></script>
+    <script src="boldo-1.0.0/public/vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="boldo-1.0.0/public/vendors/anchorjs/anchor.min.js"></script>
+    <script src="boldo-1.0.0/public/vendors/is/is.min.js"></script>
+    <script src="boldo-1.0.0/public/vendors/fontawesome/all.min.js"></script>
+    <script src="boldo-1.0.0/public/vendors/lodash/lodash.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
+    <script src="boldo-1.0.0/public/vendors/prism/prism.js"></script>
+    <script src="boldo-1.0.0/public/vendors/swiper/swiper-bundle.min.js"></script>
+    <script src="boldo-1.0.0/public/assets/js/theme.js"></script>
 </body>
 
 </html>
