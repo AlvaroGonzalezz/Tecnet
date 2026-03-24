@@ -33,7 +33,6 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            /* Para que el nav no tape el contenido */
             align-items: center;
             justify-content: center;
             padding: 20px;
@@ -49,7 +48,6 @@
             border-radius: 8px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             margin-top: 80px;
-            /* Espacio para el nav fixed */
         }
 
         .ficha .container header {

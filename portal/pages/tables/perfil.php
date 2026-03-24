@@ -242,7 +242,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
     <!-- AdminLTE for demo purposes -->
     <script src="../../dist/js/demo.js"></script>
     <script>
-        $(document).ready(function() { // Es mejor envolverlo en ready
+        $(document).ready(function() {   
             $('#formCambiarPass').on('submit', function(e) {
                 e.preventDefault();
 

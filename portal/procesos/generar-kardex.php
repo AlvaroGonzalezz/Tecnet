@@ -285,7 +285,7 @@ $sql = mysqli_query($conexion, "SELECT a.id_alumno, a.nombre, a.apellido, c.nomb
     <script src="../dist/js/pages/dashboard.js"></script>
     <script src="../plugins/jquery/jquery.min.js"></script>
     <script>
-        // Para que el nombre del archivo aparezca en el input de AdminLTE
+          
         $(".custom-file-input").on("change", function() {
             var fileName = $(this).val().split("\\").pop();
             $(this).siblings(".custom-file-label").addClass("selected").html(fileName);

@@ -6,7 +6,7 @@ if (!isset($_SESSION['id_usuario'])) {
   exit();
 }
 
-// 2. Preparar variables para el HTML
+  
 $nombre_usuario = $_SESSION['nombre_persona'];
 $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
 ?>
@@ -19,26 +19,26 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
   <title>Tecnet - Dashboard</title>
   <link rel="shortcut icon" href="../../../dist/img/tecneticon.png" type="image/x-icon">
 
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome -->
+    
+  <link rel="stylesheet" href="https:  
+    
   <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
-  <!-- DataTables -->
+    
   <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-  <!-- Theme style -->
+    
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
   <style>
     .image img {
       width: 40px;
-      /* Ajusta al tamaño que desees */
+        
       height: 40px;
-      /* Debe ser igual al ancho */
+        
       object-fit: cover;
-      /* ESTA ES LA CLAVE: Recorta la imagen para llenar el cuadro sin deformarla */
+        
       object-position: center;
-      /* Centra el recorte en el rostro */
+        
       margin-top: 7px;
     }
   </style>
@@ -48,25 +48,25 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
 
   <div class="wrapper">
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-      <!-- Left navbar links -->
+        
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
       </ul>
     </nav>
-    <!-- Main Sidebar Container -->
+      
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
-      <!-- Brand Logo -->
+        
       <a href="#" class="brand-link">
         <img src="../../../dist/img/tecneticon.png" alt="TecNet Logo" class="brand-image img-circle elevation-3"
           style="opacity: .8">
         <span class="brand-text font-weight-light" style="font-family: monospace;">TECNET</span>
       </a>
 
-      <!-- Sidebar -->
+        
       <div class="sidebar">
-        <!-- Sidebar user panel (optional) -->
+          
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
             <img src="../../<?php echo $ruta_foto; ?>" class="img-circle elevation-2" alt="User Image">
@@ -79,7 +79,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
 
 
 
-        <!-- Sidebar Menu -->
+          
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
             data-accordion="false">
@@ -219,9 +219,9 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
       </div>
     </aside>
 
-    <!-- Content Wrapper. Contains page content -->
+      
     <div class="content-wrapper">
-      <!-- Content Header (Page header) -->
+        
       <section class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
@@ -229,10 +229,10 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
               <h1>Gestión Administrativa</h1>
 
             </div>
-          </div><!-- /.container-fluid -->
+          </div>  
       </section>
 
-      <!-- Main content -->
+        
       <section class="content">
         <div class="container-fluid">
           <div class="row">
@@ -335,22 +335,22 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
                   </table>
                 </div>
               </div>
-              <!-- /.card -->
+                
             </div>
-            <!-- /.col -->
+              
           </div>
-          <!-- /.row -->
+            
         </div>
-        <!-- /.container-fluid -->
+          
       </section>
-      <!-- /.content -->
+        
     </div>
     <aside class="control-sidebar control-sidebar-dark">
-      <!-- Control sidebar content goes here -->
+        
     </aside>
-    <!-- /.control-sidebar -->
+      
   </div>
-  <!-- ./wrapper -->
+    
   <div class="modal fade" id="modalAlta" tabindex="-1" role="dialog" aria-labelledby="registroLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
@@ -474,11 +474,11 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
       </div>
     </div>
   </div>
-  <!-- jQuery -->
+    
   <script src="../../plugins/jquery/jquery.min.js"></script>
-  <!-- Bootstrap 4 -->
+    
   <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- DataTables  & Plugins -->
+    
   <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
   <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
   <script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
@@ -491,16 +491,16 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
   <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
   <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
   <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-  <!-- AdminLTE App -->
+    
   <script src="../../dist/js/adminlte.min.js"></script>
-  <!-- AdminLTE for demo purposes -->
+    
   <script src="../../dist/js/demo.js"></script>
-  <!-- Page specific script -->
+    
   <script>
     $('#formEditarAdmin').on('submit', function(e) {
       e.preventDefault();
 
-      // FormData es OBLIGATORIO para enviar la imagen nueva
+        
       var datos = new FormData(this);
       datos.append('accion', 'editar');
 
@@ -508,8 +508,8 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
         url: 'operaciones_admin.php',
         type: 'POST',
         data: datos,
-        contentType: false, // Importante
-        processData: false, // Importante
+        contentType: false,   
+        processData: false,   
         success: function(res) {
           if (res.trim() === "success") {
             alert("Datos actualizados correctamente");
@@ -523,7 +523,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
     $('#formNuevoAdmin').on('submit', function(e) {
       e.preventDefault();
 
-      // FormData captura TODO, incluyendo el archivo de imagen
+        
       var datos = new FormData(this);
       datos.append('accion', 'nuevo');
 
@@ -531,8 +531,8 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
         url: 'operaciones_admin.php',
         type: 'POST',
         data: datos,
-        contentType: false, // Importante para enviar archivos
-        processData: false, // Importante para enviar archivos
+        contentType: false,   
+        processData: false,   
         success: function(res) {
           if (res.trim() === "success") {
             location.reload();
@@ -543,7 +543,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
       });
     });
 
-    // 2. FUNCIÓN PARA PREPARAR LA EDICIÓN (Cargar datos al modal)
+      
     function prepararEdicion(id) {
       $.ajax({
         url: 'get_admin.php',
@@ -553,7 +553,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
         },
         dataType: 'json',
         success: function(data) {
-          // Llenamos los campos ocultos y visibles
+            
           $('#edit_id').val(data.id_administrativo);
           $('#edit_nombre').val(data.nombre);
           $('#edit_apellido').val(data.apellido);
@@ -562,12 +562,12 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
           $('#edit_telefono').val(data.telefono);
           $('#edit_usuario').val(data.usuario);
 
-          // OPCIONAL: Mostrar una vista previa de la foto actual en el modal
+            
           if (data.foto) {
             $('#img_previa_edit').attr('src', '../../dist/img/perfiles/' + data.foto);
           }
 
-          // Mostramos el modal (Asegúrate de que el ID del modal sea modalEditar)
+            
           $('#modalEditar').modal('show');
         },
         error: function() {
@@ -576,7 +576,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
       });
     }
 
-    // 3. FUNCIÓN PARA ELIMINAR
+      
     function eliminarAdministrativo(id) {
       if (confirm('¿Estás seguro de eliminar a este administrativo? Se borrará también su cuenta de acceso.')) {
         $.ajax({
@@ -584,7 +584,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
           type: 'POST',
           data: {
             id_administrativo: id,
-            accion: 'eliminar' // IMPORTANTE: Esto le dice al PHP qué hacer
+            accion: 'eliminar'   
           },
           success: function(res) {
             if (res.trim() === "success") {

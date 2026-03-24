@@ -6,7 +6,7 @@ $accion = $_POST['accion'] ?? '';
 $conexion->begin_transaction();
 
 try {
-    // --- ACCIÓN: NUEVO ---
+      
     if ($accion == 'nuevo') {
         $nombre = $_POST['nombre'];
         $apellido = $_POST['apellido'];
@@ -48,7 +48,7 @@ try {
         exit;
     }
 
-    // --- ACCIÓN: EDITAR ---
+      
     elseif ($accion == 'editar') {
         $id       = $_POST['id_docente'];
         $nombre   = $_POST['nombre'];
@@ -93,17 +93,17 @@ try {
         exit;
     }
 
-    // --- ACCIÓN: ELIMINAR ---
+      
     elseif ($accion == 'eliminar') {
         $id_docente = $_POST['id_docente'];
 
-        // 1. Borrar de usuarios usando id_docente (que SÍ existe)
+          
         $sqlU = "DELETE FROM usuarios WHERE id_docente = ?";
         $stmtU = $conexion->prepare($sqlU);
         $stmtU->bind_param("i", $id_docente);
         $stmtU->execute();
 
-        // 2. Borrar de docente
+          
         $sqlD = "DELETE FROM docente WHERE id_docente = ?";
         $stmtD = $conexion->prepare($sqlD);
         $stmtD->bind_param("i", $id_docente);

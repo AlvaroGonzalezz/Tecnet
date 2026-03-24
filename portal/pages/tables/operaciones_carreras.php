@@ -10,7 +10,7 @@ if ($accion == 'nuevo') {
 
 if ($accion == 'eliminar') {
     $id = $_POST['id_carrera'];
-    // El motor de la base de datos impedirá borrar si hay llaves foráneas activas en 'grupos'
+      
     $sql = "DELETE FROM carreras WHERE id_carrera = $id";
     echo mysqli_query($conexion, $sql) ? "success" : "error";
 }

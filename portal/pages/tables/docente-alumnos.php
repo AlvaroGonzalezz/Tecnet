@@ -12,11 +12,9 @@ $nombre_usuario = $_SESSION['nombre_persona'];
 $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
 $id_usuario_sesion = $_SESSION['id_usuario'];
 
-// CORRECCIÓN: Buscamos el ID real del docente vinculado al usuario de la sesión
 $query_doc = mysqli_query($conexion, "SELECT id_docente FROM usuarios WHERE id_usuario = '$id_usuario_sesion'");
 $datos_doc = mysqli_fetch_assoc($query_doc);
 
-// Si no encuentra al docente, podrías tener un error, usamos el ID obtenido
 $id_docente_logueado = ($datos_doc) ? $datos_doc['id_docente'] : 0;
 $periodo_actual = "2026-1";
 ?>
@@ -29,26 +27,18 @@ $periodo_actual = "2026-1";
     <title>Tecnet</title>
     <link rel="shortcut icon" href="../../../dist/img/tecneticon.png" type="image/x-icon">
 
-    <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
-    <!-- DataTables -->
     <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-    <!-- Theme style -->
     <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
     <style>
         .image img {
             width: 40px;
-            /* Ajusta al tamaño que desees */
             height: 40px;
-            /* Debe ser igual al ancho */
             object-fit: cover;
-            /* ESTA ES LA CLAVE: Recorta la imagen para llenar el cuadro sin deformarla */
             object-position: center;
-            /* Centra el recorte en el rostro */
             margin-top: 7px;
         }
     </style>

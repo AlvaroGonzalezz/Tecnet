@@ -17,7 +17,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
     <title>TecNet | Visualización de Docentes</title>
     <link rel="shortcut icon" href="../../../dist/img/tecneticon.png" type="image/x-icon">
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="https:  
     <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -34,13 +34,13 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
 
         .image img {
             width: 40px;
-            /* Ajusta al tamaño que desees */
+              
             height: 40px;
-            /* Debe ser igual al ancho */
+              
             object-fit: cover;
-            /* ESTA ES LA CLAVE: Recorta la imagen para llenar el cuadro sin deformarla */
+              
             object-position: center;
-            /* Centra el recorte en el rostro */
+              
             margin-top: 7px;
         }
     </style>
@@ -250,7 +250,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
                                 <tbody>
                                     <?php
                                     include "../../conexion.php";
-                                    // Consulta uniendo grupos con carreras
+                                      
                                     $sql = "SELECT g.id_grupo, g.semestre, c.nombre_carrera 
                 FROM grupo g 
                 INNER JOIN carreras c ON g.id_carrera = c.id_carrera 
@@ -258,7 +258,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
 
                                     $res = mysqli_query($conexion, $sql);
                                     while ($f = mysqli_fetch_assoc($res)) {
-                                        // Formateamos el texto: 1ero, 2do, 3ero...
+                                          
                                         $sufijo = ($f['semestre'] == 1) ? "ero" : (($f['semestre'] == 2) ? "do" : "ero");
                                         $nombre_combinado = $f['semestre'] . $sufijo . " " . $f['nombre_carrera'];
                                     ?>
@@ -323,7 +323,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
     <script src="../../dist/js/adminlte.min.js"></script>
 
     <script>
-        // Guardar Grupo
+          
         $('#formNuevoGrupo').on('submit', function(e) {
             e.preventDefault();
             $.post('operaciones_grupos.php', $(this).serialize() + '&accion=nuevo', function(res) {
@@ -335,7 +335,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
             });
         });
 
-        // Eliminar Grupo
+          
         function eliminarGrupo(id) {
             if (confirm('¿Seguro que deseas eliminar este grupo?')) {
                 $.post('operaciones_grupos.php', {

@@ -2,7 +2,7 @@
 require "../../conexion.php";
 $accion = $_POST['accion'];
 
-// Caso Nuevo
+  
 if ($accion == 'nuevo') {
     $nombre   = $_POST['nombre_materia'];
     $semestre = $_POST['semestre'];
@@ -13,7 +13,7 @@ if ($accion == 'nuevo') {
     echo mysqli_query($conexion, $sql) ? "success" : "error";
 }
 
-// Caso Editar
+  
 if ($accion == 'editar') {
     $id       = $_POST['id_materia'];
     $nombre   = $_POST['nombre_materia'];
@@ -25,7 +25,7 @@ if ($accion == 'editar') {
     echo mysqli_query($conexion, $sql) ? "success" : "error";
 }
 
-// Caso Eliminar
+  
 if ($accion == 'eliminar') {
     $id = $_POST['id_materia'];
     $sql = "DELETE FROM materias WHERE id_materia = $id";

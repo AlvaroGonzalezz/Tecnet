@@ -12,7 +12,7 @@ $id_logueado = $_SESSION['id_usuario'];
 $query_doc = mysqli_query($conexion, "SELECT id_alumno FROM usuarios WHERE id_usuario = '$id_logueado'");
 $datos_doc = mysqli_fetch_assoc($query_doc);
 
-// Si no encuentra al docente, podrías tener un error, usamos el ID obtenido
+  
 $id_alumno_logueado = ($datos_doc) ? $datos_doc['id_alumno'] : 0;
 $query = "SELECT id_carga, semestre, archivo_pdf, observaciones, fecha_subida 
           FROM carga_academica 

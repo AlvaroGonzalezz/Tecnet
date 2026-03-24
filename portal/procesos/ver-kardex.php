@@ -2,12 +2,12 @@
 include "../conexion.php";
 $id_alumno = $_GET['id'];
 
-// 1. Datos Generales
+  
 $query_user = mysqli_query($conexion, "SELECT a.*, c.nombre_carrera FROM alumno a 
     INNER JOIN carreras c ON a.id_carrera = c.id_carrera WHERE a.id_alumno = '$id_alumno'");
 $al = mysqli_fetch_assoc($query_user);
 
-// 2. Historial Académico
+  
 $query_his = mysqli_query($conexion, "SELECT m.creditos, m.id_materia, m.nombre_materia, m.semestre, cal.promedio 
     FROM calificaciones cal 
     INNER JOIN materias m ON cal.id_materia = m.id_materia 

@@ -9,7 +9,6 @@ $nombre_usuario = $_SESSION['nombre_persona'];
 $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
 
 include "../../conexion.php";
-// Obtener lista de docentes para los selects de los modales
 $res_docentes = mysqli_query($conexion, "SELECT id_docente, nombre, apellido FROM docente ORDER BY nombre ASC");
 $docentes_array = [];
 while ($d = mysqli_fetch_assoc($res_docentes)) {
@@ -43,13 +42,9 @@ while ($d = mysqli_fetch_assoc($res_docentes)) {
 
         .image img {
             width: 40px;
-            /* Ajusta al tamaño que desees */
             height: 40px;
-            /* Debe ser igual al ancho */
             object-fit: cover;
-            /* ESTA ES LA CLAVE: Recorta la imagen para llenar el cuadro sin deformarla */
             object-position: center;
-            /* Centra el recorte en el rostro */
             margin-top: 7px;
         }
     </style>

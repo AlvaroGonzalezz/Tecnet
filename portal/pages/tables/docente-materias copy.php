@@ -12,11 +12,11 @@ $nombre_usuario = $_SESSION['nombre_persona'];
 $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
 $id_usuario_sesion = $_SESSION['id_usuario'];
 
-// CORRECCIÓN: Buscamos el ID real del docente vinculado al usuario de la sesión
+  
 $query_doc = mysqli_query($conexion, "SELECT id_docente FROM usuarios WHERE id_usuario = '$id_usuario_sesion'");
 $datos_doc = mysqli_fetch_assoc($query_doc);
 
-// Si no encuentra al docente, podrías tener un error, usamos el ID obtenido
+  
 $id_docente_logueado = ($datos_doc) ? $datos_doc['id_docente'] : 0;
 $periodo_actual = "2026-1";
 ?>
@@ -247,7 +247,7 @@ $periodo_actual = "2026-1";
 
     <script>
         $(document).ready(function() {
-            $('[data-widget="pushmenu"]').PushMenu('toggle'); // Esto inicializa el componente manualmente
+            $('[data-widget="pushmenu"]').PushMenu('toggle'); 
         });
         $(document).ready(function() {
             $("#tablaMaterias").DataTable({
@@ -259,20 +259,16 @@ $periodo_actual = "2026-1";
             });
         });
 
-        // 2. FUNCIÓN GLOBAL (Afuera del ready para que el botón la encuentre)
         function abrirModal(idMateria, idDocente, nombre) {
-            console.log("Abriendo materia:", nombre); // Verifica en F12 si esto sale
+            console.log("Abriendo materia:", nombre);   
 
-            // Asignamos valores
             $('#id_materia_form').val(idMateria);
             $('#id_docente_form').val(idDocente);
             $('#nombreMateriaTxt').text(nombre);
 
-            // Abrimos el modal
             $('#modalInscribir').modal('show');
         }
 
-        // 3. FUNCIÓN PARA GUARDAR
         function guardarInscripcion() {
             const id_a = $('#id_alumno_form').val();
 

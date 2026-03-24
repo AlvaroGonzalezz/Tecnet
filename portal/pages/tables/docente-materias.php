@@ -12,11 +12,11 @@ $nombre_usuario = $_SESSION['nombre_persona'];
 $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
 $id_usuario_sesion = $_SESSION['id_usuario'];
 
-// CORRECCIÓN: Buscamos el ID real del docente vinculado al usuario de la sesión
+  
 $query_doc = mysqli_query($conexion, "SELECT id_docente FROM usuarios WHERE id_usuario = '$id_usuario_sesion'");
 $datos_doc = mysqli_fetch_assoc($query_doc);
 
-// Si no encuentra al docente, podrías tener un error, usamos el ID obtenido
+  
 $id_docente_logueado = ($datos_doc) ? $datos_doc['id_docente'] : 0;
 $periodo_actual = "2026-1";
 ?>
@@ -310,7 +310,7 @@ $periodo_actual = "2026-1";
 
             if (idAlu != "") {
                 $.ajax({
-                    url: 'obtener-calificaciones-alumno.php', // El archivo que consulta la BD
+                    url: 'obtener-calificaciones-alumno.php',   
                     type: 'POST',
                     data: {
                         id_alumno: idAlu,
@@ -319,7 +319,7 @@ $periodo_actual = "2026-1";
                     dataType: 'json',
                     success: function(data) {
                         if (data) {
-                            // Si hay datos, llenamos cada input
+                              
                             $('input[name="parcial1"]').val(data.parcial1);
                             $('input[name="parcial2"]').val(data.parcial2);
                             $('input[name="parcial3"]').val(data.parcial3);
@@ -330,7 +330,7 @@ $periodo_actual = "2026-1";
                             $('input[name="final"]').val(data.final);
                             $('#promedio_cal').val(data.promedio);
                         } else {
-                            // Si no hay datos, limpiamos los campos para un nuevo registro
+                              
                             $('.input-nota, input[name="final"], #promedio_cal').val('');
                         }
                     },
@@ -348,29 +348,29 @@ $periodo_actual = "2026-1";
             let suma = 0;
             let contador = 0;
 
-            // Recorremos todos los inputs que tengan la clase 'input-nota'
+              
             $('.input-nota').each(function() {
                 let valor = parseFloat($(this).val());
 
-                // Solo sumamos si el campo no está vacío y es un número válido
+                  
                 if (!isNaN(valor) && valor !== "") {
                     suma += valor;
                     contador++;
                 }
             });
 
-            // Calculamos el promedio
+              
             let promedio = (contador > 0) ? (suma / contador) : 0;
 
-            // Lo mostramos en el input de promedio con 2 decimales
+              
             $('#promedio_cal').val(promedio.toFixed(2));
         }
        $(document).ready(function() {
-            // Inicializa todas las tablas que tengan esta clase
+              
             $('.tabla-dinamica').DataTable({
                 "responsive": true,
                 "autoWidth": false,
-                "dom": 'Bfrtip', // Muestra los botones de exportación
+                "dom": 'Bfrtip',   
                 "buttons": [{
                         extend: 'excelHtml5',
                         text: '<i class="fas fa-file-excel"></i> Excel',
@@ -392,16 +392,16 @@ $periodo_actual = "2026-1";
             });
         });
 
-        // 2. FUNCIÓN GLOBAL (Afuera del ready para que el botón la encuentre)
+          
         function abrirModal(idMateria, idDocente, nombre) {
-            console.log("Abriendo materia:", nombre); // Verifica en F12 si esto sale
+            console.log("Abriendo materia:", nombre);   
 
-            // Asignamos valores
+              
             $('#id_materia_form').val(idMateria);
             $('#id_docente_form').val(idDocente);
             $('#nombreMateriaTxt').text(nombre);
 
-            // Abrimos el modal
+              
             $('#modalInscribir').modal('show');
         }
 
@@ -409,7 +409,7 @@ $periodo_actual = "2026-1";
             $('#id_materia_cal').val(idMateria);
             $('#nombreMateriaCalTxt').text(nombre);
 
-            // LIMPIAR CAMPOS ANTES DE MOSTRAR
+              
             $('#formCalificaciones')[0].reset();
             $('#promedio_cal').val('');
 
@@ -427,7 +427,7 @@ $periodo_actual = "2026-1";
         }
 
         function guardarCalificacion() {
-            const datos = $('#formCalificaciones').serialize(); // Captura todos los parciales
+            const datos = $('#formCalificaciones').serialize();   
 
             $.ajax({
                 url: 'procesar-calificacion.php',
@@ -464,10 +464,10 @@ $periodo_actual = "2026-1";
                 type: 'POST',
                 data: datos,
                 success: function(respuesta) {
-                    // Limpiamos la respuesta de espacios o saltos de línea
+                      
                     var res = respuesta.trim();
 
-                    console.log("Servidor dice: '" + res + "'"); // Revisa esto en la consola (F12)
+                    console.log("Servidor dice: '" + res + "'");   
 
                     if (res === "success") {
                         alert("✅ Inscripción exitosa");
@@ -475,7 +475,7 @@ $periodo_actual = "2026-1";
                     } else if (res === "Ya registrado") {
                         alert("⚠️ El alumno ya está en esta clase.");
                     } else {
-                        // Si entra aquí es porque el PHP mandó algo que no es "success"
+                          
                         alert("Hubo un detalle: " + res);
                     }
                 }

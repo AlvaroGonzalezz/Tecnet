@@ -1,7 +1,6 @@
 <?php
 require "conexion.php";
 
-// 1. Validar que el ID exista y sea un número
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     header("Location: registro.php");
     exit();
@@ -9,7 +8,6 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 
 $id = $_GET['id'];
 
-// 2. Usamos LEFT JOIN en lugar de INNER JOIN (por si la carrera no carga bien)
 $sql = "SELECT a.*, c.nombre_carrera 
         FROM aspirantes a 
         LEFT JOIN carreras c ON a.id_carrera_opcion1 = c.id_carrera 
@@ -21,7 +19,6 @@ $stmt->execute();
 $resultado = $stmt->get_result();
 $datos = $resultado->fetch_assoc();
 
-// 3. Si después de la consulta $datos sigue siendo NULL, el aspirante no existe
 if (!$datos) {
     die("<h1 style='color:white; text-align:center;'>Error: El aspirante con ID $id no fue encontrado en la base de datos.</h1>");
 }
@@ -39,7 +36,6 @@ $referencia = "TEC" . date("Y") . str_pad($id, 5, "0", STR_PAD_LEFT);
     <link rel="shortcut icon" type="image/x-icon" href="../dist/img/tecneticon.png">
 
     <style>
-        /* Mantenemos tus mismos estilos CSS aquí... */
         * {
             margin: 0;
             padding: 0;
@@ -216,12 +212,10 @@ $referencia = "TEC" . date("Y") . str_pad($id, 5, "0", STR_PAD_LEFT);
             }
         }
 
-        /* --- RESPONSIVE / VISTA MÓVIL --- */
         @media (max-width: 768px) {
             body {
                 padding: 20px 0;
                 align-items: flex-start;
-                /* Permite scroll natural */
             }
 
             .container {
@@ -230,37 +224,30 @@ $referencia = "TEC" . date("Y") . str_pad($id, 5, "0", STR_PAD_LEFT);
                 gap: 40px;
             }
 
-            /* Ajuste del branding (Logo y texto) */
             .branding img {
                 width: 150px;
-                /* Reducimos el logo */
             }
 
             .branding h1 {
                 font-size: 50px;
-                /* Tamaño más manejable */
             }
 
             .branding p {
                 font-size: 24px;
             }
 
-            /* Contenedor de la derecha (Ficha + Botón) */
             .content-right {
                 flex-direction: column;
                 width: 100%;
                 gap: 20px;
             }
 
-            /* La Ficha Blanca */
             .ficha {
                 width: 100%;
-                /* Ocupa todo el ancho disponible */
                 max-width: 100%;
                 padding: 15px;
             }
 
-            /* Grid de información a una sola columna en móviles muy pequeños */
             .info-grid {
                 grid-template-columns: 1fr;
                 gap: 10px;
@@ -270,7 +257,6 @@ $referencia = "TEC" . date("Y") . str_pad($id, 5, "0", STR_PAD_LEFT);
                 font-size: 18px;
             }
 
-            /* Botón de acción */
             .action-zone {
                 max-width: 100%;
                 width: 100%;
@@ -279,11 +265,9 @@ $referencia = "TEC" . date("Y") . str_pad($id, 5, "0", STR_PAD_LEFT);
             .btn-documentacion {
                 width: 100%;
                 padding: 18px;
-                /* Más fácil de tocar en pantallas táctiles */
             }
         }
 
-        /* Ajuste extra para pantallas muy pequeñas (iPhone SE, etc) */
         @media (max-width: 400px) {
             .branding h1 {
                 font-size: 40px;

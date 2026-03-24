@@ -10,7 +10,7 @@ $query = mysqli_query($conexion, "SELECT * FROM calificaciones
 
 if (mysqli_num_rows($query) > 0) {
     $datos = mysqli_fetch_assoc($query);
-    echo json_encode($datos); // Enviamos todos los campos (parcial1, parcial2, etc.)
+    echo json_encode($datos);   
 } else {
     echo json_encode(null);
 }

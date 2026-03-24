@@ -552,10 +552,10 @@ while ($row = mysqli_fetch_assoc($res_grafica)) {
       var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
 
       var donutData = {
-        // Usamos json_encode para pasar el array de PHP a JS
+          
         labels: <?php echo json_encode($nombres_carreras); ?>,
         datasets: [{
-          // Usamos json_encode para los números
+            
           data: <?php echo json_encode($totales_alumnos); ?>,
           backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de', '#6610f2'],
         }]
@@ -566,7 +566,7 @@ while ($row = mysqli_fetch_assoc($res_grafica)) {
         responsive: true,
       }
 
-      // Crear la gráfica
+        
       new Chart(donutChartCanvas, {
         type: 'doughnut',
         data: donutData,

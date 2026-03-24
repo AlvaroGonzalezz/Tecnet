@@ -1,24 +1,24 @@
 <?php
 session_start();
-include "../conexion.php"; // Ajusta la ruta según tu estructura
+include "../conexion.php";   
 
-// Validación de sesión (Rol 2 = Estudiante)
+  
 if (!isset($_SESSION['id_usuario']) || $_SESSION['id_rol'] != 2) {
   header("Location: ../../index.php");
   exit();
 }
 
-// Obtenemos el ID del alumno desde la URL (id=2)
+  
 $id_alumno = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 $id_usuario = $_SESSION['id_usuario'];
-// CORRECCIÓN: Buscamos el ID real del docente vinculado al usuario de la sesión
+  
 $query_doc = mysqli_query($conexion, "SELECT id_alumno FROM usuarios WHERE id_usuario = '$id_usuario'");
 $datos_doc = mysqli_fetch_assoc($query_doc);
 
-// Si no encuentra al docente, podrías tener un error, usamos el ID obtenido
+  
 $id_alumno_logueado = ($datos_doc) ? $datos_doc['id_alumno'] : 0;
-// Consulta para obtener las materias y calificaciones del alumno
+  
 $query = "SELECT 
             m.id_materia, 
             m.nombre_materia, 
@@ -260,7 +260,7 @@ $ruta_foto = "../dist/img/perfiles/" . $_SESSION['foto_perfil'];
         },
         "order": [
           [0, "asc"]
-        ] // Ordenar por semestre por defecto
+        ]   
       });
     });
   </script>

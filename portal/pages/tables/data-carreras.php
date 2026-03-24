@@ -17,7 +17,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
     <title>TecNet | Visualización de Docentes</title>
     <link rel="shortcut icon" href="../../../dist/img/tecneticon.png" type="image/x-icon">
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="https:  
     <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -27,13 +27,13 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
     <style>
         .image img {
             width: 40px;
-            /* Ajusta al tamaño que desees */
+              
             height: 40px;
-            /* Debe ser igual al ancho */
+              
             object-fit: cover;
-            /* ESTA ES LA CLAVE: Recorta la imagen para llenar el cuadro sin deformarla */
+              
             object-position: center;
-            /* Centra el recorte en el rostro */
+              
             margin-top: 7px;
         }
     </style>
@@ -307,7 +307,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
             });
         });
 
-        // Eliminar Carrera
+          
         function eliminarCarrera(id) {
             if (confirm('¡CUIDADO! Si eliminas la carrera, los grupos asociados podrían quedar huérfanos. ¿Deseas continuar?')) {
                 $.post('operaciones_carreras.php', {

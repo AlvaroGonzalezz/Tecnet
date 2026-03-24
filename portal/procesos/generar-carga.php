@@ -9,17 +9,17 @@ $nombre_usuario = $_SESSION['nombre_persona'];
 $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
 include "../conexion.php";
 
-// Obtener lista de alumnos para el Select
+  
 $res_alumnos = mysqli_query($conexion, "SELECT id_alumno, nombre, apellido FROM alumno WHERE estado = 'Activo' ORDER BY nombre ASC");
 
-// Procesar el formulario cuando se envía
+  
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $id_alumno = $_POST['id_alumno'];
   $semestre = $_POST['semestre'];
   $obs = $_POST['observaciones'];
   $id_admin = $_SESSION['id_usuario'];
 
-  // Manejo del archivo PDF
+    
   $directorio = "../../dist/docs/cargas/";
   if (!file_exists($directorio)) {
     mkdir($directorio, 0777, true);
@@ -332,7 +332,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   <script src="../dist/js/pages/dashboard.js"></script>
   <script src="../plugins/jquery/jquery.min.js"></script>
   <script>
-    // Para que el nombre del archivo aparezca en el input de AdminLTE
+      
     $(".custom-file-input").on("change", function() {
       var fileName = $(this).val().split("\\").pop();
       $(this).siblings(".custom-file-label").addClass("selected").html(fileName);

@@ -30,7 +30,6 @@ if (isset($_SESSION['id_usuario'])) {
 
 <body>
     <style>
-        /* --- ESTILO PARA ESCRITORIO (NAV NORMAL) --- */
         @media (min-width: 992px) {
             .btn-regresar-independiente {
                 display: none;
@@ -41,22 +40,18 @@ if (isset($_SESSION['id_usuario'])) {
             }
         }
 
-        /* --- VISTA MÓVIL EXCLUSIVA --- */
         @media (max-width: 768px) {
 
-            /* 1. Ocultar el Nav de Boldo/Bootstrap por completo */
             .navbar {
                 display: none !important;
             }
 
-            /* 2. Estilo del Botón Independiente */
             .btn-regresar-independiente {
                 position: absolute;
                 top: 20px;
                 left: 20px;
                 z-index: 9999;
                 color: #0a2640;
-                /* Color oscuro para resaltar sobre fondo blanco */
                 text-decoration: none;
                 font-weight: 700;
                 font-size: 14px;
@@ -74,7 +69,6 @@ if (isset($_SESSION['id_usuario'])) {
                 color: #0a2640;
             }
 
-            /* 3. Ajuste del Body para que no tenga padding de nav */
             body {
                 padding-top: 0 !important;
                 height: 100vh;
@@ -84,7 +78,6 @@ if (isset($_SESSION['id_usuario'])) {
                 align-items: center;
             }
 
-            /* 4. Contenedor de Login en Móvil */
             .container {
                 width: 90% !important;
                 margin: 0 auto;
@@ -92,7 +85,6 @@ if (isset($_SESSION['id_usuario'])) {
                 min-height: 450px;
             }
 
-            /* 5. Quitamos el panel azul (Overlay) */
             .overlay-container {
                 display: none !important;
             }
@@ -103,7 +95,6 @@ if (isset($_SESSION['id_usuario'])) {
                 left: 0 !important;
             }
 
-            /* Lógica de pantallas activa */
             .sign-up-container {
                 display: none;
             }
@@ -151,9 +142,6 @@ if (isset($_SESSION['id_usuario'])) {
                     <br>
                     <span class="fs-1">Para recuperar tu contraseña es necesario que acudas a Servicios Escolares</span>
 
-                    <!-- <input type="email" name="correo" placeholder="Acude a Servicios Escolares" disabled> -->
-
-                    <!-- <button type="submit">Recuperar</button> -->
                 </form>
             </div>
             <div class="form-container sign-in-container">
@@ -237,7 +225,6 @@ if (isset($_SESSION['id_usuario'])) {
             });
         }
         
-        // Limpiar la URL después de mostrar la alerta para que no se repita al recargar
         window.history.replaceState({}, document.title, window.location.pathname);
     };
 </script>

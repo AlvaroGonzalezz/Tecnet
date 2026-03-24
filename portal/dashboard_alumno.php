@@ -7,20 +7,20 @@ if (!isset($_SESSION['id_usuario']) || $_SESSION['id_rol'] != 2) {
 }
 $nombre_usuario = $_SESSION['nombre_persona'];
 $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
-include "conexion.php"; // Asegúrate de que la ruta a tu conexión sea correcta
+include "conexion.php";   
 
 $id_usuario = $_SESSION['id_usuario'];
-// CORRECCIÓN: Buscamos el ID real del docente vinculado al usuario de la sesión
+  
 $query_doc = mysqli_query($conexion, "SELECT id_alumno FROM usuarios WHERE id_usuario = '$id_usuario'");
 $datos_doc = mysqli_fetch_assoc($query_doc);
 
-// Si no encuentra al docente, podrías tener un error, usamos el ID obtenido
+  
 $id_alumno_logueado = ($datos_doc) ? $datos_doc['id_alumno'] : 0;
 $nombre_usuario = $_SESSION['nombre_persona'];
 $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
 
-// Consulta detallada del alumno
-// Asumimos que en la tabla 'alumno' tienes 'id_usuario' para relacionar la sesión
+  
+  
 $query = "SELECT a.*, c.nombre_carrera,  g.semestre 
           FROM alumno a
           INNER JOIN carreras c ON a.id_carrera = c.id_carrera
@@ -30,7 +30,7 @@ $query = "SELECT a.*, c.nombre_carrera,  g.semestre
 $resultado = mysqli_query($conexion, $query);
 $datos = mysqli_fetch_assoc($resultado);
 
-// Si por alguna razón no hay datos en la tabla alumno, evitamos errores
+  
 if (!$datos) {
   echo "Error: No se encontraron datos de perfil para este alumno.";
   exit();
@@ -333,7 +333,7 @@ if (!$datos) {
         responsive: true,
       }
       //Create pie or douhnut chart
-      // You can switch between pie and douhnut using the method below.
+        
       new Chart(donutChartCanvas, {
         type: 'doughnut',
         data: donutData,

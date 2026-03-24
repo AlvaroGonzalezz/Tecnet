@@ -11,26 +11,26 @@ $nombre_usuario = $_SESSION['nombre_persona'];
 $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
 $id_usuario_sesion = $_SESSION['id_usuario'];
 
-// --- CONSULTAS PARA LOS CARDS ---
-// CORRECCIÓN: Buscamos el ID real del docente vinculado al usuario de la sesión
+  
+  
 $query_doc = mysqli_query($conexion, "SELECT id_docente FROM usuarios WHERE id_usuario = '$id_usuario_sesion'");
 $datos_doc = mysqli_fetch_assoc($query_doc);
 
-// Si no encuentra al docente, podrías tener un error, usamos el ID obtenido
+  
 $id_docente_logueado = ($datos_doc) ? $datos_doc['id_docente'] : 0;
-// 1. Conteo de Alumnos Únicos (que están en las materias de este docente)
+  
 $sql_alumnos = "SELECT COUNT(DISTINCT id_alumno) as total FROM inscripciones i 
                 INNER JOIN materias m ON i.id_materia = m.id_materia 
                 WHERE m.id_docente = '$id_docente_logueado'";
 $res_alumnos = mysqli_query($conexion, $sql_alumnos);
 $total_alumnos = mysqli_fetch_assoc($res_alumnos)['total'];
 
-// 2. Conteo de Asignaturas (Materias distintas asignadas)
+  
 $sql_materias = "SELECT COUNT(*) as total FROM materias WHERE id_docente = '$id_docente_logueado'";
 $res_materias = mysqli_query($conexion, $sql_materias);
 $total_materias = mysqli_fetch_assoc($res_materias)['total'];
 
-// 3. Conteo de Grupos (Si manejas una columna 'semestre' en tu tabla materias)
+  
 $sql_grupos = "SELECT COUNT(DISTINCT semestre) as total FROM materias WHERE id_docente = '$id_docente_logueado'";
 $res_grupos = mysqli_query($conexion, $sql_grupos);
 $total_grupos = mysqli_fetch_assoc($res_grupos)['total'];
@@ -452,7 +452,7 @@ $total_grupos = mysqli_fetch_assoc($res_grupos)['total'];
         responsive: true,
       }
       //Create pie or douhnut chart
-      // You can switch between pie and douhnut using the method below.
+        
       new Chart(donutChartCanvas, {
         type: 'doughnut',
         data: donutData,
