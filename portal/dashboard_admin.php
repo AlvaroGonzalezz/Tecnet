@@ -1,13 +1,11 @@
 <?php
 session_start();
 
-// 1. Validar sesión y Rol (Ejemplo para Alumno, cambia el 2 por el rol que toque)
 if (!isset($_SESSION['id_usuario']) || $_SESSION['id_rol'] != 1) {
   header("Location: ../pages/login.php");
   exit();
 }
 
-// 2. Preparar variables para el HTML
 $nombre_usuario = $_SESSION['nombre_persona'];
 $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
 include "conexion.php";
@@ -595,8 +593,7 @@ while ($row = mysqli_fetch_assoc($res_grafica)) {
         maintainAspectRatio: false,
         responsive: true,
       }
-      //Create pie or douhnut chart
-      // You can switch between pie and douhnut using the method below.
+     
       new Chart(donutChartCanvas, {
         type: 'doughnut',
         data: donutData,
