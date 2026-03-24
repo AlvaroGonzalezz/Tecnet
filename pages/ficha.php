@@ -14,7 +14,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="dist/img/tecneticon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="dist/img/tecneticon.png">
     <link rel="icon" type="image/png" sizes="16x16" href="dist/img/tecneticon.png">
-    <link rel="shortcut icon" type="image/x-icon" href="dist/img/tecneticon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="../dist/img/tecneticon.png">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="../dist/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700&amp;display=swap" rel="stylesheet">
@@ -118,7 +118,7 @@
         }
 
         .ficha .gender input {
-            accent-color: rgb(130, 106, 251);
+            accent-color: rgb(35, 63, 157);
         }
 
         .ficha .form :where(.gender input, .gender label) {
@@ -157,7 +157,7 @@
         }
 
         .ficha .form button:hover {
-            background: rgb(88, 56, 250);
+            background: rgb(250, 56, 59);
         }
 
         /*Responsive*/

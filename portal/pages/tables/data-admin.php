@@ -58,7 +58,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="index3.html" class="brand-link">
+      <a href="#" class="brand-link">
         <img src="../../../dist/img/tecneticon.png" alt="TecNet Logo" class="brand-image img-circle elevation-3"
           style="opacity: .8">
         <span class="brand-text font-weight-light" style="font-family: monospace;">TECNET</span>
@@ -109,7 +109,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="pages/charts/flot.html" class="nav-link">
+                  <a href="../reportes/academico.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Académico</p>
                   </a>
@@ -161,7 +161,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="pages/tables/data-admin.php" class="nav-link active">
+                  <a href="#" class="nav-link active">
                     <i class="far fa-user nav-icon"></i>
                     <p>Administrativos</p>
                   </a>
@@ -208,7 +208,8 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
               </a>
             </li>
             <li class="nav-item">
-              <a href="pages/examples/profile.html" class="nav-link">
+              <a href="../../logout.php" class="nav-link" onclick="return confirm('¿Realmente deseas cerrar sesión?');">
+
                 🔒
                 <p>Cerrar Sesión</p>
               </a>

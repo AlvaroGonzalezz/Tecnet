@@ -135,9 +135,9 @@
   --fg-success: #65E4A3;
   /* ------------------------------ Colored Link ------------------------------ */
   --fg-colored-link-success-hover-color: #84e9b5;
-  --fg-info: #6610f2;
+  --fg-info: #c20d34;
   /* ------------------------------ Colored Link ------------------------------ */
-  --fg-colored-link-info-hover-color: #520dc2;
+  --fg-colored-link-info-hover-color: #c20d34 !important;
   --fg-warning: #fd7e14;
   /* ------------------------------ Colored Link ------------------------------ */
   --fg-colored-link-warning-hover-color: #ca6510;
@@ -215,17 +215,17 @@
   --fg-list-group-item-success-color: #3d8962;
   /* ------------------------------ Falcon button ----------------------------- */
   --fg-btn-falcon-info-color: var(--fg-info);
-  --fg-btn-falcon-info-hover-color: #550dc9;
+  --fg-btn-falcon-info-hover-color: #c20d34;
   --fg-btn-falcon-info-active-background: #e0cffc;
-  --fg-btn-falcon-info-active-color: #550dc9;
+  --fg-btn-falcon-info-active-color: #c20d34;
   /* ---------------------------------- Alert --------------------------------- */
   --fg-alert-info-background: #e0cffc;
   --fg-alert-info-border-color: #d1b7fb;
-  --fg-alert-info-color: #3d0a91;
-  --fg-alert-info-link-color: #520dc2;
+  --fg-alert-info-color: #c20d34;
+  --fg-alert-info-link-color: #c20d34;
   /* ------------------------------- List Group ------------------------------- */
   --fg-list-group-item-info-background: #e0cffc;
-  --fg-list-group-item-info-color: #3d0a91;
+  --fg-list-group-item-info-color: #c20d34;
   /* ------------------------------ Falcon button ----------------------------- */
   --fg-btn-falcon-warning-color: var(--fg-warning);
   --fg-btn-falcon-warning-hover-color: #d26911;

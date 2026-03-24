@@ -1,3 +1,11 @@
+<?php
+session_start();
+
+if (isset($_SESSION['id_usuario'])) {
+    header("Location: ../portal/dashboard_director.php"); 
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +16,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../dist/css/style.css">
 
-    
+
     <link rel="apple-touch-icon" sizes="180x180" href="../dist/img/tecneticon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../dist/img/tecneticon.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../dist/img/tecneticon.png">
@@ -21,101 +29,174 @@
 </head>
 
 <body>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
     <style>
-        
-        @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+        /* --- ESTILO PARA ESCRITORIO (NAV NORMAL) --- */
+        @media (min-width: 992px) {
+            .btn-regresar-independiente {
+                display: none;
+            }
 
-* {
-	box-sizing: border-box;
-}
-        body {
-	background: #ffffff;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	font-family: 'Montserrat', sans-serif;
-	height: 100vh;
-	margin: -20px 0 50px;
-}
+            .tec {
+                display: none;
+            }
+        }
+
+        /* --- VISTA MÓVIL EXCLUSIVA --- */
+        @media (max-width: 768px) {
+
+            /* 1. Ocultar el Nav de Boldo/Bootstrap por completo */
+            .navbar {
+                display: none !important;
+            }
+
+            /* 2. Estilo del Botón Independiente */
+            .btn-regresar-independiente {
+                position: absolute;
+                top: 20px;
+                left: 20px;
+                z-index: 9999;
+                color: #0a2640;
+                /* Color oscuro para resaltar sobre fondo blanco */
+                text-decoration: none;
+                font-weight: 700;
+                font-size: 14px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                background: rgba(255, 255, 255, 0.8);
+                padding: 8px 15px;
+                border-radius: 30px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .btn-regresar-independiente i {
+                font-size: 20px;
+                color: #0a2640;
+            }
+
+            /* 3. Ajuste del Body para que no tenga padding de nav */
+            body {
+                padding-top: 0 !important;
+                height: 100vh;
+                overflow: hidden;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            /* 4. Contenedor de Login en Móvil */
+            .container {
+                width: 90% !important;
+                margin: 0 auto;
+                border-radius: 15px;
+                min-height: 450px;
+            }
+
+            /* 5. Quitamos el panel azul (Overlay) */
+            .overlay-container {
+                display: none !important;
+            }
+
+            .form-container {
+                width: 100% !important;
+                position: relative !important;
+                left: 0 !important;
+            }
+
+            /* Lógica de pantallas activa */
+            .sign-up-container {
+                display: none;
+            }
+
+            .container.right-panel-active .sign-in-container {
+                display: none;
+            }
+
+            .container.right-panel-active .sign-up-container {
+                display: flex !important;
+            }
+        }
     </style>
-    <nav class="navbar navbar-expand-lg fixed-top navbar-dark" data-navbar-on-scroll="data-navbar-on-scroll">
-        <div class="container"><a class="navbar-brand" href="../index.html"><img src="../dist/img/logotecnet.png" alt="" /></a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="fa-solid fa-bars text-white fs-3"></i></button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-              <li class="nav-item"><a class="nav-link" aria-current="page" href="../index.html">Inicio</a></li>
-              <li class="nav-item"><a class="nav-link" aria-current="page" href="../pages/acercade.php">Acerca de</a></li>
-              
-              
-            </ul>
-          </div>
+    <a href="../index.html" class="btn-regresar-independiente d-lg-none">
+        <i class="bi bi-arrow-left-circle-fill"></i> Volver al inicio
+    </a>
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
+        <div class="container">
+            <a class="btn-volver-movil d-lg-none" href="../index.html">
+                <i class="bi bi-arrow-left"></i> Volver
+            </a>
+
+            <a class="navbar-brand d-none d-lg-block" href="../index.html">
+                <img src="../dist/img/logotecnet.png" alt="" />
+            </a>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="../index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../pages/acercade.php">Acerca de</a></li>
+                </ul>
+            </div>
         </div>
-      </nav>
+    </nav><br><br><br><br><br><br>
+
     <div class="login">
-        <br> <br><br>
+        <br> <br><br><br><br><br>
 
-       <div class="container" id="container">
+        <div class="container" id="container">
 
-    <div class="form-container sign-up-container">
-        <form action="recuperar_password.php" method="POST">
-            <h1>¿Olvidaste tu contraseña?</h1>
+            <div class="form-container sign-up-container">
+                <form action="recuperar_password.php" method="POST">
+                    <h1>¿Olvidaste tu contraseña?</h1>
 
-            <br>
-            <span class="fs-1">Para recuperar tu contraseña es necesario que acudas a Servicios Escolares</span>
+                    <br>
+                    <span class="fs-1">Para recuperar tu contraseña es necesario que acudas a Servicios Escolares</span>
 
-            <!-- <input type="email" name="correo" placeholder="Acude a Servicios Escolares" disabled> -->
+                    <!-- <input type="email" name="correo" placeholder="Acude a Servicios Escolares" disabled> -->
 
-            <!-- <button type="submit">Recuperar</button> -->
-        </form>
-    </div>
+                    <!-- <button type="submit">Recuperar</button> -->
+                </form>
+            </div>
+            <div class="form-container sign-in-container">
+                <form action="verify.php" method="POST"><br>
+                    <img src="../dist/img/tecneticon.png" class="tec" alt="Tecnet Icon" style="width: 30%;">
+                    <h1>Iniciar sesión</h1>
 
-    <div class="form-container sign-in-container">
-        <form action="verify.php" method="POST">
+                    <span>Ingresa tus datos</span>
 
-            <h1>Iniciar sesión</h1>
+                    <input type="email" name="correo" placeholder="Correo" required>
 
-            <span>Ingresa tus datos</span>
+                    <input type="password" name="password" placeholder="Contraseña" required>
 
-            <input type="email" name="correo" placeholder="Correo" required>
+                    <button type="submit">Iniciar sesión</button>
 
-            <input type="password" name="password" placeholder="Contraseña" required>
-
-            <button type="submit">Iniciar sesión</button>
-
-        </form>
-    </div>
-
-    <div class="overlay-container">
-        <div class="overlay">
-
-            <div class="overlay-panel overlay-left">
-                <h1>Inicia tu sesión</h1>
-                <p>Pulsa el botón para iniciar sesión</p>
-                <button class="ghost" id="signIn">Iniciar sesión</button>
+                </form>
             </div>
 
-            <div class="overlay-panel overlay-right">
-                <h1>¿Olvidaste tus datos?</h1>
-                <p>Pulsa el botón para recuperar tu contraseña</p>
-                <button class="ghost" id="signUp">Recuperar</button>
+            <div class="overlay-container">
+                <div class="overlay">
+
+                    <div class="overlay-panel overlay-left">
+                        <h1>Inicia tu sesión</h1>
+                        <p>Pulsa el botón para iniciar sesión</p>
+                        <button class="ghost" id="signIn">Iniciar sesión</button>
+                    </div>
+
+                    <div class="overlay-panel overlay-right">
+                        <h1>¿Olvidaste tus datos?</h1>
+                        <p>Pulsa el botón para recuperar tu contraseña</p>
+                        <button class="ghost" id="signUp">Recuperar</button>
+                    </div>
+
+                </div>
             </div>
 
         </div>
-    </div>
+<br><br>
 
-</div>
-
-        
     </div>
 
     <script src="../dist/js/script.js"></script>
-     <script src="boldo-1.0.0/public/vendors/popper/popper.min.js"></script>
+    <script src="boldo-1.0.0/public/vendors/popper/popper.min.js"></script>
     <script src="boldo-1.0.0/public/vendors/bootstrap/bootstrap.min.js"></script>
     <script src="boldo-1.0.0/public/vendors/anchorjs/anchor.min.js"></script>
     <script src="boldo-1.0.0/public/vendors/is/is.min.js"></script>
@@ -125,6 +206,41 @@
     <script src="boldo-1.0.0/public/vendors/prism/prism.js"></script>
     <script src="boldo-1.0.0/public/vendors/swiper/swiper-bundle.min.js"></script>
     <script src="boldo-1.0.0/public/assets/js/theme.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    // Al cargar la página, revisamos si hay errores en la URL
+    window.onload = function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const error = urlParams.get('error');
+
+        if (error === '1') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Contraseña incorrecta',
+                text: 'La contraseña que ingresaste no es válida. Inténtalo de nuevo.',
+                confirmButtonColor: '#0a2640'
+            });
+        } else if (error === '2') {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Usuario no encontrado',
+                text: 'El correo electrónico no está registrado en nuestro sistema.',
+                confirmButtonColor: '#0a2640'
+            });
+        } else if (error === 'rol_desconocido') {
+            Swal.fire({
+                icon: 'question',
+                title: 'Error de acceso',
+                text: 'Tu usuario no tiene un rol asignado válido.',
+                confirmButtonColor: '#0a2640'
+            });
+        }
+        
+        // Limpiar la URL después de mostrar la alerta para que no se repita al recargar
+        window.history.replaceState({}, document.title, window.location.pathname);
+    };
+</script>
 </body>
 
 </html>

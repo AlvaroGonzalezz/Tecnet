@@ -221,11 +221,11 @@
   /* ---------------------------------- Alert --------------------------------- */
   --fg-alert-info-background: #e0cffc;
   --fg-alert-info-border-color: #d1b7fb;
-  --fg-alert-info-color: #3d0a91;
-  --fg-alert-info-link-color: #520dc2;
+  --fg-alert-info-color: #910a1e;
+  --fg-alert-info-link-color: #910a1e;
   /* ------------------------------- List Group ------------------------------- */
   --fg-list-group-item-info-background: #e0cffc;
-  --fg-list-group-item-info-color: #3d0a91;
+  --fg-list-group-item-info-color: #910a1e;
   /* ------------------------------ Falcon button ----------------------------- */
   --fg-btn-falcon-warning-color: var(--fg-warning);
   --fg-btn-falcon-warning-hover-color: #d26911;

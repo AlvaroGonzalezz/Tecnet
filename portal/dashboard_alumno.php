@@ -80,15 +80,16 @@ if (!$datos) {
   </nav>
   <div class="wrapper">
 
-    <!-- <div class="preloader flex-column justify-content-center align-items-center">
+    <div class="preloader flex-column justify-content-center align-items-center">
     <img class="animation__shake" src="../dist/img/tecneticon.png" alt="AdminLTELogo" height="60" width="60">
-  </div> -->
+  </div>
+
 
 
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="index3.html" class="brand-link">
+      <a href="#" class="brand-link">
         <img src="../dist/img/tecneticon.png" alt="TecNet Logo" class="brand-image img-circle elevation-3"
           style="opacity: .8">
         <span class="brand-text font-weight-light" style="font-family: monospace;">TECNET</span>
@@ -180,7 +181,8 @@ if (!$datos) {
             </li>
 
             <li class="nav-item">
-              <a href="logout.php" class="nav-link">
+              <a href="logout.php" class="nav-link" onclick="return confirm('¿Realmente deseas cerrar sesión?');">
+
                 <i class="nav-icon fas fa-sign-out-alt text-danger"></i>
                 <p>Cerrar Sesión</p>
               </a>
@@ -247,7 +249,18 @@ if (!$datos) {
                 </div>
                 <a href="procesos/ver-kardex.php?id=<?php echo $id_alumno_logueado; ?>" class="small-box-footer">Ver mi Kardex <i class="fas fa-arrow-circle-right"></i></a>
               </div>
+              <div class="small-box bg-info">
+                <div class="inner">
+                  <h3>Carga Académica</h3>
+                  <p>Consultar mi Carga Académica</p>
+                </div>
+                <div class="icon">
+                  <i class="fas fa-graduation-cap"></i>
+                </div>
+                <a href="procesos/mi-carga.php?id=<?php echo $id_alumno_logueado; ?>" class="small-box-footer">Ver mi Carga Académica <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
             </div>
+            
           </div>
         </div>
       </section>

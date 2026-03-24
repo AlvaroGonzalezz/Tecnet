@@ -31,93 +31,327 @@ $referencia = "TEC" . date("Y") . str_pad($id, 5, "0", STR_PAD_LEFT);
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ficha de Pago - Tecnet</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../dist/img/tecneticon.png">
+
     <style>
         /* Mantenemos tus mismos estilos CSS aquí... */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #2b3bb3; display: flex; min-height: 100vh; align-items: center; justify-content: center; color: white; }
-        .container { display: flex; width: 90%; max-width: 1200px; align-items: center; justify-content: space-around; }
-        .branding { text-align: center; flex: 1; }
-        .branding img { width: 250px; margin-bottom: 20px; }
-        .branding h1 { font-size: 80px; letter-spacing: 5px; margin-bottom: 0; }
-        .branding p { font-size: 40px; font-weight: 300; }
-        .content-right { flex: 1; display: flex; flex-direction: row; align-items: center; gap: 30px; }
-        .ficha { background: white; color: #333; width: 400px; padding: 25px; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-        .ficha-header { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2px solid #003366; padding-bottom: 10px; margin-bottom: 15px; }
-        .ficha-header .logo { font-weight: bold; font-size: 22px; color: #003366; }
-        .ficha-header .desc { text-align: right; font-size: 11px; color: #666; }
-        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-size: 12px; }
-        .label { font-weight: bold; text-transform: uppercase; color: #222; margin-bottom: 2px; }
-        .dato { margin-bottom: 10px; color: #444; }
-        .pago-area { border: 2px dashed #003366; margin-top: 15px; padding: 15px; text-align: center; }
-        .monto { font-size: 22px; color: #e63946; font-weight: bold; margin-bottom: 10px; }
-        .barcode-img { width: 100%; height: 60px; background: repeating-linear-gradient(90deg, #000, #000 1px, #fff 1px, #fff 3px); margin: 10px 0; }
-        .pie-ficha { font-size: 9px; color: #888; margin-top: 10px; line-height: 1.2; }
-        .action-zone { text-align: center; max-width: 200px; }
-        .action-zone p { font-size: 18px; margin-bottom: 15px; font-weight: bold; }
-        .btn-documentacion { display: block; background-color: #002855; color: white; text-decoration: none; padding: 15px 20px; border-radius: 8px; font-weight: bold; font-size: 16px; border: 1px solid rgba(255,255,255,0.2); transition: 0.3s; }
-        .btn-documentacion:hover { background-color: #003d82; transform: scale(1.05); }
-        @media print { .branding, .action-zone { display: none; } body { background: white; } .ficha { box-shadow: none; border: 1px solid #000; } }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #2b3bb3;
+            display: flex;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .container {
+            display: flex;
+            width: 90%;
+            max-width: 1200px;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        .branding {
+            text-align: center;
+            flex: 1;
+        }
+
+        .branding img {
+            width: 250px;
+            margin-bottom: 20px;
+        }
+
+        .branding h1 {
+            font-size: 80px;
+            letter-spacing: 5px;
+            margin-bottom: 0;
+        }
+
+        .branding p {
+            font-size: 40px;
+            font-weight: 300;
+        }
+
+        .content-right {
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .ficha {
+            background: white;
+            color: #333;
+            width: 400px;
+            padding: 25px;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .ficha-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 2px solid #003366;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .ficha-header .logo {
+            font-weight: bold;
+            font-size: 22px;
+            color: #003366;
+        }
+
+        .ficha-header .desc {
+            text-align: right;
+            font-size: 11px;
+            color: #666;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            font-size: 12px;
+        }
+
+        .label {
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #222;
+            margin-bottom: 2px;
+        }
+
+        .dato {
+            margin-bottom: 10px;
+            color: #444;
+        }
+
+        .pago-area {
+            border: 2px dashed #003366;
+            margin-top: 15px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .monto {
+            font-size: 22px;
+            color: #e63946;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .barcode-img {
+            width: 100%;
+            height: 60px;
+            background: repeating-linear-gradient(90deg, #000, #000 1px, #fff 1px, #fff 3px);
+            margin: 10px 0;
+        }
+
+        .pie-ficha {
+            font-size: 9px;
+            color: #888;
+            margin-top: 10px;
+            line-height: 1.2;
+        }
+
+        .action-zone {
+            text-align: center;
+            max-width: 200px;
+        }
+
+        .action-zone p {
+            font-size: 18px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .btn-documentacion {
+            display: block;
+            background-color: #002855;
+            color: white;
+            text-decoration: none;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: 0.3s;
+        }
+
+        .btn-documentacion:hover {
+            background-color: #003d82;
+            transform: scale(1.05);
+        }
+
+        @media print {
+
+            .branding,
+            .action-zone {
+                display: none;
+            }
+
+            body {
+                background: white;
+            }
+
+            .ficha {
+                box-shadow: none;
+                border: 1px solid #000;
+            }
+        }
+
+        /* --- RESPONSIVE / VISTA MÓVIL --- */
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 0;
+                align-items: flex-start;
+                /* Permite scroll natural */
+            }
+
+            .container {
+                flex-direction: column;
+                width: 95%;
+                gap: 40px;
+            }
+
+            /* Ajuste del branding (Logo y texto) */
+            .branding img {
+                width: 150px;
+                /* Reducimos el logo */
+            }
+
+            .branding h1 {
+                font-size: 50px;
+                /* Tamaño más manejable */
+            }
+
+            .branding p {
+                font-size: 24px;
+            }
+
+            /* Contenedor de la derecha (Ficha + Botón) */
+            .content-right {
+                flex-direction: column;
+                width: 100%;
+                gap: 20px;
+            }
+
+            /* La Ficha Blanca */
+            .ficha {
+                width: 100%;
+                /* Ocupa todo el ancho disponible */
+                max-width: 100%;
+                padding: 15px;
+            }
+
+            /* Grid de información a una sola columna en móviles muy pequeños */
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .ficha-header .logo {
+                font-size: 18px;
+            }
+
+            /* Botón de acción */
+            .action-zone {
+                max-width: 100%;
+                width: 100%;
+            }
+
+            .btn-documentacion {
+                width: 100%;
+                padding: 18px;
+                /* Más fácil de tocar en pantallas táctiles */
+            }
+        }
+
+        /* Ajuste extra para pantallas muy pequeñas (iPhone SE, etc) */
+        @media (max-width: 400px) {
+            .branding h1 {
+                font-size: 40px;
+            }
+
+            .monto {
+                font-size: 18px;
+            }
+        }
     </style>
 </head>
+
 <body>
 
-<div class="container">
-    <div class="branding">
-        <img src="../dist/img/tecneticon.png" alt="Tecnet Logo">
-        <h1>TECNET</h1>
-        <p>Gestión Escolar</p>
-    </div>
-
-    <div class="content-right">
-        <div class="ficha">
-            <div style="font-size: 10px; text-align: right; cursor: pointer; color: blue;" onclick="window.print()">Imprimir ficha</div>
-            
-            <div class="ficha-header">
-                <div class="logo">TECNET</div>
-                <div class="desc"><strong>CONVOCATORIA 2026</strong><br>Ficha de Depósito Bancario</div>
-            </div>
-
-            <div class="info-grid">
-                <div>
-                    <div class="label">Nombre del Aspirante</div>
-                    <div class="dato"><?php echo htmlspecialchars($datos['nombre'] . " " . $datos['apellido']); ?></div>
-                    
-                    <div class="label">CURP</div>
-                    <div class="dato"><?php echo htmlspecialchars($datos['curp']); ?></div>
-                </div>
-                <div>
-                    <div class="label">Carrera Solicitada</div>
-                    <div class="dato"><?php echo htmlspecialchars($datos['nombre_carrera'] ?? 'No asignada'); ?></div>
-                    
-                    <div class="label">Referencia de Pago</div>
-                    <div class="dato"><strong><?php echo $referencia; ?></strong></div>
-                </div>
-            </div>
-
-            <div class="pago-area">
-                <div style="font-size: 11px; font-weight: bold;">CONCEPTO: EXAMEN DE ADMISIÓN + INSCRIPCIÓN </div>
-                <div class="monto">$4,500.00 MXN</div>
-                <div class="barcode-img"></div>
-                <div style="font-size: 10px;"><?php echo $referencia; ?>3001122334455</div>
-            </div>
-
-            <div class="pie-ficha">
-                * Esta ficha es personal e intransferible. El pago debe realizarse únicamente en ventanillas de bancos autorizados o mediante transferencia electrónica usando la referencia mencionada.
-            </div>
+    <div class="container">
+        <div class="branding">
+            <img src="../dist/img/tecneticon.png" alt="Tecnet Logo">
+            <h1>TECNET</h1>
+            <p>Gestión Escolar</p>
         </div>
 
-        <div class="action-zone">
-            <p>¿Ya realizaste tu pago?</p>
-            <a href="documento.php?id=<?php echo $id; ?>" class="btn-documentacion">
-                Subir mi documentación
-            </a>
+        <div class="content-right">
+            <div class="ficha">
+                <div style="font-size: 10px; text-align: right; cursor: pointer; color: blue;" onclick="window.print()">Imprimir ficha</div>
+
+                <div class="ficha-header">
+                    <div class="logo">TECNET</div>
+                    <div class="desc"><strong>CONVOCATORIA 2026</strong><br>Ficha de Depósito Bancario</div>
+                </div>
+
+                <div class="info-grid">
+                    <div>
+                        <div class="label">Nombre del Aspirante</div>
+                        <div class="dato"><?php echo htmlspecialchars($datos['nombre'] . " " . $datos['apellido']); ?></div>
+
+                        <div class="label">CURP</div>
+                        <div class="dato"><?php echo htmlspecialchars($datos['curp']); ?></div>
+                    </div>
+                    <div>
+                        <div class="label">Carrera Solicitada</div>
+                        <div class="dato"><?php echo htmlspecialchars($datos['nombre_carrera'] ?? 'No asignada'); ?></div>
+
+                        <div class="label">Referencia de Pago</div>
+                        <div class="dato"><strong><?php echo $referencia; ?></strong></div>
+                    </div>
+                </div>
+
+                <div class="pago-area">
+                    <div style="font-size: 11px; font-weight: bold;">CONCEPTO: EXAMEN DE ADMISIÓN + INSCRIPCIÓN </div>
+                    <div class="monto">$4,500.00 MXN</div>
+                    <div class="barcode-img"></div>
+                    <div style="font-size: 10px;"><?php echo $referencia; ?>3001122334455</div>
+                </div>
+
+                <div class="pie-ficha">
+                    * Esta ficha es personal e intransferible. El pago debe realizarse únicamente en ventanillas de bancos autorizados o mediante transferencia electrónica usando la referencia mencionada.
+                </div>
+            </div>
+
+            <div class="action-zone">
+                <p>¿Ya realizaste tu pago?</p>
+                <a href="documento.php?id=<?php echo $id; ?>" class="btn-documentacion">
+                    Subir mi documentación
+                </a>
+            </div>
         </div>
     </div>
-</div>
 
 </body>
+
 </html>

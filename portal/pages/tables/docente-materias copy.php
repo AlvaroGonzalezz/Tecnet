@@ -121,7 +121,8 @@ $periodo_actual = "2026-1";
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../../logout.php" class="nav-link">
+                            <a href="../../logout.php" class="nav-link" onclick="return confirm('¿Realmente deseas cerrar sesión?');">
+
                                 🔒
                                 <p>Cerrar Sesión</p>
                             </a>

@@ -46,7 +46,9 @@
 *::after {
   box-sizing: border-box;
 }
-
+aside {
+  background-color: #004080 !important;
+}
 html {
   font-family: monospace !important;
   line-height: 1.15;

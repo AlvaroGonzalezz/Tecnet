@@ -82,15 +82,15 @@ while ($row = mysqli_fetch_assoc($res_grafica)) {
   </nav>
   <div class="wrapper">
 
-    <!-- <div class="preloader flex-column justify-content-center align-items-center">
+    <div class="preloader flex-column justify-content-center align-items-center">
     <img class="animation__shake" src="../dist/img/tecneticon.png" alt="AdminLTELogo" height="60" width="60">
-  </div> -->
+  </div>
 
 
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="index3.html" class="brand-link">
+      <a href="#" class="brand-link">
         <img src="../dist/img/tecneticon.png" alt="TecNet Logo" class="brand-image img-circle elevation-3"
           style="opacity: .8">
         <span class="brand-text font-weight-light" style="font-family: monospace;">TECNET</span>
@@ -238,7 +238,7 @@ while ($row = mysqli_fetch_assoc($res_grafica)) {
             </a>
           </li>
           <li class="nav-item">
-            <a href="logout.php" class="nav-link">
+              <a href="logout.php" class="nav-link" onclick="return confirm('¿Realmente deseas cerrar sesión?');">
               <i class="nav-icon fas fa-sign-out-alt text-danger"></i>
               <p>Cerrar Sesión</p>
             </a>

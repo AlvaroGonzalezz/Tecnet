@@ -28,8 +28,8 @@ if (mysqli_num_rows($check) > 0) {
 }
 
 // 2. INSERCIÓN
-$sql = "INSERT INTO inscripciones (id_alumno, id_materia, id_docente, periodo, fecha_registro) 
-        VALUES ('$id_alumno', '$id_materia', '$id_docente', '$periodo', NOW())";
+$sql = "INSERT INTO inscripciones (id_alumno, id_materia, id_docente, periodo) 
+        VALUES ('$id_alumno', '$id_materia', '$id_docente', '$periodo')";
 
 if (mysqli_query($conexion, $sql)) {
     ob_end_clean(); // Borramos todo lo anterior
