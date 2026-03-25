@@ -2,7 +2,7 @@
 session_start();
 
 if (isset($_SESSION['id_usuario'])) {
-    header("Location: ../portal/dashboard_director.php"); 
+    header("Location: ../portal/dashboard_director.php");
     exit();
 }
 ?>
@@ -179,7 +179,7 @@ if (isset($_SESSION['id_usuario'])) {
             </div>
 
         </div>
-<br><br>
+        <br><br>
 
     </div>
 
@@ -195,39 +195,39 @@ if (isset($_SESSION['id_usuario'])) {
     <script src="boldo-1.0.0/public/vendors/swiper/swiper-bundle.min.js"></script>
     <script src="boldo-1.0.0/public/assets/js/theme.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../portal/plugins/sweetalert2/sweetalert2.all.js"></script>
 
-<script>
-    // Al cargar la página, revisamos si hay errores en la URL
-    window.onload = function() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const error = urlParams.get('error');
+    <script>
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const error = urlParams.get('error');
 
-        if (error === '1') {
-            Swal.fire({
-                icon: 'error',
-                title: 'Contraseña incorrecta',
-                text: 'La contraseña que ingresaste no es válida. Inténtalo de nuevo.',
-                confirmButtonColor: '#0a2640'
-            });
-        } else if (error === '2') {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Usuario no encontrado',
-                text: 'El correo electrónico no está registrado en nuestro sistema.',
-                confirmButtonColor: '#0a2640'
-            });
-        } else if (error === 'rol_desconocido') {
-            Swal.fire({
-                icon: 'question',
-                title: 'Error de acceso',
-                text: 'Tu usuario no tiene un rol asignado válido.',
-                confirmButtonColor: '#0a2640'
-            });
-        }
-        
-        window.history.replaceState({}, document.title, window.location.pathname);
-    };
-</script>
+            if (error === '1') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Contraseña incorrecta',
+                    text: 'La contraseña que ingresaste no es válida. Inténtalo de nuevo.',
+                    confirmButtonColor: '#0a2640'
+                });
+            } else if (error === '2') {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Usuario no encontrado',
+                    text: 'El correo electrónico no está registrado en nuestro sistema.',
+                    confirmButtonColor: '#0a2640'
+                });
+            } else if (error === 'rol_desconocido') {
+                Swal.fire({
+                    icon: 'question',
+                    title: 'Error de acceso',
+                    text: 'Tu usuario no tiene un rol asignado válido.',
+                    confirmButtonColor: '#0a2640'
+                });
+            }
+
+            window.history.replaceState({}, document.title, window.location.pathname);
+        };
+    </script>
 </body>
 
 </html>

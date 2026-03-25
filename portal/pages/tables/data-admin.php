@@ -20,7 +20,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
   <link rel="shortcut icon" href="../../../dist/img/tecneticon.png" type="image/x-icon">
 
     
-  <link rel="stylesheet" href="https:  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     
   <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
     

@@ -17,7 +17,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
     <title>TecNet | Visualización de Estudiantes</title>
     <link rel="shortcut icon" href="../../../dist/img/tecneticon.png" type="image/x-icon">
 
-    <link rel="stylesheet" href="https:  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -344,20 +344,20 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
 
     <script>
         function prepararEdicionAlumno(datos) {
-            console.log("Datos recibidos:", datos);   
+            console.log("Datos recibidos:", datos);
 
-              
+
             $('#edit_id_alumno').val(datos.id_alumno);
             $('#edit_nombre').val(datos.nombre);
             $('#edit_apellido').val(datos.apellido);
             $('#edit_estado').val(datos.estado);
             $('#edit_id_grupo').val(datos.id_grupo);
 
-              
+
             $('#modalEditarAlumno').modal('show');
         }
 
-          
+
         $('#formEditarAlumno').on('submit', function(e) {
             e.preventDefault();
             $.post('operaciones_alumnos.php', $(this).serialize() + '&accion=editar_gestion', function(res) {

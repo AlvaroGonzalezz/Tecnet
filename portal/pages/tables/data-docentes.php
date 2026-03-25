@@ -18,7 +18,9 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
   <link rel="shortcut icon" href="../../../dist/img/tecneticon.png" type="image/x-icon">
 
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https:  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
   <!-- Font Awesome -->
   <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
   <!-- DataTables -->
@@ -30,13 +32,13 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
   <style>
     .image img {
       width: 40px;
-        
+
       height: 40px;
-        
+
       object-fit: cover;
-        
+
       object-position: center;
-        
+
       margin-top: 7px;
     }
   </style>
@@ -259,7 +261,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
                       <?php
                       include "../../conexion.php";
 
-                        
+
                       $sql = "SELECT 
               d.id_docente, 
               d.nombre, 
@@ -558,7 +560,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
         $.ajax({
           url: 'operaciones_docente.php',
           type: 'POST',
-            
+
           data: {
             id_docente: id,
             accion: 'eliminar'
@@ -567,7 +569,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
             console.log("Respuesta servidor:", res);
             if (res.trim() === "success") {
               alert("Docente eliminado correctamente.");
-              location.reload();   
+              location.reload();
             } else {
               alert("Error al eliminar: " + res);
             }
@@ -590,14 +592,14 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
         },
         dataType: 'json',
         success: function(data) {
-            
+
           $('#edit_id_docente').val(data.id_docente);
           $('#edit_nombre').val(data.nombre);
           $('#edit_apellido').val(data.apellido);
           $('#edit_correo').val(data.correo);
           $('#edit_telefono').val(data.telefono);
 
-            
+
           $('#modalEditarDocente').modal('show');
         },
         error: function(xhr) {
@@ -607,7 +609,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
       });
     }
 
-      
+
     $('#formEditarDocente').on('submit', function(e) {
       e.preventDefault();
 
@@ -685,7 +687,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
       });
     });
 
-      
+
     function prepararEdicion(id) {
       $.ajax({
         url: 'get_admin.php',
@@ -695,18 +697,18 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
         },
         dataType: 'json',
         success: function(data) {
-            
+
           $('#edit_id').val(data.id_administrativo);
           $('#edit_nombre').val(data.nombre);
           $('#edit_apellido').val(data.apellido);
           $('#edit_correo').val(data.correo);
           $('#edit_area').val(data.area);
-          $('#edit_usuario').val(data.usuario);   
+          $('#edit_usuario').val(data.usuario);
 
-            
+
           $('#edit_telefono').val(data.telefono);
 
-            
+
           $('#modalEditar').modal('show');
         },
         error: function() {
@@ -715,7 +717,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
       });
     }
 
-      
+
     function eliminarAdministrativo(id) {
       if (confirm('¿Estás seguro de eliminar a este docente? Se borrará también su cuenta de acceso.')) {
         $.ajax({
@@ -723,7 +725,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
           type: 'POST',
           data: {
             id_administrativo: id,
-            accion: 'eliminar'   
+            accion: 'eliminar'
           },
           success: function(res) {
             if (res.trim() === "success") {

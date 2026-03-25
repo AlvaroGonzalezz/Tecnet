@@ -17,7 +17,7 @@ $ruta_foto = "dist/img/perfiles/" . $_SESSION['foto_perfil'];
     <title>TecNet | Visualización de Docentes</title>
     <link rel="shortcut icon" href="../../../dist/img/tecneticon.png" type="image/x-icon">
 
-    <link rel="stylesheet" href="https:  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
